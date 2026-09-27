@@ -1,6 +1,6 @@
 # Reading Studio V2：可继承的深色风格包
 
-日期：2026-09-28　｜　状态：实现中
+日期：2026-09-28　｜　状态：已实现并发布 [v0.2.0](https://github.com/wangjs-jacky/obsidian-reading-studio/releases/tag/v0.2.0)
 
 ## 用户目标
 
