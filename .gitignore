@@ -1,0 +1,8 @@
+node_modules/
+.worktrees/
+.superpowers/
+.test-vault/
+dist/
+demo/app.js
+plugin/main.js
+*.log

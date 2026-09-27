@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Obsidian 主题预览 · 一张图选好你的外观</title>
+  <style>
+    :root {
+      --page: #111318;
+      --page-soft: #191c23;
+      --panel: #1d2129;
+      --line: rgba(255,255,255,.10);
+      --ink: #f5f6f8;
+      --muted: #a4acb8;
+      --quiet: #78818f;
+      --blue: #71adff;
+      --blue-deep: #0a84ff;
+      --fs-xs: 12px;
+      --fs-sm: 14px;
+      --fs-base: 16px;
+      --fs-lg: 20px;
+      --fs-xl: 28px;
+      --fs-hero: clamp(30px,4vw,48px);
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-6: 24px;
+      --sp-8: 32px;
+      --sp-12: 48px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 20px;
+      --r-pill: 999px;
+      --ease: cubic-bezier(.16,1,.3,1);
+      --fast: 180ms;
+      --normal: 320ms;
+      font-family: -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: radial-gradient(ellipse 55% 45% at 52% -14%,#213047 0%,transparent 76%),var(--page); }
+    button { font: inherit; cursor: pointer; }
+    button:focus-visible, [tabindex]:focus-visible { outline: 2px solid #95c3ff; outline-offset: 3px; }
+    .page-top { height: 64px; display:flex; align-items:center; justify-content:space-between; padding:0 max(24px,calc((100vw - 1320px)/2)); border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:11px; font-size:15px; font-weight:650; letter-spacing:.01em; }
+    .brand-mark { width:29px; height:29px; display:grid; place-items:center; border-radius:9px; background:linear-gradient(145deg,#85baff,#4268c0); color:#fff; box-shadow:0 6px 18px rgba(61,123,224,.22); }
+    .brand-mark svg { width:18px; height:18px; }
+    .top-right { display:flex; align-items:center; gap:10px; color:var(--quiet); font-size:var(--fs-xs); }
+    .prototype-dot { width:7px; height:7px; border-radius:50%; background:#73d0a9; box-shadow:0 0 0 4px rgba(115,208,169,.11); }
+    .container { width:min(1320px,calc(100% - 48px)); margin:0 auto; padding:42px 0 52px; }
+    .intro { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:26px; }
+    .eyebrow { margin:0 0 11px; color:#8eb8f2; font-size:12px; font-weight:650; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { margin:0; font-size:var(--fs-hero); line-height:1.12; letter-spacing:-.045em; font-weight:700; }
+    .intro p:last-child { margin:11px 0 0; color:var(--muted); font-size:14px; line-height:1.6; }
+    .step-label { flex:none; display:flex; align-items:center; gap:9px; padding:10px 12px; background:rgba(255,255,255,.035); border:1px solid var(--line); border-radius:var(--r-pill); font-size:12px; color:#c4cad4; }
+    .step-label strong { display:grid; place-items:center; width:18px; height:18px; border-radius:50%; color:#0e1725; background:#a6c9ff; font-size:11px; }
+    .stage-wrap { position:relative; }
+    .preview-window {
+      --pv-chrome:#20242b; --pv-rail:#1c2027; --pv-tree:#232831; --pv-paper:#272c35;
+      --pv-card:#2d3440; --pv-border:#3b4553; --pv-text:#e8edf5; --pv-muted:#9facbc;
+      --pv-accent:#83baff; --pv-accent-wash:rgba(92,158,249,.12); --pv-code:#232b36;
+      position:relative; overflow:hidden; isolation:isolate;
+      height: min(78vw,780px); min-height:650px;
+      border:1px solid rgba(255,255,255,.15); border-radius:18px;
+      box-shadow:0 28px 80px rgba(0,0,0,.34),0 3px 16px rgba(0,0,0,.22);
+      color:var(--pv-text); background:var(--pv-paper);
+      transition:background var(--normal) var(--ease),color var(--normal) var(--ease),border-color var(--normal) var(--ease);
+    }
+    .preview-window[data-theme="minimal"] {
+      --pv-chrome:#ecece9; --pv-rail:#e6e6e3; --pv-tree:#f2f2ef; --pv-paper:#fbfbf9;
+      --pv-card:#f5f5f2; --pv-border:#dededa; --pv-text:#282c32; --pv-muted:#727b86;
+      --pv-accent:#766ac6; --pv-accent-wash:rgba(118,106,198,.10); --pv-code:#f0f1ef;
+      border-color:#c9c9c6;
+    }
+    .preview-window[data-theme="minimal"] .traffic .red { background:#ef726f; }
+    .preview-window[data-theme="minimal"] .traffic .yellow { background:#f3bd54; }
+    .preview-window[data-theme="minimal"] .traffic .green { background:#65c96c; }
+    .window-chrome { height:46px; display:flex; align-items:center; padding:0 16px; background:var(--pv-chrome); border-bottom:1px solid var(--pv-border); }
+    .traffic { display:flex; gap:7px; align-items:center; width:96px; }
+    .traffic span { width:10px; height:10px; border-radius:50%; }
+    .traffic .red { background:#ff6262; }.traffic .yellow { background:#ffbd49; }.traffic .green { background:#2eca70; }
+    .window-tab { min-width:0; max-width:310px; height:34px; display:flex; align-items:center; gap:8px; padding:0 13px; border:1px solid var(--pv-border); border-bottom:0; border-radius:9px 9px 0 0; background:var(--pv-paper); color:var(--pv-text); font-size:12px; }
+    .window-tab svg { flex:none; color:var(--pv-accent); }
+    .window-tab span { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+    .window-path { margin-left:auto; font-size:11px; color:var(--pv-muted); }
+    .preview-body { height:calc(100% - 46px); display:flex; }
+    .icon-rail { width:48px; flex:none; display:flex; flex-direction:column; align-items:center; gap:8px; padding:17px 0; background:var(--pv-rail); border-right:1px solid var(--pv-border); }
+    .rail-icon { width:31px; height:31px; display:grid; place-items:center; border-radius:8px; color:var(--pv-muted); }
+    .rail-icon.active { color:var(--pv-accent); background:var(--pv-accent-wash); }
+    .rail-icon svg { width:16px; height:16px; stroke-width:1.7; }
+    .rail-spacer { flex:1; }
+    .file-tree { width:218px; flex:none; padding:18px 10px; background:var(--pv-tree); border-right:1px solid var(--pv-border); overflow:hidden; }
+    .tree-heading { display:flex; align-items:center; justify-content:space-between; padding:0 10px 14px; font-size:11px; font-weight:650; letter-spacing:.09em; color:var(--pv-muted); }
+    .tree-heading span:last-child { font-size:15px; font-weight:400; }
+    .tree-row { display:flex; align-items:center; min-width:0; height:32px; padding:0 9px; gap:7px; color:var(--pv-muted); border-radius:7px; font-size:12px; white-space:nowrap; }
+    .tree-row.folder { color:var(--pv-text); }
+    .tree-row.indent { padding-left:23px; }
+    .tree-row.active { color:var(--pv-accent); background:var(--pv-accent-wash); font-weight:600; }
+    .tree-row .tree-count { margin-left:auto; color:var(--pv-muted); font-size:11px; }
+    .tree-row .row-name { overflow:hidden; text-overflow:ellipsis; }
+    .tree-glyph { width:12px; flex:none; font-size:11px; color:var(--pv-muted); }
+    .tree-divider { height:1px; background:var(--pv-border); margin:14px 9px; }
+    .note-area { display:flex; min-width:0; flex:1; flex-direction:column; background:var(--pv-paper); }
+    .note-topline { height:44px; flex:none; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 26px; border-bottom:1px solid var(--pv-border); font-size:11px; color:var(--pv-muted); }
+    .note-topline strong { font-weight:500; color:var(--pv-text); }
+    .note-actions { display:flex; gap:14px; align-items:center; }
+    .note-actions svg { width:15px; height:15px; }
+    .note-scroll { overflow:auto; flex:1; scrollbar-color:var(--pv-border) transparent; }
+    .note-article { max-width:812px; margin:0 auto; padding:27px 46px 34px; transition:max-width var(--normal) var(--ease); }
+    .note-article.wide { max-width:1030px; }
+    .note-title { margin:0 0 7px; font-size:26px; line-height:1.35; letter-spacing:-.025em; font-weight:650; }
+    .note-deck { margin:0 0 17px; color:var(--pv-muted); font-size:12px; }
+    .property-box { margin:0 0 16px; padding:11px 15px 12px; background:var(--pv-card); border:1px solid var(--pv-border); border-radius:11px; }
+    .property-heading { display:flex; align-items:center; gap:6px; margin-bottom:9px; color:var(--pv-text); font-size:12px; font-weight:600; }
+    .property-heading svg { color:var(--pv-accent); }
+    .property-grid { display:grid; grid-template-columns:76px minmax(0,1fr) 74px minmax(0,1fr); gap:8px; align-items:center; font-size:11px; }
+    .property-key { color:var(--pv-muted); }
+    .property-value { min-width:0; color:var(--pv-text); }
+    .tags { display:flex; flex-wrap:wrap; gap:5px; }
+    .tag { padding:3px 7px; border-radius:5px; background:var(--pv-accent-wash); color:var(--pv-accent); font-size:10px; }
+    .line { display:grid; grid-template-columns:32px minmax(0,1fr); align-items:start; column-gap:13px; margin:0 0 8px; font-size:13px; line-height:1.7; }
+    .line::before { content:attr(data-n); padding-top:2px; color:var(--pv-muted); opacity:.47; font:11px/1.75 ui-monospace,SFMono-Regular,Menlo,monospace; text-align:right; }
+    .note-article.no-lines .line { grid-template-columns:minmax(0,1fr); }
+    .note-article.no-lines .line::before { display:none; }
+    .line h3 { margin:7px 0 1px; color:var(--pv-accent); font-size:17px; font-weight:650; line-height:1.4; }
+    .line p { margin:0; color:var(--pv-text); }
+    .line.muted p { color:var(--pv-muted); }
+    .line .quote { display:block; padding:6px 12px; border-left:2px solid var(--pv-accent); background:var(--pv-accent-wash); border-radius:0 6px 6px 0; }
+    .diagram-card { position:relative; margin:2px 0 4px; padding:10px 15px 4px; background:var(--pv-card); border:1px solid var(--pv-border); border-radius:11px; overflow:hidden; }
+    .diagram-card .diagram-caption { display:flex; align-items:center; justify-content:space-between; color:var(--pv-muted); font-size:10px; margin-bottom:4px; }
+    .diagram-caption strong { font-weight:500; color:var(--pv-text); }
+    .flow-svg { display:block; width:100%; height:auto; min-height:170px; }
+    .flow-svg .flow-node { fill:var(--pv-code); stroke:var(--pv-accent); stroke-opacity:.55; stroke-width:1.2; }
+    .flow-svg .flow-node-text { fill:var(--pv-text); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; font-size:14px; font-weight:600; }
+    .flow-svg .flow-rail { stroke:var(--pv-accent); stroke-opacity:.28; stroke-width:1.2; stroke-dasharray:4 5; }
+    .flow-svg .flow-arrow { stroke:var(--pv-accent); stroke-width:1.7; fill:none; }
+    .flow-svg .flow-arrow-tip { fill:var(--pv-accent); }
+    .flow-svg .flow-label { fill:var(--pv-muted); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; font-size:11px; }
+    .diagram-card.simple { background:transparent; border-style:dashed; }
+    .diagram-card.simple .flow-node { fill:transparent; stroke:var(--pv-border); }
+    .diagram-card.simple .flow-arrow,.diagram-card.simple .flow-rail { stroke:var(--pv-muted); }
+    .diagram-card.simple .flow-arrow-tip { fill:var(--pv-muted); }
+    .preview-apply { position:absolute; z-index:4; right:23px; bottom:22px; display:flex; align-items:center; gap:10px; opacity:0; transform:translateY(8px); transition:opacity var(--normal) var(--ease),transform var(--normal) var(--ease); pointer-events:none; }
+    .preview-window:hover .preview-apply,.preview-window:focus-within .preview-apply { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .apply-hint { color:#fff; font-size:11px; padding:8px 11px; border-radius:var(--r-pill); background:rgba(16,18,24,.82); backdrop-filter:blur(12px); }
+    .apply-button { display:flex; align-items:center; gap:9px; padding:12px 16px; border:1px solid rgba(255,255,255,.18); border-radius:10px; background:#0a84ff; box-shadow:0 12px 30px rgba(10,132,255,.28); color:#fff; font-size:12px; font-weight:650; transition:transform var(--fast) var(--ease),background var(--fast) var(--ease); }
+    .apply-button:hover { transform:translateY(-2px); background:#248fff; }
+    .apply-button svg { width:14px; height:14px; }
+    .control-bar { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:20px 3px 3px; }
+    .preset-group { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    .group-label { margin-right:3px; color:var(--quiet); font-size:12px; }
+    .preset { display:flex; align-items:center; gap:8px; padding:9px 13px; border:1px solid var(--line); border-radius:var(--r-pill); color:#b7bdc9; background:rgba(255,255,255,.035); font-size:12px; transition:background var(--fast) var(--ease),border-color var(--fast) var(--ease),transform var(--fast) var(--ease); }
+    .preset:hover,.settings-toggle:hover { transform:translateY(-2px); background:rgba(255,255,255,.07); }
+    .preset[aria-pressed="true"] { color:#fff; border-color:rgba(123,180,255,.50); background:rgba(74,132,215,.17); }
+    .preset-swatch { width:13px; height:13px; border:2px solid rgba(255,255,255,.55); border-radius:4px; background:#252a34; box-shadow:inset 4px 0 #83baff; }
+    .preset[data-preset="minimal"] .preset-swatch { background:#f6f6f2; box-shadow:inset 4px 0 #766ac6; }
+    .control-right { display:flex; align-items:center; gap:13px; }
+    .applied-status { color:var(--quiet); font-size:12px; white-space:nowrap; }
+    .applied-status.is-applied { color:#9cd7bd; }
+    .settings-toggle { display:flex; align-items:center; gap:8px; padding:9px 13px; border:1px solid var(--line); border-radius:var(--r-pill); background:rgba(255,255,255,.045); color:#e6eaf0; font-size:12px; transition:background var(--fast) var(--ease),transform var(--fast) var(--ease); }
+    .settings-toggle svg { width:14px; height:14px; }
+    .customizer { position:absolute; z-index:7; top:62px; right:18px; width:293px; padding:20px; background:#252a32; border:1px solid rgba(255,255,255,.16); border-radius:16px; box-shadow:0 26px 70px rgba(0,0,0,.43); color:#f4f6f8; animation:panel-in var(--normal) var(--ease) both; }
+    .customizer[hidden] { display:none; }
+    @keyframes panel-in { from { opacity:0; transform:translateY(-6px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
+    .customizer-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:19px; }
+    .customizer-head h2 { margin:0; font-size:16px; font-weight:650; }
+    .customizer-head p { margin:5px 0 0; font-size:11px; color:#a6afbb; }
+    .close-settings { display:grid; place-items:center; width:25px; height:25px; border:0; border-radius:7px; background:transparent; color:#a6afbb; font-size:19px; }
+    .close-settings:hover { background:rgba(255,255,255,.08); color:#fff; }
+    .settings-row { display:flex; justify-content:space-between; align-items:center; gap:12px; min-height:51px; border-top:1px solid rgba(255,255,255,.08); }
+    .settings-row span { font-size:12px; }
+    .switch { position:relative; width:34px; height:21px; flex:none; border:0; border-radius:var(--r-pill); background:#505a69; padding:0; transition:background var(--fast) var(--ease); }
+    .switch::after { content:""; position:absolute; left:3px; top:3px; width:15px; height:15px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.25); transition:transform var(--fast) var(--ease); }
+    .switch[aria-checked="true"] { background:#0a84ff; }
+    .switch[aria-checked="true"]::after { transform:translateX(13px); }
+    .accent-setting { padding:15px 0 3px; border-top:1px solid rgba(255,255,255,.08); }
+    .accent-setting .label { display:block; margin-bottom:12px; font-size:12px; }
+    .color-list { display:flex; gap:12px; }
+    .color-dot { position:relative; width:27px; height:27px; border:0; border-radius:50%; background:var(--swatch); box-shadow:0 0 0 1px rgba(255,255,255,.14); }
+    .color-dot[aria-pressed="true"]::after { content:""; position:absolute; inset:-4px; border:1.5px solid #fff; border-radius:50%; }
+    .customizer-foot { display:flex; justify-content:space-between; align-items:center; margin-top:18px; padding-top:15px; border-top:1px solid rgba(255,255,255,.08); }
+    .customizer-foot small { color:#8993a1; font-size:10px; }
+    .reset-button { padding:0; border:0; background:transparent; color:#a6caff; font-size:11px; }
+    .reset-button:hover { color:#fff; }
+    .footnote { display:flex; align-items:center; justify-content:space-between; gap:20px; margin:18px 3px 0; color:var(--quiet); font-size:11px; line-height:1.5; }
+    .footnote span:last-child { color:#8c96a4; }
+    .toast { position:fixed; z-index:30; left:50%; bottom:27px; min-width:240px; max-width:calc(100% - 36px); padding:11px 16px; border:1px solid rgba(255,255,255,.18); border-radius:10px; background:#2b3543; color:#f6f8fb; box-shadow:0 15px 50px rgba(0,0,0,.3); font-size:12px; text-align:center; opacity:0; transform:translate(-50%,12px); pointer-events:none; transition:opacity var(--normal) var(--ease),transform var(--normal) var(--ease); }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+    @media (max-width:950px) {
+      .preview-window { height:600px; }
+      .file-tree { width:177px; }
+      .note-article { padding:30px 29px 55px; }
+      .window-path { display:none; }
+    }
+    @media (max-width:670px) {
+      .page-top { height:56px; padding:0 18px; }
+      .container { width:calc(100% - 24px); padding:30px 0 32px; }
+      .intro { align-items:flex-start; margin:0 6px 19px; }
+      .intro p:last-child { font-size:12px; }
+      .step-label { display:none; }
+      .preview-window { height:610px; min-height:0; border-radius:13px; }
+      .window-chrome { height:40px; padding:0 10px; }
+      .traffic { width:69px; gap:5px; }
+      .traffic span { width:8px; height:8px; }
+      .window-tab { font-size:10px; height:31px; padding:0 8px; }
+      .preview-body { height:calc(100% - 40px); }
+      .icon-rail,.file-tree { display:none; }
+      .note-topline { padding:0 13px; height:39px; }
+      .note-article { padding:24px 15px 80px; }
+      .note-title { font-size:20px; }
+      .property-grid { grid-template-columns:77px minmax(0,1fr); }
+      .line { grid-template-columns:22px minmax(0,1fr); column-gap:9px; font-size:12px; }
+      .line h3 { font-size:15px; }
+      .diagram-card { padding:9px 7px 1px; }
+      .flow-svg { min-height:130px; }
+      .preview-apply { opacity:1; transform:none; pointer-events:auto; right:12px; bottom:12px; }
+      .apply-hint { display:none; }
+      .apply-button { padding:10px 12px; }
+      .control-bar { flex-direction:column; align-items:stretch; gap:15px; }
+      .control-right { justify-content:space-between; }
+      .customizer { top:45px; right:10px; width:min(293px,calc(100% - 20px)); }
+      .footnote { flex-direction:column; align-items:flex-start; gap:5px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-top">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2.4 17 6.3v7.4L10 17.6 3 13.7V6.3L10 2.4Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 2.5v15M3.2 6.5l13.6 7" stroke="currentColor" stroke-width="1.2" opacity=".8"/></svg></span><span>Obsidian Theme Studio</span></div>
+    <div class="top-right"><span class="prototype-dot" aria-hidden="true"></span><span>交互原型</span></div>
+  </header>
+  <main class="container">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">One preview. Your style.</p>
+        <h1 id="page-title">一张预览，选好你的主题。</h1>
+        <p>正文、侧栏、YAML 属性和流程图，都在这张预览里。</p>
+      </div>
+      <div class="step-label"><strong>1</strong> 选主题 → 调细节 → 应用</div>
+    </section>
+    <section class="stage-wrap" aria-label="Obsidian 主题交互预览">
+      <div class="preview-window" id="preview" data-theme="cupertino">
+        <div class="window-chrome">
+          <div class="traffic" aria-hidden="true"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+          <div class="window-tab"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 2.5h7l3 3V14H3V2.5Z" stroke="currentColor" stroke-width="1.3"/><path d="M10 2.5V6h3" stroke="currentColor" stroke-width="1.3"/></svg><span>如何把复杂问题讲清楚</span></div>
+          <span class="window-path">wiki / teach-me / 如何把复杂问题讲清楚</span>
+        </div>
+        <div class="preview-body">
+          <nav class="icon-rail" aria-label="模拟 Obsidian 工具栏">
+            <span class="rail-icon active" aria-label="文件"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 7h7l2 2h9v10H3V7Z"/><path d="M3 7V5h7"/></svg></span>
+            <span class="rail-icon" aria-label="搜索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></span>
+            <span class="rail-icon" aria-label="关系图"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="m7 11 9-5M7 13l9 5"/></svg></span>
+            <span class="rail-spacer"></span>
+            <span class="rail-icon" aria-label="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2"/></svg></span>
+          </nav>
+          <aside class="file-tree" aria-label="模拟笔记侧栏">
+            <div class="tree-heading"><span>文件</span><span>＋</span></div>
+            <div class="tree-row folder"><span class="tree-glyph">▾</span><span class="row-name">wiki</span><span class="tree-count">128</span></div>
+            <div class="tree-row indent"><span class="tree-glyph">›</span><span class="row-name">ai</span><span class="tree-count">24</span></div>
+            <div class="tree-row indent"><span class="tree-glyph">›</span><span class="row-name">design</span><span class="tree-count">18</span></div>
+            <div class="tree-row indent folder"><span class="tree-glyph">▾</span><span class="row-name">teach-me</span><span class="tree-count">5</span></div>
+            <div class="tree-row active" style="padding-left:34px"><span class="row-name">如何把复杂问题讲清楚</span></div>
+            <div class="tree-row" style="padding-left:34px"><span class="row-name">从问题到答案的路径</span></div>
+            <div class="tree-row" style="padding-left:34px"><span class="row-name">用一张图解释系统</span></div>
+            <div class="tree-divider"></div>
+            <div class="tree-row folder"><span class="tree-glyph">›</span><span class="row-name">projects</span><span class="tree-count">36</span></div>
+            <div class="tree-row folder"><span class="tree-glyph">›</span><span class="row-name">notes</span><span class="tree-count">72</span></div>
+          </aside>
+          <div class="note-area">
+            <div class="note-topline"><span><strong>如何把复杂问题讲清楚</strong> &nbsp; / &nbsp; 阅读视图</span><span class="note-actions" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 11a7 7 0 1 0 1 4M19 4v7h-7" stroke-width="1.6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5h16v14H4zM12 5v14" stroke-width="1.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></span></div>
+            <div class="note-scroll">
+              <article class="note-article" id="article">
+                <h2 class="note-title">如何把复杂问题讲清楚</h2>
+                <p class="note-deck">一份关于表达、前置知识和理解路径的示例笔记</p>
+                <div class="property-box" id="yaml">
+                  <div class="property-heading"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m2 6 6-4 6 4v6l-6 3-6-3V6Z"/><path d="m2 6 6 4 6-4M8 10v5"/></svg> 笔记属性</div>
+                  <div class="property-grid"><span class="property-key">article_id</span><span class="property-value">NOTE-0084</span><span class="property-key">tags</span><span class="property-value tags"><span class="tag"># teach-me</span><span class="tag"># 表达方法</span><span class="tag"># 知识整理</span></span><span class="property-key">type</span><span class="property-value">topic</span><span class="property-key">created_at</span><span class="property-value">2026 / 09 / 27</span></div>
+                </div>
+                <div class="line" data-n="01"><h3>先给对方一座桥</h3></div>
+                <div class="line" data-n="02"><p>解释一个新概念时，先找到对方已经理解的事物，再把新知识接上去。好的表达并不依赖更多术语，而是让理解的路径更短。</p></div>
+                <div class="line" data-n="03"><p class="quote">从熟悉的经验出发，再展示信息如何一步步抵达目标。</p></div>
+                <div class="line" data-n="04"><h3>用流程图承载关系</h3></div>
+                <div class="line" data-n="05">
+                  <div class="diagram-card" id="diagram">
+                    <div class="diagram-caption"><strong>页面资源如何抵达浏览器</strong><span>Mermaid 预览</span></div>
+                    <svg class="flow-svg" viewBox="0 0 720 208" role="img" aria-label="浏览器向 Caddy 请求页面，Caddy 从静态资源获取文件，再返回浏览器">
+                      <rect class="flow-node" x="20" y="22" width="170" height="47" rx="9"/>
+                      <rect class="flow-node" x="275" y="22" width="170" height="47" rx="9"/>
+                      <rect class="flow-node" x="530" y="22" width="170" height="47" rx="9"/>
+                      <text class="flow-node-text" x="105" y="51" text-anchor="middle">浏览器</text>
+                      <text class="flow-node-text" x="360" y="51" text-anchor="middle">Caddy</text>
+                      <text class="flow-node-text" x="615" y="51" text-anchor="middle">静态资源</text>
+                      <line class="flow-rail" x1="105" y1="70" x2="105" y2="195"/>
+                      <line class="flow-rail" x1="360" y1="70" x2="360" y2="195"/>
+                      <line class="flow-rail" x1="615" y1="70" x2="615" y2="195"/>
+                      <path class="flow-arrow" d="M109 107H354"/><path class="flow-arrow-tip" d="m354 102 8 5-8 5Z"/>
+                      <text class="flow-label" x="232" y="99" text-anchor="middle">请求页面</text>
+                      <path class="flow-arrow" d="M364 151H609"/><path class="flow-arrow-tip" d="m609 146 8 5-8 5Z"/>
+                      <text class="flow-label" x="487" y="143" text-anchor="middle">读取文件</text>
+                      <path class="flow-arrow" d="M611 179H366" stroke-dasharray="5 5"/><path class="flow-arrow-tip" d="m366 174-8 5 8 5Z"/>
+                      <text class="flow-label" x="489" y="194" text-anchor="middle">返回内容</text>
+                    </svg>
+                  </div>
+                </div>
+                <div class="line muted" data-n="06"><p>同一个主题，可以按你的阅读习惯微调，而不必重新写 CSS。</p></div>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="preview-apply"><span class="apply-hint">喜欢这张预览？</span><button class="apply-button" id="apply" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2.5 8.2 6.3 12l7.2-8"/></svg><span id="apply-label">使用 Cupertino</span></button></div>
+      </div>
+      <aside class="customizer" id="customizer" aria-label="自定义主题设置" hidden>
+        <div class="customizer-head"><div><h2>自定义这个主题</h2><p>调整后，在左侧预览里立即生效</p></div><button class="close-settings" id="close-settings" type="button" aria-label="关闭设置">×</button></div>
+        <div class="settings-row"><span>显示行号</span><button class="switch" type="button" role="switch" aria-label="显示行号" aria-checked="true" data-setting="lines"></button></div>
+        <div class="settings-row"><span>显示 YAML 属性</span><button class="switch" type="button" role="switch" aria-label="显示 YAML 属性" aria-checked="true" data-setting="yaml"></button></div>
+        <div class="settings-row"><span>优化流程图</span><button class="switch" type="button" role="switch" aria-label="优化流程图" aria-checked="true" data-setting="diagram"></button></div>
+        <div class="settings-row"><span>更宽的正文</span><button class="switch" type="button" role="switch" aria-label="更宽的正文" aria-checked="false" data-setting="wide"></button></div>
+        <div class="accent-setting"><span class="label">主题色</span><div class="color-list" role="group" aria-label="选择主题色"><button class="color-dot" type="button" aria-label="蓝色" aria-pressed="true" data-color="blue" style="--swatch:#83baff"></button><button class="color-dot" type="button" aria-label="紫色" aria-pressed="false" data-color="violet" style="--swatch:#a797f4"></button><button class="color-dot" type="button" aria-label="薄荷绿" aria-pressed="false" data-color="mint" style="--swatch:#85cbb4"></button></div></div>
+        <div class="customizer-foot"><small>只影响这张演示预览</small><button class="reset-button" id="reset" type="button">恢复默认</button></div>
+      </aside>
+    </section>
+    <div class="control-bar">
+      <div class="preset-group" role="group" aria-label="选择主题预设"><span class="group-label">主题预设</span><button class="preset" type="button" data-preset="cupertino" aria-pressed="true"><span class="preset-swatch" aria-hidden="true"></span>Cupertino · 深色</button><button class="preset" type="button" data-preset="minimal" aria-pressed="false"><span class="preset-swatch" aria-hidden="true"></span>Minimal · 浅色</button></div>
+      <div class="control-right"><span class="applied-status" id="applied-status">尚未应用</span><button class="settings-toggle" id="settings-toggle" type="button" aria-expanded="false" aria-controls="customizer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/><circle cx="6" cy="4" r="2" fill="#1d2129"/><circle cx="11" cy="8" r="2" fill="#1d2129"/><circle cx="5" cy="12" r="2" fill="#1d2129"/></svg>自定义细节</button></div>
+    </div>
+    <div class="footnote"><span>所有笔记内容均为演示样例，未公开你的 Obsidian 仓库。</span><span>这是产品交互稿；“应用”目前只在预览中模拟。</span></div>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    (function () {
+      const preview = document.getElementById("preview");
+      const article = document.getElementById("article");
+      const yaml = document.getElementById("yaml");
+      const diagram = document.getElementById("diagram");
+      const drawer = document.getElementById("customizer");
+      const settingsButton = document.getElementById("settings-toggle");
+      const status = document.getElementById("applied-status");
+      const toast = document.getElementById("toast");
+      const state = { theme:"cupertino", lines:true, yaml:true, diagram:true, wide:false, color:"blue", applied:null };
+      const names = { cupertino:"Cupertino", minimal:"Minimal" };
+      const colors = { blue:"#83baff", violet:"#a797f4", mint:"#85cbb4" };
+      let toastTimer;
+      function render() {
+        preview.dataset.theme = state.theme;
+        preview.style.setProperty("--pv-accent", colors[state.color]);
+        preview.style.setProperty("--pv-accent-wash", state.color === "blue" ? "rgba(92,158,249,.12)" : state.color === "violet" ? "rgba(167,151,244,.13)" : "rgba(133,203,180,.13)");
+        article.classList.toggle("no-lines", !state.lines);
+        article.classList.toggle("wide", state.wide);
+        yaml.hidden = !state.yaml;
+        diagram.classList.toggle("simple", !state.diagram);
+        document.getElementById("apply-label").textContent = "使用 " + names[state.theme];
+        document.querySelectorAll("[data-preset]").forEach(function (button) { button.setAttribute("aria-pressed", String(button.dataset.preset === state.theme)); });
+        document.querySelectorAll("[data-setting]").forEach(function (button) { button.setAttribute("aria-checked", String(state[button.dataset.setting])); });
+        document.querySelectorAll("[data-color]").forEach(function (button) { button.setAttribute("aria-pressed", String(button.dataset.color === state.color)); });
+        const current = JSON.stringify({theme:state.theme,lines:state.lines,yaml:state.yaml,diagram:state.diagram,wide:state.wide,color:state.color});
+        const applied = current === state.applied;
+        status.textContent = applied ? "已应用（演示）" : "尚未应用";
+        status.classList.toggle("is-applied", applied);
+      }
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 3200);
+      }
+      function setDrawer(open) {
+        drawer.hidden = !open;
+        settingsButton.setAttribute("aria-expanded", String(open));
+        if (open) document.getElementById("close-settings").focus();
+        else settingsButton.focus();
+      }
+      document.querySelectorAll("[data-preset]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          state.theme = button.dataset.preset;
+          state.color = state.theme === "minimal" ? "violet" : "blue";
+          render();
+        });
+      });
+      document.querySelectorAll("[data-setting]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          const key = button.dataset.setting;
+          state[key] = !state[key];
+          render();
+        });
+      });
+      document.querySelectorAll("[data-color]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          state.color = button.dataset.color;
+          render();
+        });
+      });
+      settingsButton.addEventListener("click", function () { setDrawer(drawer.hidden); });
+      document.getElementById("close-settings").addEventListener("click", function () { setDrawer(false); });
+      document.getElementById("reset").addEventListener("click", function () {
+        state.lines = true; state.yaml = true; state.diagram = true; state.wide = false;
+        state.color = state.theme === "minimal" ? "violet" : "blue";
+        render();
+        showToast("已恢复 " + names[state.theme] + " 默认设置");
+      });
+      document.getElementById("apply").addEventListener("click", function () {
+        state.applied = JSON.stringify({theme:state.theme,lines:state.lines,yaml:state.yaml,diagram:state.diagram,wide:state.wide,color:state.color});
+        render();
+        showToast("已选择 " + names[state.theme] + " · 接入 Obsidian 后可一键应用");
+      });
+      document.addEventListener("keydown", function (event) { if (event.key === "Escape" && !drawer.hidden) setDrawer(false); });
+      document.addEventListener("pointerdown", function (event) {
+        if (!drawer.hidden && !drawer.contains(event.target) && !settingsButton.contains(event.target)) {
+          drawer.hidden = true;
+          settingsButton.setAttribute("aria-expanded", "false");
+        }
+      });
+      render();
+    }());
+  </script>
+</body>
+</html>

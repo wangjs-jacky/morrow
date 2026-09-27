@@ -1,0 +1,77 @@
+# Reading Studio V1 Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Ship the approved one-preview Obsidian appearance experience as a real theme plus companion plugin, with an executable interaction E2E test.
+
+**Architecture:** A native `theme.css` owns all Obsidian-wide appearance rules. A plugin owns a centered studio view and a versioned preset controller; the same UI/controller run in a static demo harness for browser E2E. The plugin applies only namespaced body classes and its own saved data, leaving note content and core configuration untouched.
+
+**Tech Stack:** TypeScript, Obsidian plugin API, CSS, esbuild, Node test runner, jsdom, Ego Browser.
+
+**Spec:** `docs/superpowers/specs/2026-09-28-obsidian-reading-studio-design.md`
+
+## Global Constraints
+
+- First release: one dark reading preset for macOS desktop; Minimal light is a future concept.
+- Preview uses Live Preview terminology and a fictional note; no private vault content or network assets.
+- Applying a preset never edits Markdown, YAML, Obsidian core config, or another theme.
+- The core line-number and property settings must be enabled for their visual toggles to work; absent prerequisites are visible to the user.
+- Plugin styles stay scoped to its own view; theme owns the app-wide style.
+
+## Review Focus
+
+- Unknown or old saved data must normalize to safe V1 defaults (Task 1 test).
+- Applying while the theme or dark mode is unavailable must leave committed state unchanged (Task 1 test; Task 3 smoke).
+- A failed save must leave the old appearance in place (Task 1 test).
+- Reloading after apply must restore the exact saved options (Task 2 browser E2E).
+- Undo must restore the previous preset and selected options, not only the preset name (Task 1 test; Task 2 browser E2E).
+
+---
+
+### Task 1: Versioned preset controller
+
+**Files:** `src/state.ts`, `tests/state.test.ts`, `package.json`, `tsconfig.json`, `.gitignore`
+
+**Interfaces:** `StudioSettings`, `PersistedState`, `StudioHost` (`check(settings)`, `save(state)`, `render(settings)`), `sanitizePersisted(value)`, and `StudioController` with `draft`, `applied`, `setOption`, `resetDraft`, `apply`, `undo`, and `restore`.
+
+- [ ] Write controller tests for normalization, draft isolation, blocked apply, save failure, successful apply/reload, and undo.
+- [ ] Run `npm test -- tests/state.test.ts`; verify the missing implementation fails.
+- [ ] Implement the minimal controller and project test dependencies.
+- [ ] Run `npm test`; verify all state tests pass.
+- [ ] Commit `feat: add versioned preset state`.
+
+### Task 2: One-preview interaction UI and demo harness
+
+**Files:** `src/studio-ui.ts`, `src/demo.ts`, `plugin/styles.css`, `demo/index.html`, `scripts/build.mjs`, `tests/ui.test.ts`
+
+**Interfaces:** `mountStudio(container, controller)` renders the UI and returns a cleanup function; the UI consumes Task 1's controller without knowing whether its host is Obsidian or the demo.
+
+- [ ] Write DOM tests for preset preview, toggles as draft, Apply, Reset, Undo, and prerequisite errors.
+- [ ] Run `npm test -- tests/ui.test.ts`; verify the missing UI fails.
+- [ ] Implement the one-preview UI with fictional content, scoped stylesheet, and localStorage-backed demo host.
+- [ ] Run `npm test` and `npm run build:demo`; verify the shared UI demo builds.
+- [ ] Commit `feat: add appearance studio interface`.
+
+### Task 3: Native Obsidian theme and plugin
+
+**Files:** `theme/theme.css`, `theme/manifest.json`, `src/appearance.ts`, `src/main.ts`, `plugin/manifest.json`, `tests/appearance.test.ts`, `scripts/install-test-vault.mjs`
+
+**Interfaces:** `readPrerequisiteError` checks theme sentinel and dark mode; `checkEditorSettings` inspects a read-only parsed copy of the native editor settings; `applyAppearance` manages only `reading-studio-*` classes. The plugin adapts these functions to `StudioHost` and opens the UI as a center tab.
+
+- [ ] Write appearance tests for class isolation, theme/dark prerequisites, and option-to-class mapping.
+- [ ] Run `npm test -- tests/appearance.test.ts`; verify the missing implementation fails.
+- [ ] Implement theme, plugin host, manifests, and isolated test-vault installer.
+- [ ] Run `npm test`, `npm run build`, and test-vault installation; inspect generated package files.
+- [ ] Commit `feat: integrate native Obsidian theme and plugin`.
+
+### Task 4: E2E, documentation, and GitHub delivery
+
+**Files:** `tests/e2e.ego.mjs`, `README.md`, `README_CN.md`, `LICENSE`, design/prototype files, any fixes proven necessary by E2E.
+
+**Interfaces:** E2E starts from a clean demo state and exercises the same `mountStudio` bundle used by the plugin; the README states the distinction between this browser test and a native Obsidian smoke test.
+
+- [ ] Write and run an Ego Browser E2E that selects settings, applies, reloads, undoes, and checks the blocked prerequisite state; record a verified final screenshot.
+- [ ] Install the built theme and plugin into an isolated Obsidian test vault and verify real-app rendering and persistence as far as the available GUI permits.
+- [ ] Document installation, known first-run prerequisites, licensing, test commands, and original prototype/design.
+- [ ] Run fresh `npm test`, `npm run build`, E2E, package checks, and `git diff --check`.
+- [ ] Commit the verified result, create the new GitHub repository, push it, and verify its remote contents.
