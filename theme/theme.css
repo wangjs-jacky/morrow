@@ -180,8 +180,8 @@ body.theme-dark.reading-studio-preset-minimal-graphite {
   --rs-text: #e5e5e5;
   --rs-muted: #b2b2b2;
   --rs-faint: #858585;
-  --rs-accent: #bebebe;
-  --rs-link: #d3d3d3;
+  --rs-accent: #9ab5d3;
+  --rs-link: #aac6e0;
   --rs-nav-text: #f1f1f1;
   --rs-nav-active: #383838;
   --rs-nav-file-text: #f1f1f1;
@@ -194,7 +194,7 @@ body.theme-dark.reading-studio-preset-minimal-graphite {
   --rs-mermaid-bg: #252525;
   --rs-mermaid-border: #555555;
   --rs-mermaid-node: #373737;
-  --rs-mermaid-stroke: #c7c7c7;
+  --rs-mermaid-stroke: #a9c9e8;
   --rs-mermaid-text: #f0f0f0;
   --rs-mermaid-line: #999999;
   --rs-mermaid-note: #3a3a3a;

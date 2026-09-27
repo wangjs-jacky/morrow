@@ -53,7 +53,7 @@ test('five native packs have distinct surfaces and the registry default accents'
   const expected = [
     ['deep-reading', 'blue', '#1d222a', '#191e25', '#222a34', '#73aef0'],
     ['cupertino-night', 'blue', '#1c2230', '#202638', '#273248', '#82b7f7'],
-    ['minimal-graphite', 'blue', '#202020', '#222222', '#292929', '#bebebe'],
+    ['minimal-graphite', 'blue', '#202020', '#222222', '#292929', '#9ab5d3'],
     ['soft-mist', 'violet', '#29243a', '#242238', '#332d45', '#bb9ade'],
     ['prism-focus', 'mint', '#18263b', '#142033', '#21334a', '#64d2de'],
   ];

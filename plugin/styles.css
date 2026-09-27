@@ -71,7 +71,7 @@
   --rs-properties: #292929; --rs-properties-border: #484848; --rs-properties-text: #d8d8d8;
   --rs-tag-bg: #3a3a3a; --rs-tag-text: #dedede; --rs-diagram: #252525; --rs-diagram-border: #555;
   --rs-node: #353535; --rs-node-stroke: #c7c7c7; --rs-flow-text: #eee; --rs-flow-rail: #888; --rs-flow-label: #bbb;
-  --rs-footer: #242424; --rs-divider: #414141; --rs-blue: #c7c7c7;
+  --rs-footer: #242424; --rs-divider: #414141; --rs-blue: #9ab5d3;
 }
 .reading-studio .rs-preview[data-preset="soft-mist"] {
   --rs-preview-bg: #1d1b29; --rs-chrome: #29263b; --rs-tab: #29243a; --rs-rail: #242238;

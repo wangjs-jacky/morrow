@@ -22,6 +22,7 @@ const host = {
   },
   render(settings: StudioSettings | null): void {
     document.body.dataset.applied = settings ? 'true' : 'false';
+    document.body.dataset.preset = settings?.preset ?? '';
     document.body.dataset.accent = settings?.accent ?? '';
   },
 };
