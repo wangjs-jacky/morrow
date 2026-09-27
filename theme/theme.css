@@ -1,0 +1,89 @@
+/* Reading Studio: a self-contained Obsidian theme. The companion plugin adds
+   namespaced classes for optional visual settings. */
+body { --reading-studio-theme-active: ready; }
+
+body.theme-dark {
+  --color-base-00: #181c23;
+  --color-base-05: #1c2027;
+  --color-base-10: #20252d;
+  --color-base-20: #262c35;
+  --color-base-25: #2c333e;
+  --color-base-30: #37414e;
+  --color-base-40: #475363;
+  --color-base-50: #667386;
+  --color-base-60: #96a2b0;
+  --color-base-70: #bcc7d2;
+  --color-base-100: #e1e8f0;
+  --background-primary: #1d222a;
+  --background-primary-alt: #202630;
+  --background-secondary: #191e25;
+  --background-secondary-alt: #222932;
+  --background-modifier-border: #343e4a;
+  --background-modifier-hover: #2a3441;
+  --text-normal: #dce4ed;
+  --text-muted: #a5b0bd;
+  --text-faint: #778492;
+  --interactive-accent: #73aef0;
+  --text-accent: #83baff;
+  --link-color: #83baff;
+  --nav-item-color-active: #a9cbf3;
+  --nav-item-background-active: #2c4058;
+  --nav-item-size: 13px;
+  --line-height-normal: 1.72;
+  --file-line-width: 720px;
+  --file-margins-x: 34px;
+  --file-margins-y: 28px;
+  --h1-size: 1.68em;
+  --h2-size: 1.32em;
+  --h3-size: 1.14em;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+body.theme-dark .workspace-leaf-content[data-type="file-explorer"] .nav-files-container { padding: 12px 9px; }
+body.theme-dark .nav-folder-title,
+body.theme-dark .nav-file-title { border-radius: 7px; }
+body.theme-dark .nav-file-title.is-active { color: #aad0fa; background: #2d4057; }
+body.theme-dark .markdown-source-view.mod-cm6 .cm-content { padding-top: 16px; }
+body.theme-dark .markdown-rendered,
+body.theme-dark .markdown-source-view { font-weight: 400; }
+body.theme-dark .markdown-rendered h1,
+body.theme-dark .markdown-rendered h2,
+body.theme-dark .markdown-source-view .cm-header { letter-spacing: -.015em; }
+body.theme-dark .metadata-container { border: 1px solid #35414e; border-radius: 10px; padding: 12px 14px; background: #222a34; }
+body.theme-dark .metadata-property { border-radius: 6px; }
+body.theme-dark .metadata-property:hover { background: #2d3945; }
+
+body.theme-dark.reading-studio-active.reading-studio-wide { --file-line-width: 900px; }
+body.theme-dark.reading-studio-active.reading-studio-no-lines .markdown-source-view.mod-cm6 .cm-lineNumbers { display: none; }
+body.theme-dark.reading-studio-active.reading-studio-hide-properties .metadata-container { display: none; }
+body.theme-dark.reading-studio-active.reading-studio-accent-violet {
+  --interactive-accent: #a797f4;
+  --text-accent: #b5a9fa;
+  --link-color: #b5a9fa;
+  --nav-item-color-active: #c6bafa;
+  --nav-item-background-active: #3b3353;
+}
+body.theme-dark.reading-studio-active.reading-studio-accent-mint {
+  --interactive-accent: #79c5ad;
+  --text-accent: #8bd1b9;
+  --link-color: #8bd1b9;
+  --nav-item-color-active: #a7ddc9;
+  --nav-item-background-active: #28483f;
+}
+
+body.theme-dark.reading-studio-mermaid .mermaid { padding: 18px 12px; border: 1px solid #3a4654; border-radius: 10px; background: #222c39; }
+body.theme-dark.reading-studio-mermaid .mermaid svg { max-width: 100%; height: auto; filter: none; }
+body.theme-dark.reading-studio-mermaid .mermaid rect.actor,
+body.theme-dark.reading-studio-mermaid .mermaid .node rect { fill: #2c4052 !important; stroke: #6e9dc8 !important; stroke-width: 1.25px; rx: 8px; ry: 8px; }
+body.theme-dark.reading-studio-mermaid .mermaid text.actor,
+body.theme-dark.reading-studio-mermaid .mermaid text.actor tspan,
+body.theme-dark.reading-studio-mermaid .mermaid .nodeLabel,
+body.theme-dark.reading-studio-mermaid .mermaid .messageText { fill: #e0eaf5 !important; color: #e0eaf5 !important; }
+body.theme-dark.reading-studio-mermaid .mermaid .actor-line { stroke: #688093 !important; stroke-dasharray: 4 5; }
+body.theme-dark.reading-studio-mermaid .mermaid .messageLine0,
+body.theme-dark.reading-studio-mermaid .mermaid .edgePath path { stroke: #83baff !important; stroke-width: 1.5px; }
+body.theme-dark.reading-studio-mermaid .mermaid .messageLine1 { stroke: #b5c3d1 !important; stroke-width: 1.25px; }
+body.theme-dark.reading-studio-mermaid .mermaid .note { fill: #294239 !important; stroke: #6aaa91 !important; rx: 7px; ry: 7px; }
+body.theme-dark.reading-studio-mermaid .mermaid .noteText,
+body.theme-dark.reading-studio-mermaid .mermaid .noteText tspan { fill: #d6eee2 !important; }

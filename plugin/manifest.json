@@ -1,0 +1,10 @@
+{
+  "id": "reading-studio-controls",
+  "name": "Reading Studio Controls",
+  "version": "0.1.0",
+  "minAppVersion": "1.8.0",
+  "description": "Preview and apply a calm dark reading appearance with reversible controls.",
+  "author": "Jacky",
+  "authorUrl": "https://github.com/wangjs-jacky/obsidian-reading-studio",
+  "isDesktopOnly": true
+}
