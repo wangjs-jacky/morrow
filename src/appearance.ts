@@ -9,12 +9,17 @@ const OWNED_CLASSES = [
   'reading-studio-accent-blue',
   'reading-studio-accent-violet',
   'reading-studio-accent-mint',
+  'reading-studio-preset-deep-reading',
+  'reading-studio-preset-cupertino-night',
+  'reading-studio-preset-minimal-graphite',
+  'reading-studio-preset-soft-mist',
+  'reading-studio-preset-prism-focus',
 ];
 
 export function applyAppearance(body: HTMLElement, settings: StudioSettings | null): void {
   body.classList.remove(...OWNED_CLASSES);
   if (!settings) return;
-  body.classList.add('reading-studio-active', `reading-studio-accent-${settings.accent}`);
+  body.classList.add('reading-studio-active', `reading-studio-preset-${settings.preset}`, `reading-studio-accent-${settings.accent}`);
   if (!settings.lines) body.classList.add('reading-studio-no-lines');
   if (!settings.properties) body.classList.add('reading-studio-hide-properties');
   if (settings.diagram) body.classList.add('reading-studio-mermaid');

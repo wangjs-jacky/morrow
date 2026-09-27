@@ -3,6 +3,37 @@
 body { --reading-studio-theme-active: ready; }
 
 body.theme-dark {
+  --rs-app: #181c23;
+  --rs-sidebar: #191e25;
+  --rs-note: #1d222a;
+  --rs-note-alt: #202630;
+  --rs-sidebar-alt: #222932;
+  --rs-border: #343e4a;
+  --rs-hover: #2a3441;
+  --rs-text: #dce4ed;
+  --rs-muted: #a5b0bd;
+  --rs-faint: #778492;
+  --rs-accent: #73aef0;
+  --rs-link: #83baff;
+  --rs-nav-text: #a9cbf3;
+  --rs-nav-active: #2c4058;
+  --rs-nav-file-text: #aad0fa;
+  --rs-nav-file-active: #2d4057;
+  --rs-nav-radius: 7px;
+  --rs-metadata: #222a34;
+  --rs-metadata-border: #35414e;
+  --rs-metadata-hover: #2d3945;
+  --rs-metadata-radius: 10px;
+  --rs-mermaid-bg: #222c39;
+  --rs-mermaid-border: #3a4654;
+  --rs-mermaid-node: #2c4052;
+  --rs-mermaid-stroke: #6e9dc8;
+  --rs-mermaid-text: #e0eaf5;
+  --rs-mermaid-line: #688093;
+  --rs-mermaid-note: #294239;
+  --rs-mermaid-note-stroke: #6aaa91;
+  --rs-mermaid-note-text: #d6eee2;
+  --rs-mermaid-radius: 10px;
   --color-base-00: #181c23;
   --color-base-05: #1c2027;
   --color-base-10: #20252d;
@@ -14,20 +45,20 @@ body.theme-dark {
   --color-base-60: #96a2b0;
   --color-base-70: #bcc7d2;
   --color-base-100: #e1e8f0;
-  --background-primary: #1d222a;
-  --background-primary-alt: #202630;
-  --background-secondary: #191e25;
-  --background-secondary-alt: #222932;
-  --background-modifier-border: #343e4a;
-  --background-modifier-hover: #2a3441;
-  --text-normal: #dce4ed;
-  --text-muted: #a5b0bd;
-  --text-faint: #778492;
-  --interactive-accent: #73aef0;
-  --text-accent: #83baff;
-  --link-color: #83baff;
-  --nav-item-color-active: #a9cbf3;
-  --nav-item-background-active: #2c4058;
+  --background-primary: var(--rs-note);
+  --background-primary-alt: var(--rs-note-alt);
+  --background-secondary: var(--rs-sidebar);
+  --background-secondary-alt: var(--rs-sidebar-alt);
+  --background-modifier-border: var(--rs-border);
+  --background-modifier-hover: var(--rs-hover);
+  --text-normal: var(--rs-text);
+  --text-muted: var(--rs-muted);
+  --text-faint: var(--rs-faint);
+  --interactive-accent: var(--rs-accent);
+  --text-accent: var(--rs-link);
+  --link-color: var(--rs-link);
+  --nav-item-color-active: var(--rs-nav-text);
+  --nav-item-background-active: var(--rs-nav-active);
   --nav-item-size: 13px;
   --line-height-normal: 1.72;
   --file-line-width: 720px;
@@ -42,48 +73,265 @@ body.theme-dark {
 
 body.theme-dark .workspace-leaf-content[data-type="file-explorer"] .nav-files-container { padding: 12px 9px; }
 body.theme-dark .nav-folder-title,
-body.theme-dark .nav-file-title { border-radius: 7px; }
-body.theme-dark .nav-file-title.is-active { color: #aad0fa; background: #2d4057; }
+body.theme-dark .nav-file-title { border-radius: var(--rs-nav-radius); }
+body.theme-dark .nav-file-title.is-active { color: var(--rs-nav-file-text); background: var(--rs-nav-file-active); }
 body.theme-dark .markdown-source-view.mod-cm6 .cm-content { padding-top: 16px; }
 body.theme-dark .markdown-rendered,
 body.theme-dark .markdown-source-view { font-weight: 400; }
 body.theme-dark .markdown-rendered h1,
 body.theme-dark .markdown-rendered h2,
 body.theme-dark .markdown-source-view .cm-header { letter-spacing: -.015em; }
-body.theme-dark .metadata-container { border: 1px solid #35414e; border-radius: 10px; padding: 12px 14px; background: #222a34; }
+body.theme-dark .metadata-container { border: 1px solid var(--rs-metadata-border); border-radius: var(--rs-metadata-radius); padding: 12px 14px; background: var(--rs-metadata); }
 body.theme-dark .metadata-property { border-radius: 6px; }
-body.theme-dark .metadata-property:hover { background: #2d3945; }
+body.theme-dark .metadata-property:hover { background: var(--rs-metadata-hover); }
 
 body.theme-dark.reading-studio-active.reading-studio-wide { --file-line-width: 900px; }
 body.theme-dark.reading-studio-active.reading-studio-no-lines .markdown-source-view.mod-cm6 .cm-lineNumbers { display: none !important; }
 body.theme-dark.reading-studio-active.reading-studio-hide-properties .metadata-container { display: none !important; }
-body.theme-dark.reading-studio-active.reading-studio-accent-violet {
-  --interactive-accent: #a797f4;
-  --text-accent: #b5a9fa;
-  --link-color: #b5a9fa;
-  --nav-item-color-active: #c6bafa;
-  --nav-item-background-active: #3b3353;
-}
-body.theme-dark.reading-studio-active.reading-studio-accent-mint {
-  --interactive-accent: #79c5ad;
-  --text-accent: #8bd1b9;
-  --link-color: #8bd1b9;
-  --nav-item-color-active: #a7ddc9;
-  --nav-item-background-active: #28483f;
-}
-
-body.theme-dark.reading-studio-mermaid .mermaid { padding: 18px 12px; border: 1px solid #3a4654; border-radius: 10px; background: #222c39; }
+body.theme-dark.reading-studio-mermaid .mermaid { padding: 18px 12px; border: 1px solid var(--rs-mermaid-border); border-radius: var(--rs-mermaid-radius); background: var(--rs-mermaid-bg); }
 body.theme-dark.reading-studio-mermaid .mermaid svg { max-width: 100%; height: auto; filter: none; }
 body.theme-dark.reading-studio-mermaid .mermaid rect.actor,
-body.theme-dark.reading-studio-mermaid .mermaid .node rect { fill: #2c4052 !important; stroke: #6e9dc8 !important; stroke-width: 1.25px; rx: 8px; ry: 8px; }
+body.theme-dark.reading-studio-mermaid .mermaid .node rect { fill: var(--rs-mermaid-node) !important; stroke: var(--rs-mermaid-stroke) !important; stroke-width: 1.25px; rx: 8px; ry: 8px; }
 body.theme-dark.reading-studio-mermaid .mermaid text.actor,
 body.theme-dark.reading-studio-mermaid .mermaid text.actor tspan,
 body.theme-dark.reading-studio-mermaid .mermaid .nodeLabel,
-body.theme-dark.reading-studio-mermaid .mermaid .messageText { fill: #e0eaf5 !important; color: #e0eaf5 !important; }
-body.theme-dark.reading-studio-mermaid .mermaid .actor-line { stroke: #688093 !important; stroke-dasharray: 4 5; }
+body.theme-dark.reading-studio-mermaid .mermaid .messageText { fill: var(--rs-mermaid-text) !important; color: var(--rs-mermaid-text) !important; }
+body.theme-dark.reading-studio-mermaid .mermaid .actor-line { stroke: var(--rs-mermaid-line) !important; stroke-dasharray: 4 5; }
 body.theme-dark.reading-studio-mermaid .mermaid .messageLine0,
-body.theme-dark.reading-studio-mermaid .mermaid .edgePath path { stroke: #83baff !important; stroke-width: 1.5px; }
+body.theme-dark.reading-studio-mermaid .mermaid .edgePath path { stroke: var(--rs-link) !important; stroke-width: 1.5px; }
 body.theme-dark.reading-studio-mermaid .mermaid .messageLine1 { stroke: #b5c3d1 !important; stroke-width: 1.25px; }
-body.theme-dark.reading-studio-mermaid .mermaid .note { fill: #294239 !important; stroke: #6aaa91 !important; rx: 7px; ry: 7px; }
+body.theme-dark.reading-studio-mermaid .mermaid .note { fill: var(--rs-mermaid-note) !important; stroke: var(--rs-mermaid-note-stroke) !important; rx: 7px; ry: 7px; }
 body.theme-dark.reading-studio-mermaid .mermaid .noteText,
-body.theme-dark.reading-studio-mermaid .mermaid .noteText tspan { fill: #d6eee2 !important; }
+body.theme-dark.reading-studio-mermaid .mermaid .noteText tspan { fill: var(--rs-mermaid-note-text) !important; }
+
+/* Every pack inherits the same Obsidian components. Only the applied preset
+   changes their tokens; an unconfigured vault retains the V1 reading theme. */
+body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) {
+  --color-base-00: var(--rs-app);
+  --color-base-05: var(--rs-sidebar);
+  --color-base-10: var(--rs-note);
+  --color-base-20: var(--rs-sidebar-alt);
+  --color-base-25: var(--rs-metadata);
+  --color-base-30: var(--rs-border);
+}
+body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .titlebar,
+body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .workspace-ribbon { background-color: var(--rs-app); }
+body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .workspace-tab-header.is-active { color: var(--rs-text); }
+body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .markdown-rendered blockquote { border-inline-start-color: var(--rs-accent); }
+body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .markdown-rendered code,
+body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .markdown-source-view .cm-inline-code { color: var(--rs-link); }
+body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .metadata-property-key { color: var(--rs-muted); }
+
+body.theme-dark.reading-studio-preset-cupertino-night {
+  --rs-app: #171b26;
+  --rs-sidebar: #202638;
+  --rs-note: #1c2230;
+  --rs-note-alt: #222b3a;
+  --rs-sidebar-alt: #263047;
+  --rs-border: #37465a;
+  --rs-hover: #304057;
+  --rs-text: #e8eef8;
+  --rs-muted: #b0bed0;
+  --rs-faint: #8293aa;
+  --rs-accent: #82b7f7;
+  --rs-link: #9ac7ff;
+  --rs-nav-text: #d1e5ff;
+  --rs-nav-active: #385273;
+  --rs-nav-file-text: #d1e5ff;
+  --rs-nav-file-active: #385273;
+  --rs-nav-radius: 12px;
+  --rs-metadata: #273248;
+  --rs-metadata-border: #42536c;
+  --rs-metadata-hover: #34435e;
+  --rs-metadata-radius: 16px;
+  --rs-mermaid-bg: #222e43;
+  --rs-mermaid-border: #435a78;
+  --rs-mermaid-node: #324b6a;
+  --rs-mermaid-stroke: #9ac7ff;
+  --rs-mermaid-text: #eef5ff;
+  --rs-mermaid-line: #93a8c2;
+  --rs-mermaid-note: #344658;
+  --rs-mermaid-note-stroke: #8cb9c7;
+  --rs-mermaid-note-text: #e8f6f8;
+  --rs-mermaid-radius: 16px;
+  --line-height-normal: 1.76;
+}
+body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-left-split,
+body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-right-split {
+  background: var(--rs-app);
+}
+body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-left-split .workspace-leaf-content,
+body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-right-split .workspace-leaf-content {
+  border-radius: 16px;
+  margin: 6px;
+  overflow: hidden;
+}
+body.theme-dark.reading-studio-preset-cupertino-night .metadata-property { border-radius: 10px; }
+body.theme-dark.reading-studio-preset-cupertino-night.reading-studio-mermaid .mermaid .node rect { rx: 13px; ry: 13px; }
+
+body.theme-dark.reading-studio-preset-minimal-graphite {
+  --rs-app: #1b1b1b;
+  --rs-sidebar: #222222;
+  --rs-note: #202020;
+  --rs-note-alt: #252525;
+  --rs-sidebar-alt: #282828;
+  --rs-border: #3b3b3b;
+  --rs-hover: #303030;
+  --rs-text: #e5e5e5;
+  --rs-muted: #b2b2b2;
+  --rs-faint: #858585;
+  --rs-accent: #bebebe;
+  --rs-link: #d3d3d3;
+  --rs-nav-text: #f1f1f1;
+  --rs-nav-active: #383838;
+  --rs-nav-file-text: #f1f1f1;
+  --rs-nav-file-active: #383838;
+  --rs-nav-radius: 0;
+  --rs-metadata: #292929;
+  --rs-metadata-border: #484848;
+  --rs-metadata-hover: #343434;
+  --rs-metadata-radius: 0;
+  --rs-mermaid-bg: #252525;
+  --rs-mermaid-border: #555555;
+  --rs-mermaid-node: #373737;
+  --rs-mermaid-stroke: #c7c7c7;
+  --rs-mermaid-text: #f0f0f0;
+  --rs-mermaid-line: #999999;
+  --rs-mermaid-note: #3a3a3a;
+  --rs-mermaid-note-stroke: #a5a5a5;
+  --rs-mermaid-note-text: #f0f0f0;
+  --rs-mermaid-radius: 0;
+  --line-height-normal: 1.66;
+  --file-margins-x: 30px;
+}
+body.theme-dark.reading-studio-preset-minimal-graphite .metadata-container { border-inline-start-width: 2px; border-block: 0; border-inline-end: 0; }
+body.theme-dark.reading-studio-preset-minimal-graphite .markdown-rendered h1,
+body.theme-dark.reading-studio-preset-minimal-graphite .markdown-rendered h2 { letter-spacing: -.035em; font-weight: 600; }
+body.theme-dark.reading-studio-preset-minimal-graphite.reading-studio-mermaid .mermaid .node rect { rx: 0; ry: 0; }
+
+body.theme-dark.reading-studio-preset-soft-mist {
+  --rs-app: #1d1b29;
+  --rs-sidebar: #242238;
+  --rs-note: #29243a;
+  --rs-note-alt: #2d2940;
+  --rs-sidebar-alt: #2c2941;
+  --rs-border: #4b435f;
+  --rs-hover: #39334e;
+  --rs-text: #f0e9f4;
+  --rs-muted: #c7bad3;
+  --rs-faint: #998ba9;
+  --rs-accent: #bb9ade;
+  --rs-link: #d6b7f2;
+  --rs-nav-text: #efdafa;
+  --rs-nav-active: #4a3a64;
+  --rs-nav-file-text: #efdafa;
+  --rs-nav-file-active: #4a3a64;
+  --rs-nav-radius: 11px;
+  --rs-metadata: #332d45;
+  --rs-metadata-border: #5b4f71;
+  --rs-metadata-hover: #433957;
+  --rs-metadata-radius: 14px;
+  --rs-mermaid-bg: #302b42;
+  --rs-mermaid-border: #665777;
+  --rs-mermaid-node: #4c3e61;
+  --rs-mermaid-stroke: #c7a9e8;
+  --rs-mermaid-text: #f6eaf9;
+  --rs-mermaid-line: #aa94bd;
+  --rs-mermaid-note: #4b3d55;
+  --rs-mermaid-note-stroke: #d4aaba;
+  --rs-mermaid-note-text: #ffedf2;
+  --rs-mermaid-radius: 14px;
+  --line-height-normal: 1.84;
+  --file-margins-x: 42px;
+}
+body.theme-dark.reading-studio-preset-soft-mist .markdown-rendered h1,
+body.theme-dark.reading-studio-preset-soft-mist .markdown-rendered h2 { letter-spacing: .005em; font-weight: 550; }
+body.theme-dark.reading-studio-preset-soft-mist .metadata-container { box-shadow: 0 8px 24px #130f2038; }
+body.theme-dark.reading-studio-preset-soft-mist.reading-studio-mermaid .mermaid .node rect { rx: 11px; ry: 11px; }
+
+body.theme-dark.reading-studio-preset-prism-focus {
+  --rs-app: #101722;
+  --rs-sidebar: #142033;
+  --rs-note: #18263b;
+  --rs-note-alt: #1c2d45;
+  --rs-sidebar-alt: #1c2b40;
+  --rs-border: #3b5369;
+  --rs-hover: #29415c;
+  --rs-text: #eef8ff;
+  --rs-muted: #b5cfdb;
+  --rs-faint: #85a3b2;
+  --rs-accent: #64d2de;
+  --rs-link: #88e7ed;
+  --rs-nav-text: #d5fbfa;
+  --rs-nav-active: #24536a;
+  --rs-nav-file-text: #d5fbfa;
+  --rs-nav-file-active: #24536a;
+  --rs-nav-radius: 5px;
+  --rs-metadata: #21334a;
+  --rs-metadata-border: #4b7284;
+  --rs-metadata-hover: #2b455d;
+  --rs-metadata-radius: 7px;
+  --rs-mermaid-bg: #14263a;
+  --rs-mermaid-border: #4b8795;
+  --rs-mermaid-node: #23506a;
+  --rs-mermaid-stroke: #7bdce5;
+  --rs-mermaid-text: #f1ffff;
+  --rs-mermaid-line: #7baebf;
+  --rs-mermaid-note: #284d54;
+  --rs-mermaid-note-stroke: #8cd9c6;
+  --rs-mermaid-note-text: #edfff7;
+  --rs-mermaid-radius: 7px;
+  --line-height-normal: 1.7;
+}
+body.theme-dark.reading-studio-preset-prism-focus .nav-file-title.is-active { box-shadow: inset 3px 0 0 var(--rs-accent); }
+body.theme-dark.reading-studio-preset-prism-focus .metadata-container { border-inline-start: 3px solid var(--rs-accent); }
+body.theme-dark.reading-studio-preset-prism-focus .markdown-rendered h1,
+body.theme-dark.reading-studio-preset-prism-focus .markdown-rendered h2 { border-block-end: 1px solid var(--rs-border); padding-block-end: .2em; }
+body.theme-dark.reading-studio-preset-prism-focus.reading-studio-mermaid .mermaid .node rect { rx: 4px; ry: 4px; }
+
+/* Accent choices remain independent of the pack. The native accent is the
+   preset default for Soft Mist (violet) and Prism Focus (mint). */
+body.theme-dark.reading-studio-active.reading-studio-accent-violet {
+  --rs-accent: #a797f4;
+  --rs-link: #b5a9fa;
+  --rs-nav-text: #c6bafa;
+  --rs-nav-active: #3b3353;
+  --rs-mermaid-stroke: #b5a9fa;
+}
+body.theme-dark.reading-studio-active.reading-studio-accent-mint {
+  --rs-accent: #79c5ad;
+  --rs-link: #8bd1b9;
+  --rs-nav-text: #a7ddc9;
+  --rs-nav-active: #28483f;
+  --rs-mermaid-stroke: #8bd1b9;
+}
+body.theme-dark.reading-studio-preset-soft-mist.reading-studio-accent-blue,
+body.theme-dark.reading-studio-preset-prism-focus.reading-studio-accent-blue {
+  --rs-accent: #73aef0;
+  --rs-link: #83baff;
+  --rs-nav-text: #a9cbf3;
+  --rs-nav-active: #2c4058;
+  --rs-mermaid-stroke: #83baff;
+}
+body.theme-dark.reading-studio-preset-soft-mist.reading-studio-accent-violet {
+  --rs-accent: #bb9ade;
+  --rs-link: #d6b7f2;
+  --rs-nav-text: #efdafa;
+  --rs-nav-active: #4a3a64;
+  --rs-mermaid-stroke: #c7a9e8;
+}
+body.theme-dark.reading-studio-preset-prism-focus.reading-studio-accent-mint {
+  --rs-accent: #64d2de;
+  --rs-link: #88e7ed;
+  --rs-nav-text: #d5fbfa;
+  --rs-nav-active: #24536a;
+  --rs-mermaid-stroke: #7bdce5;
+}
+body.theme-dark.reading-studio-preset-deep-reading.reading-studio-accent-violet,
+body.theme-dark.reading-studio-preset-deep-reading.reading-studio-accent-mint { --rs-mermaid-stroke: #6e9dc8; }
+
+@media (max-width: 700px) {
+  body.theme-dark.reading-studio-active { --file-margins-x: 18px; }
+  body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-left-split .workspace-leaf-content,
+  body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-right-split .workspace-leaf-content { margin: 0; border-radius: 0; }
+}
