@@ -1,0 +1,17 @@
+{
+  "name": "obsidian-reading-studio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "build:demo": "node scripts/build.mjs demo",
+    "build": "node scripts/build.mjs all"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "jsdom": "^27.0.0",
+    "obsidian": "^1.8.0",
+    "typescript": "^5.9.0"
+  }
+}
