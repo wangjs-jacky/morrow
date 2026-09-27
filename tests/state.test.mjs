@@ -162,3 +162,34 @@ test('cross-pack Apply, reload, and Undo preserve complete configurations and re
   assert.deepEqual(reloaded.draft, first);
   assert.equal(saved.canUndo, false);
 });
+
+test('Apply saves the draft checked at click time when the user switches packs during an async check', async () => {
+  let releaseCheck;
+  let checked;
+  let saved;
+  const adapter = host({
+    check: async settings => {
+      checked = structuredClone(settings);
+      await new Promise(resolve => { releaseCheck = resolve; });
+      return null;
+    },
+    save: async value => { saved = structuredClone(value); },
+  });
+  const studio = new StudioController(adapter, null);
+  studio.selectPreset('soft-mist');
+  studio.setOption('lines', false);
+  const applying = studio.apply();
+  assert.deepEqual(checked, {
+    preset: 'soft-mist', lines: false, properties: true, diagram: true, wide: false, accent: 'violet',
+  });
+
+  studio.selectPreset('prism-focus');
+  studio.setOption('properties', false);
+  releaseCheck();
+  assert.deepEqual(await applying, { ok: true, message: '已应用 柔雾夜读' });
+  assert.deepEqual(saved.applied, checked);
+  assert.deepEqual(studio.applied, checked);
+  assert.deepEqual(adapter.calls.renders.at(-1), checked);
+  assert.equal(studio.draft.preset, 'prism-focus');
+  assert.equal(studio.draft.properties, false);
+});

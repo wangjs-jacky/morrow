@@ -96,18 +96,19 @@ export class StudioController {
 
   async apply(): Promise<{ ok: boolean; message: string }> {
     try {
-      const problem = await this.host.check(this.currentDraft);
+      const settings = { ...this.currentDraft };
+      const problem = await this.host.check(settings);
       if (problem) return { ok: false, message: problem };
       const next: PersistedState = {
         version: 1,
-        applied: { ...this.currentDraft },
+        applied: settings,
         previous: this.applied,
         canUndo: true,
       };
       await this.host.save(next);
       this.host.render(next.applied);
       this.data = next;
-      return { ok: true, message: `已应用 ${getPreset(this.currentDraft.preset)?.label ?? '预设'}` };
+      return { ok: true, message: `已应用 ${getPreset(settings.preset)?.label ?? '预设'}` };
     } catch (error) {
       return { ok: false, message: `保存失败：${error instanceof Error ? error.message : String(error)}` };
     }
