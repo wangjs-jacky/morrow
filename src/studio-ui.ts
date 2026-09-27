@@ -1,4 +1,5 @@
 import type { StudioController, StudioSettings } from './state.ts';
+import { PRESETS, getPreset } from './presets.ts';
 
 const optionLabels: Record<'lines' | 'properties' | 'diagram' | 'wide', string> = {
   lines: '显示行号',
@@ -12,7 +13,7 @@ function switchMarkup(key: keyof typeof optionLabels, value: boolean): string {
 }
 
 function previewMarkup(settings: StudioSettings): string {
-  return `<div class="rs-preview" data-testid="preview" data-lines="${settings.lines}" data-properties="${settings.properties}" data-diagram="${settings.diagram}" data-wide="${settings.wide}" data-accent="${settings.accent}">
+  return `<div class="rs-preview" data-testid="preview" data-preset="${settings.preset}" data-lines="${settings.lines}" data-properties="${settings.properties}" data-diagram="${settings.diagram}" data-wide="${settings.wide}" data-accent="${settings.accent}">
     <div class="rs-chrome"><div class="rs-traffic"><i></i><i></i><i></i></div><span class="rs-tab">▤ &nbsp; 如何把复杂问题讲清楚</span><span class="rs-path">wiki / teach-me / 如何把复杂问题讲清楚</span></div>
     <div class="rs-preview-body"><div class="rs-rail"><span>▣</span><span>⌕</span><span>◇</span><span class="rs-rail-bottom">⚙</span></div>
       <aside class="rs-tree"><div class="rs-tree-head">文件 <span>＋</span></div><div class="rs-folder">⌄ &nbsp; wiki <small>128</small></div><div class="rs-folder rs-indent">› &nbsp; ai <small>24</small></div><div class="rs-folder rs-indent">› &nbsp; design <small>18</small></div><div class="rs-folder rs-indent">⌄ &nbsp; teach-me <small>5</small></div><div class="rs-file rs-active">如何把复杂问题讲清楚</div><div class="rs-file">从问题到答案的路径</div><div class="rs-file">用一张图解释系统</div><div class="rs-tree-rule"></div><div class="rs-folder">› &nbsp; projects <small>36</small></div><div class="rs-folder">› &nbsp; notes <small>72</small></div></aside>
@@ -24,7 +25,7 @@ function previewMarkup(settings: StudioSettings): string {
           <svg viewBox="0 0 700 194" role="img" aria-label="浏览器请求 Caddy，Caddy 读取静态资源后返回内容"><defs><marker id="rs-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10Z"/></marker></defs><g class="rs-flow-node"><rect x="18" y="17" width="160" height="43" rx="8"/><rect x="270" y="17" width="160" height="43" rx="8"/><rect x="522" y="17" width="160" height="43" rx="8"/></g><g class="rs-flow-text"><text x="98" y="45" text-anchor="middle">浏览器</text><text x="350" y="45" text-anchor="middle">Caddy</text><text x="602" y="45" text-anchor="middle">静态资源</text></g><g class="rs-flow-rail"><path d="M98 61v125M350 61v125M602 61v125"/></g><g class="rs-flow-arrow"><path d="M100 95h245"/><path d="M352 137h245"/><path d="M600 169H355" stroke-dasharray="5 5"/></g><g class="rs-flow-label"><text x="225" y="86" text-anchor="middle">请求页面</text><text x="475" y="128" text-anchor="middle">读取文件</text><text x="475" y="186" text-anchor="middle">返回内容</text></g></svg>
         </div></div><div class="rs-line" data-n="04"><p>同一个主题，可以按你的阅读习惯微调，而不必重新写 CSS。</p></div>
       </article></div></main></div>
-    <div class="rs-preview-footer"><span>喜欢这张预览？</span><button type="button" class="rs-apply" data-action="apply">✓ &nbsp; 应用深色阅读</button></div>
+    <div class="rs-preview-footer"><span>喜欢这张预览？</span><button type="button" class="rs-apply" data-action="apply">✓ &nbsp; 应用${getPreset(settings.preset)?.label ?? PRESETS[0].label}</button></div>
   </div>`;
 }
 
@@ -44,7 +45,7 @@ export function mountStudio(container: HTMLElement, controller: StudioController
         ${switchMarkup('lines', settings.lines)}${switchMarkup('properties', settings.properties)}${switchMarkup('diagram', settings.diagram)}${switchMarkup('wide', settings.wide)}
         <div class="rs-setting rs-colors"><span>主题色</span><div><button type="button" data-action="accent" data-value="blue" aria-label="蓝色" aria-pressed="${settings.accent === 'blue'}" class="rs-blue"></button><button type="button" data-action="accent" data-value="violet" aria-label="紫色" aria-pressed="${settings.accent === 'violet'}" class="rs-violet"></button><button type="button" data-action="accent" data-value="mint" aria-label="薄荷绿" aria-pressed="${settings.accent === 'mint'}" class="rs-mint"></button></div></div>
         <div class="rs-custom-foot"><span>调整仅在点击应用后保存</span><button type="button" data-action="reset">恢复默认</button></div></aside></div>
-      <footer class="rs-controls"><div class="rs-presets"><span>主题预设</span><button type="button" class="rs-preset rs-selected" aria-pressed="true" data-preset="deep-reading">◩ &nbsp; 深色阅读</button><button type="button" class="rs-preset" data-preset="minimal" disabled title="后续版本推出">◩ &nbsp; Minimal 浅色 · 即将推出</button></div><div class="rs-control-end"><span data-testid="status">${applied ? (dirty ? '有未应用的调整' : '已应用') : '尚未应用'}</span><button type="button" data-action="undo" ${controller.canUndo ? '' : 'disabled'}>撤销</button><button type="button" data-action="customize" aria-expanded="${expanded}">自定义细节</button></div></footer>
+      <footer class="rs-controls"><div class="rs-presets"><span>主题预设</span><div class="rs-preset-list" role="group" aria-label="主题预设">${PRESETS.map(preset => `<button type="button" class="rs-preset${settings.preset === preset.id ? ' rs-selected' : ''}" data-action="preset" data-preset="${preset.id}" aria-pressed="${settings.preset === preset.id}" title="${preset.description}">${preset.label}</button>`).join('')}</div></div><div class="rs-control-end"><span data-testid="status">${applied ? (dirty ? '有未应用的调整' : '已应用') : '尚未应用'}</span><button type="button" data-action="undo" ${controller.canUndo ? '' : 'disabled'}>撤销</button><button type="button" data-action="customize" aria-expanded="${expanded}">自定义细节</button></div></footer>
       <p class="rs-footnote">示例笔记仅用于预览，不包含你的仓库内容。行号和属性显示还需要 Obsidian 编辑器设置配合。</p><div class="rs-toast" role="status" aria-live="polite"></div></div>`;
     const status = container.querySelector('[role="status"]');
     if (status) status.textContent = message;
@@ -58,7 +59,8 @@ export function mountStudio(container: HTMLElement, controller: StudioController
     if (!button || busy) return;
     const action = button.dataset.action;
     message = '';
-    if (action === 'customize') expanded = !expanded;
+    if (action === 'preset') controller.selectPreset(button.dataset.preset as StudioSettings['preset']);
+    else if (action === 'customize') expanded = !expanded;
     else if (action === 'close') expanded = false;
     else if (action === 'reset') { controller.resetDraft(); message = '已恢复预设默认值，尚未应用'; }
     else if (action === 'toggle') {
