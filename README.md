@@ -4,12 +4,11 @@
 
 Reading Studio is a dark reading theme for desktop Obsidian with a companion visual-controls plugin. A single Obsidian-like preview shows the sidebar, note body, properties, line numbers, and Mermaid. Select a style pack and adjust its options as a draft, then click **Apply** (the UI is in Chinese) to use it in your vault. **Undo** restores the previous applied configuration.
 
-![Reading Studio five-pack preview](design/preview-v2.png)
+![Cupertino Night in the native Obsidian Reading Studio](design/packs/cupertino-night.png)
 
-[See Prism Focus rendered in a real Obsidian note](design/preview-v2-prism.png).
-[Watch the five-pack interaction walkthrough](design/reading-studio-v2-e2e.mp4).
+[Compare all five native previews](design/packs/): [Deep Reading](design/packs/deep-reading.png) · [Cupertino Night](design/packs/cupertino-night.png) · [Minimal Graphite](design/packs/minimal-graphite.png) · [Soft Mist](design/packs/soft-mist.png) · [Prism Focus](design/packs/prism-focus.png). [See Prism Focus in a real note](design/preview-v2-prism.png).
 
-V2 includes five dark packs: Deep Reading, Cupertino Night, Minimal Graphite, Soft Mist, and Prism Focus. They share one theme foundation but have distinct sidebar, body, properties, and Mermaid treatments. Line numbers, property visibility, Mermaid styling, width, and accent remain independent controls. Light packs are not yet available. Preview content is fictional; the plugin does not read or upload your notes and has no runtime network dependency. Existing V1 Deep Reading settings continue to work.
+Version 0.2.1 polishes five dark packs: Deep Reading, Cupertino Night, Minimal Graphite, Soft Mist, and Prism Focus. Their sidebar, body, properties, Mermaid, and control colors stay distinct. The preview now shows the whole diagram at standard desktop sizes, with larger note text and colors closer to the applied theme. Line numbers, property visibility, Mermaid styling, width, and accent remain independent controls. Light packs are not yet available. Preview content is fictional; the plugin does not read or upload your notes and has no runtime network dependency. Existing V1 Deep Reading settings continue to work.
 
 ## Install
 
@@ -34,13 +33,13 @@ npm run build
 npm run package:release
 ```
 
-`npm run package:release` creates two installable ZIP files in `dist/`. The static demo in `demo/` uses the same UI and preset controller as the native plugin. `tests/e2e.ego.mjs` is an Ego Browser interaction test for all five previews, draft changes, Apply, reload persistence, cross-pack Undo, and prerequisite failure. `node scripts/install-test-vault.mjs` creates an isolated native Obsidian test vault. V2 was smoke-tested in Obsidian 1.13.7 on macOS, including real pack switching, properties, line numbers, and Mermaid.
+`npm run package:release` creates two installable ZIP files in `dist/`. The static demo in `demo/` uses the same UI and preset controller as the native plugin. `tests/e2e.ego.mjs` checks all five previews, complete Mermaid framing, draft changes, Apply, reload persistence, cross-pack Undo, and prerequisite failure. `node scripts/install-test-vault.mjs` creates an isolated native Obsidian test vault. Version 0.2.1 was checked in Obsidian 1.13.7 on macOS, including real pack switching, properties, line numbers, and Mermaid.
 
 To rerun the interaction test, start `python3 -m http.server 4187` in the project root, then run `ego-browser nodejs < tests/e2e.ego.mjs` in another terminal. The demo URL is `http://127.0.0.1:4187/demo/`. The browser test covers shared interaction code; native rendering is checked separately in the isolated vault.
 
-The [HTML interaction draft](design/prototype.html), [V1 product design](docs/superpowers/specs/2026-09-28-obsidian-reading-studio-design.md), [V2 pack design](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md), and [inspiration and extension guide](docs/theme-inspiration.md) are preserved in this repository. `design/preview-v2.png` shows the V2 plugin in Obsidian, `design/preview-v2-prism.png` shows a real isolated note, and `design/preview.png` remains as the V1 reference.
+The [HTML interaction draft](design/prototype.html), [V1 product design](docs/superpowers/specs/2026-09-28-obsidian-reading-studio-design.md), [V2 pack design](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md), and [inspiration and extension guide](docs/theme-inspiration.md) are preserved. The five images in `design/packs/` show the polished styles applied in an isolated Obsidian vault; `design/preview-v2.png` and `design/preview.png` remain as earlier references.
 
-Desktop Obsidian 1.8.0 or newer is required. Mobile support and submission to Obsidian's community directories are not part of V2. The theme CSS was written for this project and does not contain source code from the inspiration projects.
+Desktop Obsidian 1.8.0 or newer is required. Mobile support and submission to Obsidian's community directories have not been verified. The theme CSS was written for this project and does not contain source code from the inspiration projects.
 
 ## License
 

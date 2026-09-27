@@ -2,12 +2,11 @@
 
 一个面向 Obsidian 桌面版的深色阅读主题，附带可视化设置插件。在一张仿 Obsidian 的预览中查看侧栏、正文、笔记属性、行号与 Mermaid，选择风格并调整选项后点「应用」即可生效；「撤销」可恢复上一次配置。
 
-![Reading Studio 五款风格预览](design/preview-v2.png)
+![原生 Obsidian 中的 Cupertino 夜色](design/packs/cupertino-night.png)
 
-[查看棱镜聚焦在真实 Obsidian 笔记中的效果](design/preview-v2-prism.png)。
-[观看五套风格的交互验收演示](design/reading-studio-v2-e2e.mp4)。
+[对比五款原生预览](design/packs/)：[深色阅读](design/packs/deep-reading.png) · [Cupertino 夜色](design/packs/cupertino-night.png) · [极简石墨](design/packs/minimal-graphite.png) · [柔雾夜读](design/packs/soft-mist.png) · [棱镜聚焦](design/packs/prism-focus.png)。[查看真实笔记中的棱镜聚焦](design/preview-v2-prism.png)。
 
-提供五款深色风格包：「深色阅读」「Cupertino 夜色」「极简石墨」「柔雾夜读」「棱镜聚焦」。它们共用一份主题基础，分别调整侧栏、正文、属性区和 Mermaid；行号、属性显隐、Mermaid、正文宽度及主题色仍可独立微调。浅色包尚未推出。预览使用虚构笔记，不读取或上传你的仓库内容。主题与插件均无运行时网络依赖。V1 保存的「深色阅读」配置可以继续使用。
+0.2.1 版继续打磨五款深色风格包：「深色阅读」「Cupertino 夜色」「极简石墨」「柔雾夜读」「棱镜聚焦」。侧栏、正文、属性区、Mermaid 和控制区各有辨识度；预览在常见桌面尺寸下能完整显示流程图，正文更易读，强调色更接近实际应用效果。行号、属性显隐、Mermaid、正文宽度及主题色仍可独立微调。浅色包尚未推出。预览使用虚构笔记，不读取或上传你的仓库内容。主题与插件均无运行时网络依赖。V1 保存的「深色阅读」配置可以继续使用。
 
 ## 安装
 
@@ -34,13 +33,13 @@ npm run build
 npm run package:release
 ```
 
-`npm run package:release` 在 `dist/` 生成两个可安装 ZIP。静态交互演示位于 `demo/`，运行 `npm run build:demo` 后用静态 HTTP 服务器打开；它与原生插件共用界面和预设控制器。浏览器交互脚本 `tests/e2e.ego.mjs` 用 Ego Browser 验证五套预览、草稿、应用、刷新持久化、跨预设撤销及缺少前置条件时的提示。真实 Obsidian 的手动验收使用 `node scripts/install-test-vault.mjs` 生成**隔离测试仓库**，检查主题、插件、属性、行号及 Mermaid 的显示。
+`npm run package:release` 在 `dist/` 生成两个可安装 ZIP。静态交互演示位于 `demo/`，运行 `npm run build:demo` 后用静态 HTTP 服务器打开；它与原生插件共用界面和预设控制器。浏览器交互脚本 `tests/e2e.ego.mjs` 用 Ego Browser 验证五套预览、Mermaid 完整显示、草稿、应用、刷新持久化、跨预设撤销及缺少前置条件时的提示。真实 Obsidian 的手动验收使用 `node scripts/install-test-vault.mjs` 生成**隔离测试仓库**，检查主题、插件、属性、行号及 Mermaid 的显示。
 
 要重跑交互测试，在项目根目录用一个终端运行 `python3 -m http.server 4187`，另一个终端运行 `ego-browser nodejs < tests/e2e.ego.mjs`。静态演示地址为 `http://127.0.0.1:4187/demo/`；浏览器测试验证的是与插件共用的交互代码，真实 Obsidian 渲染仍需使用隔离仓库验收。
 
-原始 [HTML 交互稿](design/prototype.html)、[V1 产品设计](docs/superpowers/specs/2026-09-28-obsidian-reading-studio-design.md)、[V2 风格包设计](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md) 和 [风格来源与扩展说明](docs/theme-inspiration.md) 已随仓库保存。`design/preview-v2.png` 是 V2 插件界面截图，`design/preview-v2-prism.png` 是隔离测试仓库的真实笔记截图；`design/preview.png` 留作 V1 对照。
+原始 [HTML 交互稿](design/prototype.html)、[V1 产品设计](docs/superpowers/specs/2026-09-28-obsidian-reading-studio-design.md)、[V2 风格包设计](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md) 和 [风格来源与扩展说明](docs/theme-inspiration.md) 已随仓库保存。`design/packs/` 内的五张图来自隔离 Obsidian 仓库，`design/preview-v2.png` 与 `design/preview.png` 留作旧版对照。
 
-当前支持桌面版 Obsidian 1.8.0 及以上；已在 macOS 的 Obsidian 1.13.7 验证 V2 的主题切换、属性、行号与 Mermaid。尚未验证移动端，也未提交 Obsidian 官方主题或插件目录。主题 CSS 为本项目独立实现，不包含参考项目的源码。
+当前支持桌面版 Obsidian 1.8.0 及以上；已在 macOS 的 Obsidian 1.13.7 验证 0.2.1 的主题切换、属性、行号与 Mermaid。尚未验证移动端，也未提交 Obsidian 官方主题或插件目录。主题 CSS 为本项目独立实现，不包含参考项目的源码。
 
 ## 许可证
 
