@@ -73,7 +73,9 @@ test('five native packs have distinct surfaces and the registry default accents'
   applyAppearance(body, { ...DEFAULT_SETTINGS, preset: 'deep-reading', accent: 'violet' });
   const deepReading = dom.window.getComputedStyle(body);
   assert.equal(deepReading.getPropertyValue('--color-base-05').trim(), '#1c2027');
-  assert.equal(deepReading.getPropertyValue('--rs-mermaid-stroke').trim(), '#6e9dc8');
+  assert.equal(deepReading.getPropertyValue('--rs-mermaid-stroke').trim(), '#b5a9fa');
+  applyAppearance(body, { ...DEFAULT_SETTINGS, preset: 'deep-reading', accent: 'mint' });
+  assert.equal(dom.window.getComputedStyle(body).getPropertyValue('--rs-mermaid-stroke').trim(), '#8bd1b9');
 });
 
 test('native visibility toggles beat theme visibility rules and clear on restore', () => {

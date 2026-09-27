@@ -48,6 +48,8 @@ test('each preset switches the same draft preview and Apply label without saving
     assert.equal(root.querySelectorAll('[data-testid="preview"]').length, 1);
     assert.equal(root.querySelector('[data-testid="preview"]').dataset.preset, preset.id);
     assert.equal(root.querySelector('[data-testid="preview"]').dataset.accent, preset.defaults.accent);
+    assert.equal(root.dataset.preset, preset.id);
+    assert.equal(root.dataset.accent, preset.defaults.accent);
     assert.match(root.querySelector('[data-action="apply"]').textContent, new RegExp(preset.label));
     assert.equal(root.querySelectorAll('button[data-action="preset"][aria-pressed="true"]').length, 1);
     assert.equal(root.querySelector('button[data-action="preset"][aria-pressed="true"]').dataset.preset, preset.id);
@@ -64,6 +66,7 @@ test('customization changes preview only until Apply; Reset restores the draft',
   click(root, '[data-action="accent"][data-value="mint"]');
   assert.equal(root.querySelector('[data-testid="preview"]').dataset.lines, 'false');
   assert.equal(root.querySelector('[data-testid="preview"]').dataset.accent, 'mint');
+  assert.equal(root.dataset.accent, 'mint');
   assert.equal(studio.applied, null);
   assert.deepEqual(calls.saves, []);
   click(root, '[data-action="reset"]');

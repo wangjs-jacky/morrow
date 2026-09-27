@@ -99,7 +99,8 @@ body.theme-dark.reading-studio-mermaid .mermaid .messageText { fill: var(--rs-me
 body.theme-dark.reading-studio-mermaid .mermaid .actor-line { stroke: var(--rs-mermaid-line) !important; stroke-dasharray: 4 5; }
 body.theme-dark.reading-studio-mermaid .mermaid .messageLine0,
 body.theme-dark.reading-studio-mermaid .mermaid .edgePath path { stroke: var(--rs-link) !important; stroke-width: 1.5px; }
-body.theme-dark.reading-studio-mermaid .mermaid .messageLine1 { stroke: #b5c3d1 !important; stroke-width: 1.25px; }
+body.theme-dark.reading-studio-mermaid .mermaid .messageLine1 { stroke: var(--rs-muted) !important; stroke-width: 1.25px; }
+body.theme-dark.reading-studio-mermaid .mermaid marker path { fill: var(--rs-link) !important; stroke: var(--rs-link) !important; }
 body.theme-dark.reading-studio-mermaid .mermaid .note { fill: var(--rs-mermaid-note) !important; stroke: var(--rs-mermaid-note-stroke) !important; rx: 7px; ry: 7px; }
 body.theme-dark.reading-studio-mermaid .mermaid .noteText,
 body.theme-dark.reading-studio-mermaid .mermaid .noteText tspan { fill: var(--rs-mermaid-note-text) !important; }
@@ -205,6 +206,7 @@ body.theme-dark.reading-studio-preset-minimal-graphite {
   --file-margins-x: 30px;
 }
 body.theme-dark.reading-studio-preset-minimal-graphite .metadata-container { border-inline-start-width: 2px; border-block: 0; border-inline-end: 0; }
+body.theme-dark.reading-studio-preset-minimal-graphite .nav-file-title.is-active { box-shadow: inset 2px 0 0 var(--rs-accent); }
 body.theme-dark.reading-studio-preset-minimal-graphite .markdown-rendered h1,
 body.theme-dark.reading-studio-preset-minimal-graphite .markdown-rendered h2 { letter-spacing: -.035em; font-weight: 600; }
 body.theme-dark.reading-studio-preset-minimal-graphite.reading-studio-mermaid .mermaid .node rect { rx: 0; ry: 0; }
@@ -327,9 +329,6 @@ body.theme-dark.reading-studio-preset-prism-focus.reading-studio-accent-mint {
   --rs-nav-active: #24536a;
   --rs-mermaid-stroke: #7bdce5;
 }
-body.theme-dark.reading-studio-preset-deep-reading.reading-studio-accent-violet,
-body.theme-dark.reading-studio-preset-deep-reading.reading-studio-accent-mint { --rs-mermaid-stroke: #6e9dc8; }
-
 @media (max-width: 700px) {
   body.theme-dark.reading-studio-active { --file-margins-x: 18px; }
   body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-left-split .workspace-leaf-content,

@@ -7,8 +7,10 @@ const task = Number.isSafeInteger(expectedSpaceId) && expectedSpaceId > 0
   ? await taskSpace(expectedSpaceId)
   : await taskSpace('Reading Studio V2 browser E2E');
 const page = task.page('p1');
+const tab = (await task.tabs()).find(item => item.label === 'p1');
+if (expectedTargetId) assert.equal(tab?.targetId, expectedTargetId);
+await page.cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
 await page.goto(baseUrl);
-if (expectedTargetId) assert.equal(page.targetId, expectedTargetId);
 assert.equal(await page.url(), baseUrl);
 
 await page.evaluate(() => localStorage.removeItem('reading-studio-demo-v1'));
@@ -29,6 +31,10 @@ for (const preset of presetIds) {
       note: style.getPropertyValue('--rs-note').trim(),
       properties: style.getPropertyValue('--rs-properties').trim(),
       diagram: style.getPropertyValue('--rs-diagram').trim(),
+      uiAccent: getComputedStyle(document.querySelector('.reading-studio')).getPropertyValue('--rs-ui-accent').trim(),
+      selectedBorder: getComputedStyle(document.querySelector('.rs-preset.rs-selected')).borderTopColor,
+      diagramVisible: document.querySelector('.rs-diagram').getBoundingClientRect().bottom <= document.querySelector('.rs-scroll').getBoundingClientRect().bottom,
+      controlsVisible: document.querySelector('.rs-controls').getBoundingClientRect().bottom <= innerHeight,
       selectedCount: document.querySelectorAll('[data-action="preset"][aria-pressed="true"]').length,
       applied: document.body.dataset.applied,
     };
@@ -36,11 +42,16 @@ for (const preset of presetIds) {
   assert.equal(surface.preset, preset);
   assert.equal(surface.selectedCount, 1);
   assert.equal(surface.applied, 'false');
+  assert.equal(surface.diagramVisible, true, `${preset} Mermaid must fit in the preview`);
+  assert.equal(surface.controlsVisible, true, `${preset} choices must remain visible`);
+  assert.notEqual(surface.uiAccent, '');
   surfaces.push(surface);
 }
 for (const property of ['sidebar', 'note', 'properties', 'diagram']) {
   assert.equal(new Set(surfaces.map(surface => surface[property])).size, 5, `${property} surface should differ by preset`);
 }
+assert.equal(new Set(surfaces.map(surface => surface.uiAccent)).size, 5, 'studio controls should inherit each preset accent');
+assert.equal(new Set(surfaces.map(surface => surface.selectedBorder)).size, 5, 'selected preset border should follow the active accent');
 
 await page.click('[data-action="preset"][data-preset="soft-mist"]');
 await page.click('[data-action="customize"]');

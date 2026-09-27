@@ -22,8 +22,8 @@ function previewMarkup(settings: StudioSettings): string {
         <div class="rs-properties"><strong>◇ &nbsp; 笔记属性</strong><div><span>article_id</span><b>NOTE-0084</b><span>tags</span><b><mark># teach-me</mark><mark># 表达方法</mark></b><span>type</span><b>topic</b><span>created_at</span><b>2026 / 09 / 28</b></div></div>
         <div class="rs-line" data-n="01"><h3>先给对方一座桥</h3></div><div class="rs-line" data-n="02"><p>解释一个新概念时，先找到对方已经理解的事物，再把新知识接上去。好的表达不依赖更多术语，而是让理解的路径更短。</p></div>
         <div class="rs-line" data-n="03"><div class="rs-diagram"><div class="rs-diagram-title"><strong>页面资源如何抵达浏览器</strong><span>Mermaid 预览</span></div>
-          <svg viewBox="0 0 700 194" role="img" aria-label="浏览器请求 Caddy，Caddy 读取静态资源后返回内容"><defs><marker id="rs-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10Z"/></marker></defs><g class="rs-flow-node"><rect x="18" y="17" width="160" height="43" rx="8"/><rect x="270" y="17" width="160" height="43" rx="8"/><rect x="522" y="17" width="160" height="43" rx="8"/></g><g class="rs-flow-text"><text x="98" y="45" text-anchor="middle">浏览器</text><text x="350" y="45" text-anchor="middle">Caddy</text><text x="602" y="45" text-anchor="middle">静态资源</text></g><g class="rs-flow-rail"><path d="M98 61v125M350 61v125M602 61v125"/></g><g class="rs-flow-arrow"><path d="M100 95h245"/><path d="M352 137h245"/><path d="M600 169H355" stroke-dasharray="5 5"/></g><g class="rs-flow-label"><text x="225" y="86" text-anchor="middle">请求页面</text><text x="475" y="128" text-anchor="middle">读取文件</text><text x="475" y="186" text-anchor="middle">返回内容</text></g></svg>
-        </div></div><div class="rs-line" data-n="04"><p>同一个主题，可以按你的阅读习惯微调，而不必重新写 CSS。</p></div>
+          <svg viewBox="0 0 700 139" role="img" aria-label="浏览器请求 Caddy，Caddy 读取静态资源后返回内容"><g class="rs-flow-node"><rect x="18" y="5" width="160" height="36" rx="8"/><rect x="270" y="5" width="160" height="36" rx="8"/><rect x="522" y="5" width="160" height="36" rx="8"/></g><g class="rs-flow-text"><text x="98" y="29" text-anchor="middle">浏览器</text><text x="350" y="29" text-anchor="middle">Caddy</text><text x="602" y="29" text-anchor="middle">静态资源</text></g><g class="rs-flow-rail"><path d="M98 42v90M350 42v90M602 42v90"/></g><g class="rs-flow-arrow"><path d="M100 65h245"/><path d="M352 94h245"/><path d="M600 123H355" stroke-dasharray="5 5"/></g><g class="rs-flow-head"><path d="M345 65l-8-4v8z"/><path d="M597 94l-8-4v8z"/><path d="M355 123l8-4v8z"/></g><g class="rs-flow-label"><text x="225" y="57" text-anchor="middle">请求页面</text><text x="475" y="86" text-anchor="middle">读取文件</text><text x="475" y="116" text-anchor="middle">返回内容</text></g></svg>
+        </div></div>
       </article></div></main></div>
     <div class="rs-preview-footer"><span>喜欢这张预览？</span><button type="button" class="rs-apply" data-action="apply">✓ &nbsp; 应用${getPreset(settings.preset)?.label ?? PRESETS[0].label}</button></div>
   </div>`;
@@ -37,6 +37,8 @@ export function mountStudio(container: HTMLElement, controller: StudioController
 
   const render = () => {
     const settings = controller.draft;
+    container.dataset.preset = settings.preset;
+    container.dataset.accent = settings.accent;
     const applied = controller.applied;
     const dirty = applied !== null && JSON.stringify(applied) !== JSON.stringify(settings);
     container.innerHTML = `<div class="rs-shell"><header class="rs-heading"><div><span class="rs-eyebrow">ONE PREVIEW. YOUR STYLE.</span><h1>一张预览，选好你的主题。</h1><p>正文、侧栏、笔记属性和流程图，都在这张预览里。</p></div><span class="rs-step">选主题 → 调细节 → 应用</span></header>
@@ -83,6 +85,8 @@ export function mountStudio(container: HTMLElement, controller: StudioController
   return () => {
     container.removeEventListener('click', handleClick);
     container.classList.remove('reading-studio');
+    delete container.dataset.preset;
+    delete container.dataset.accent;
     container.innerHTML = '';
   };
 }
