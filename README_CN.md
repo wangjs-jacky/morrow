@@ -1,0 +1,44 @@
+# Reading Studio
+
+一个面向 Obsidian 桌面版的深色阅读主题，附带可视化设置插件。在一张仿 Obsidian 的预览中查看侧栏、正文、笔记属性、行号与 Mermaid，调整选项后点「应用深色阅读」即可生效；「撤销」可恢复上一次配置。
+
+![Reading Studio 预览](design/preview.png)
+
+第一版只提供「深色阅读」预设。界面中的 Minimal 浅色是后续方向，当前不可选。预览使用虚构笔记，不读取或上传你的仓库内容。主题与插件均无运行时网络依赖。
+
+## 安装
+
+从 [Releases](https://github.com/wangjs-jacky/obsidian-reading-studio/releases) 下载同版本的主题包和插件包，解压后把文件夹放进当前仓库的 `.obsidian` 目录：
+
+```text
+你的仓库/.obsidian/themes/Reading Studio/{manifest.json,theme.css}
+你的仓库/.obsidian/plugins/reading-studio-controls/{manifest.json,main.js,styles.css}
+```
+
+在 Obsidian「设置 → 外观」中选择 **Reading Studio**，并把基础配色设为**深色**。在「设置 → 编辑器」中开启**显示行号**，把**文档中的属性**设为**可见**。最后在「设置 → 第三方插件」中启用 **Reading Studio Controls**。点击左侧调色盘图标，或从命令面板打开「Reading Studio Controls: 打开外观预览」。第一次启用第三方插件时，Obsidian 可能要求信任当前仓库。
+
+打开设置界面后，可以先点「自定义细节」试调。预览会即时变化，真实笔记只在点「应用深色阅读」后切换。设置保存在插件数据中，重启后恢复；「撤销」恢复上一次应用前的状态。「恢复默认」只重置尚未应用的草稿。
+
+行号与属性的开关只控制**显示**，不会删除 YAML 或生成 Obsidian 没有启用的行号。如果官方编辑器设置不满足需要，插件会提示具体设置路径并阻止误报成功。插件不会修改 Markdown、YAML、其他主题文件或 Obsidian 的核心设置。若要直接编辑 YAML 源码，仍需使用 Obsidian 自己的源码视图或属性设置。
+
+## 开发与验证
+
+```bash
+npm ci
+npm test
+npx tsc --noEmit
+npm run build
+npm run package:release
+```
+
+`npm run package:release` 在 `dist/` 生成两个可安装 ZIP。静态交互演示位于 `demo/`，运行 `npm run build:demo` 后用静态 HTTP 服务器打开；它与原生插件共用界面和预设控制器。浏览器交互脚本 `tests/e2e.ego.mjs` 用 Ego Browser 验证草稿、应用、刷新持久化、撤销及缺少前置条件时的提示。真实 Obsidian 的手动验收使用 `node scripts/install-test-vault.mjs` 生成**隔离测试仓库**，检查了主题、插件、属性、行号及 Mermaid 的显示。
+
+要重跑交互测试，在项目根目录用一个终端运行 `python3 -m http.server 4187`，另一个终端运行 `ego-browser nodejs < tests/e2e.ego.mjs`。静态演示地址为 `http://127.0.0.1:4187/demo/`；浏览器测试验证的是与插件共用的交互代码，真实 Obsidian 渲染仍需使用隔离仓库验收。
+
+原始 [HTML 交互稿](design/prototype.html)、[产品设计](docs/superpowers/specs/2026-09-28-obsidian-reading-studio-design.md) 和 [实现计划](docs/superpowers/plans/2026-09-28-reading-studio-v1.md) 已随仓库保存。`design/preview.png` 是隔离测试仓库截图。
+
+当前支持桌面版 Obsidian 1.8.0 及以上；第一版在 macOS 的 Obsidian 1.13.7 验证。尚未验证移动端，也未提交 Obsidian 官方主题或插件目录。主题 CSS 为本项目独立实现，不包含 Cupertino 主题源码。
+
+## 许可证
+
+MIT，见 [LICENSE](LICENSE)。

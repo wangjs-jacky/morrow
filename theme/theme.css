@@ -55,8 +55,8 @@ body.theme-dark .metadata-property { border-radius: 6px; }
 body.theme-dark .metadata-property:hover { background: #2d3945; }
 
 body.theme-dark.reading-studio-active.reading-studio-wide { --file-line-width: 900px; }
-body.theme-dark.reading-studio-active.reading-studio-no-lines .markdown-source-view.mod-cm6 .cm-lineNumbers { display: none; }
-body.theme-dark.reading-studio-active.reading-studio-hide-properties .metadata-container { display: none; }
+body.theme-dark.reading-studio-active.reading-studio-no-lines .markdown-source-view.mod-cm6 .cm-lineNumbers { display: none !important; }
+body.theme-dark.reading-studio-active.reading-studio-hide-properties .metadata-container { display: none !important; }
 body.theme-dark.reading-studio-active.reading-studio-accent-violet {
   --interactive-accent: #a797f4;
   --text-accent: #b5a9fa;

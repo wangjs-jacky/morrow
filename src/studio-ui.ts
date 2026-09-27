@@ -20,10 +20,9 @@ function previewMarkup(settings: StudioSettings): string {
         <h2>如何把复杂问题讲清楚</h2><p class="rs-deck">一份关于表达、前置知识和理解路径的示例笔记</p>
         <div class="rs-properties"><strong>◇ &nbsp; 笔记属性</strong><div><span>article_id</span><b>NOTE-0084</b><span>tags</span><b><mark># teach-me</mark><mark># 表达方法</mark></b><span>type</span><b>topic</b><span>created_at</span><b>2026 / 09 / 28</b></div></div>
         <div class="rs-line" data-n="01"><h3>先给对方一座桥</h3></div><div class="rs-line" data-n="02"><p>解释一个新概念时，先找到对方已经理解的事物，再把新知识接上去。好的表达不依赖更多术语，而是让理解的路径更短。</p></div>
-        <div class="rs-line" data-n="03"><blockquote>从熟悉的经验出发，再展示信息如何一步步抵达目标。</blockquote></div><div class="rs-line" data-n="04"><h3>用流程图承载关系</h3></div>
-        <div class="rs-line" data-n="05"><div class="rs-diagram"><div class="rs-diagram-title"><strong>页面资源如何抵达浏览器</strong><span>Mermaid 预览</span></div>
+        <div class="rs-line" data-n="03"><div class="rs-diagram"><div class="rs-diagram-title"><strong>页面资源如何抵达浏览器</strong><span>Mermaid 预览</span></div>
           <svg viewBox="0 0 700 194" role="img" aria-label="浏览器请求 Caddy，Caddy 读取静态资源后返回内容"><defs><marker id="rs-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10Z"/></marker></defs><g class="rs-flow-node"><rect x="18" y="17" width="160" height="43" rx="8"/><rect x="270" y="17" width="160" height="43" rx="8"/><rect x="522" y="17" width="160" height="43" rx="8"/></g><g class="rs-flow-text"><text x="98" y="45" text-anchor="middle">浏览器</text><text x="350" y="45" text-anchor="middle">Caddy</text><text x="602" y="45" text-anchor="middle">静态资源</text></g><g class="rs-flow-rail"><path d="M98 61v125M350 61v125M602 61v125"/></g><g class="rs-flow-arrow"><path d="M100 95h245"/><path d="M352 137h245"/><path d="M600 169H355" stroke-dasharray="5 5"/></g><g class="rs-flow-label"><text x="225" y="86" text-anchor="middle">请求页面</text><text x="475" y="128" text-anchor="middle">读取文件</text><text x="475" y="186" text-anchor="middle">返回内容</text></g></svg>
-        </div></div><div class="rs-line" data-n="06"><p>同一个主题，可以按你的阅读习惯微调，而不必重新写 CSS。</p></div>
+        </div></div><div class="rs-line" data-n="04"><p>同一个主题，可以按你的阅读习惯微调，而不必重新写 CSS。</p></div>
       </article></div></main></div>
     <div class="rs-preview-footer"><span>喜欢这张预览？</span><button type="button" class="rs-apply" data-action="apply">✓ &nbsp; 应用深色阅读</button></div>
   </div>`;
