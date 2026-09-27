@@ -1,7 +1,9 @@
+import { getPreset, presetDefaults, PRESETS, type PresetId } from './presets.ts';
+
 export type Accent = 'blue' | 'violet' | 'mint';
 
 export interface StudioSettings {
-  preset: 'deep-reading';
+  preset: PresetId;
   lines: boolean;
   properties: boolean;
   diagram: boolean;
@@ -22,29 +24,24 @@ export interface StudioHost {
   render(settings: StudioSettings | null): void;
 }
 
-export const DEFAULT_SETTINGS: StudioSettings = Object.freeze({
-  preset: 'deep-reading',
-  lines: true,
-  properties: true,
-  diagram: true,
-  wide: false,
-  accent: 'blue',
-});
+export const DEFAULT_SETTINGS: StudioSettings = Object.freeze({ ...PRESETS[0].defaults });
 
 function record(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 function normalizeSettings(value: unknown): StudioSettings | null {
-  if (!record(value) || value.preset !== 'deep-reading') return null;
+  if (!record(value) || typeof value.preset !== 'string') return null;
+  const defaults = presetDefaults(value.preset);
+  if (!defaults) return null;
   const accents: Accent[] = ['blue', 'violet', 'mint'];
   return {
-    preset: 'deep-reading',
-    lines: typeof value.lines === 'boolean' ? value.lines : DEFAULT_SETTINGS.lines,
-    properties: typeof value.properties === 'boolean' ? value.properties : DEFAULT_SETTINGS.properties,
-    diagram: typeof value.diagram === 'boolean' ? value.diagram : DEFAULT_SETTINGS.diagram,
-    wide: typeof value.wide === 'boolean' ? value.wide : DEFAULT_SETTINGS.wide,
-    accent: accents.includes(value.accent as Accent) ? value.accent as Accent : DEFAULT_SETTINGS.accent,
+    preset: defaults.preset,
+    lines: typeof value.lines === 'boolean' ? value.lines : defaults.lines,
+    properties: typeof value.properties === 'boolean' ? value.properties : defaults.properties,
+    diagram: typeof value.diagram === 'boolean' ? value.diagram : defaults.diagram,
+    wide: typeof value.wide === 'boolean' ? value.wide : defaults.wide,
+    accent: accents.includes(value.accent as Accent) ? value.accent as Accent : defaults.accent,
   };
 }
 
@@ -53,11 +50,12 @@ export function sanitizePersisted(value: unknown): PersistedState {
   if (!record(value) || value.version !== 1) return empty;
   const applied = value.applied === null ? null : normalizeSettings(value.applied);
   if (!applied) return empty;
+  const previous = value.previous === null ? null : normalizeSettings(value.previous);
   return {
     version: 1,
     applied,
-    previous: value.previous === null ? null : normalizeSettings(value.previous),
-    canUndo: value.canUndo === true,
+    previous,
+    canUndo: value.canUndo === true && (value.previous === null || previous !== null),
   };
 }
 
@@ -81,8 +79,15 @@ export class StudioController {
     if (next) this.currentDraft = next;
   }
 
+  selectPreset(id: string): boolean {
+    const defaults = presetDefaults(id);
+    if (!defaults) return false;
+    this.currentDraft = defaults;
+    return true;
+  }
+
   resetDraft(): void {
-    this.currentDraft = { ...DEFAULT_SETTINGS };
+    this.currentDraft = presetDefaults(this.currentDraft.preset) ?? { ...DEFAULT_SETTINGS };
   }
 
   restore(): void {
@@ -102,7 +107,7 @@ export class StudioController {
       await this.host.save(next);
       this.host.render(next.applied);
       this.data = next;
-      return { ok: true, message: '已应用深色阅读' };
+      return { ok: true, message: `已应用 ${getPreset(this.currentDraft.preset)?.label ?? '预设'}` };
     } catch (error) {
       return { ok: false, message: `保存失败：${error instanceof Error ? error.message : String(error)}` };
     }
