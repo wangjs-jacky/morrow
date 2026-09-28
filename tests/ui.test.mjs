@@ -6,7 +6,7 @@ import { mountStudio } from '../src/studio-ui.ts';
 import { PRESETS } from '../src/presets.ts';
 import { readFileSync } from 'node:fs';
 
-function setup(check = async () => null) {
+function setup(check = async () => null, update) {
   const dom = new JSDOM('<div id="root"></div>');
   const root = dom.window.document.getElementById('root');
   const calls = { saves: [], renders: [] };
@@ -16,7 +16,7 @@ function setup(check = async () => null) {
     render: settings => { calls.renders.push(structuredClone(settings)); },
   };
   const studio = new StudioController(host, null);
-  const cleanup = mountStudio(root, studio);
+  const cleanup = mountStudio(root, studio, update);
   return { dom, root, studio, calls, cleanup };
 }
 
@@ -95,6 +95,47 @@ test('customizer can be closed and reopened after starting expanded', () => {
   assert.equal(root.querySelector('[data-action="customize"]').getAttribute('aria-expanded'), 'false');
   click(root, '[data-action="customize"]');
   assert.equal(root.querySelector('.rs-customizer').hidden, false);
+  cleanup();
+});
+
+test('available release offers a terminal command and confirms copying it', async () => {
+  const command = 'curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/morrow/v0.3.4/scripts/install.sh | bash';
+  const copied = [];
+  const { root, cleanup } = setup(async () => null, {
+    check: async () => ({ version: '0.3.4', command }),
+    copy: async value => { copied.push(value); },
+  });
+  await settle();
+  assert.match(root.querySelector('.rs-update').textContent, /发现新版本 v0\.3\.4/);
+  click(root, '[data-action="copy-update"]');
+  await settle();
+  assert.deepEqual(copied, [command]);
+  assert.match(root.querySelector('.rs-update').textContent, /已复制.*终端/);
+  cleanup();
+});
+
+test('copy failure leaves the exact command selectable', async () => {
+  const command = 'curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/morrow/v0.3.4/scripts/install.sh | bash';
+  const { root, cleanup } = setup(async () => null, {
+    check: async () => ({ version: '0.3.4', command }),
+    copy: async () => { throw new Error('Clipboard unavailable'); },
+  });
+  await settle();
+  click(root, '[data-action="copy-update"]');
+  await settle();
+  assert.equal(root.querySelector('.rs-update-command').value, command);
+  cleanup();
+});
+
+test('failed release check does not interrupt theme controls', async () => {
+  const { root, cleanup } = setup(async () => null, {
+    check: async () => { throw new Error('offline'); },
+    copy: async () => {},
+  });
+  await settle();
+  assert.equal(root.querySelector('.rs-update'), null);
+  click(root, '[data-action="preset"][data-preset="soft-mist"]');
+  assert.equal(root.querySelector('[data-testid="preview"]').dataset.preset, 'soft-mist');
   cleanup();
 });
 

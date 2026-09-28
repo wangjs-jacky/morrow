@@ -38,6 +38,12 @@
 .morrow .rs-heading h1 { margin: 8px 0 7px; color: #f8f9fc; font-size: clamp(21px, 2.5vw, 30px); line-height: 1.25; letter-spacing: -.025em; }
 .morrow .rs-heading p { margin: 0; color: var(--rs-muted); font-size: 13px; }
 .morrow .rs-step { color: #b5bfd0; font-size: 12px; white-space: nowrap; }
+.morrow .rs-update { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 18px; padding: 12px 15px; border: 1px solid color-mix(in srgb, var(--rs-ui-accent) 42%, var(--rs-line)); border-radius: 12px; background: color-mix(in srgb, var(--rs-ui-accent) 9%, var(--rs-panel)); }
+.morrow .rs-update > div { min-width: 0; }
+.morrow .rs-update strong { color: var(--rs-text); font-size: 13px; }
+.morrow .rs-update p { margin: 3px 0 0; color: var(--rs-muted); font-size: 11px; line-height: 1.5; }
+.morrow .rs-update button { flex: 0 0 auto; padding: 7px 11px; border: 1px solid var(--rs-ui-accent); border-radius: 8px; background: var(--rs-ui-accent); color: #111827; font-size: 11px; font-weight: 700; }
+.morrow .rs-update-command { display: block; width: 100%; min-height: 48px; margin-top: 8px; padding: 7px; resize: vertical; border: 1px solid var(--rs-line); border-radius: 6px; background: var(--rs-bg); color: var(--rs-text); font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .morrow .rs-stage { display: flex; gap: 15px; align-items: stretch; }
 .morrow .rs-preview {
   --rs-preview-bg: #181c23;
@@ -277,6 +283,7 @@
 }
 @media (max-width: 760px) {
   .morrow .rs-shell { padding: 18px 14px; }
+  .morrow .rs-update { align-items: stretch; flex-direction: column; }
   .morrow .rs-stage { flex-direction: column; }
   .morrow .rs-customizer { width: 100%; flex-basis: auto; }
   .morrow .rs-heading { align-items: flex-start; }

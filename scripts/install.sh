@@ -2,9 +2,9 @@
 # One-command installer for the macOS desktop version of Obsidian.
 set -euo pipefail
 
-version=0.3.3
-theme_sha=dd729657cd51b39c867490c7b12080e0ce6793d4b55788ddc71ab0688d1d2c97
-plugin_sha=9fa8c3c87109876d6e1c8a3073a732867d6070d29a8bbaa1f10729192283d980
+version=0.3.4
+theme_sha=51ef136737b24cb18d63315e16aaafa966c39ddb4a63ba8fb9fff601330e79d5
+plugin_sha=25c3d8d5523300177a4492d3b35135e4e0595b8d1051d12f9b7701111319836e
 release_url="https://github.com/wangjs-jacky/morrow/releases/download/v${version}"
 plugin_id=morrow-controls
 

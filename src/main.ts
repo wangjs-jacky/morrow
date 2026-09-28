@@ -2,13 +2,14 @@ import { ItemView, Plugin, WorkspaceLeaf, normalizePath } from 'obsidian';
 import { applyAppearance, checkEditorSettings, readPrerequisiteError } from './appearance.ts';
 import { StudioController, type StudioSettings } from './state.ts';
 import { mountStudio } from './studio-ui.ts';
+import { checkLatestRelease, type UpdateActions } from './update.ts';
 
 const VIEW_TYPE = 'morrow-view';
 
 class MorrowView extends ItemView {
   private cleanup: (() => void) | null = null;
 
-  constructor(leaf: WorkspaceLeaf, private readonly controller: StudioController) {
+  constructor(leaf: WorkspaceLeaf, private readonly controller: StudioController, private readonly updateActions: UpdateActions) {
     super(leaf);
   }
 
@@ -17,7 +18,7 @@ class MorrowView extends ItemView {
   getIcon(): string { return 'palette'; }
 
   async onOpen(): Promise<void> {
-    this.cleanup = mountStudio(this.contentEl, this.controller);
+    this.cleanup = mountStudio(this.contentEl, this.controller, this.updateActions);
   }
 
   async onClose(): Promise<void> {
@@ -36,7 +37,10 @@ export default class MorrowPlugin extends Plugin {
       render: settings => applyAppearance(document.body, settings),
     }, await this.loadData());
 
-    this.registerView(VIEW_TYPE, leaf => new MorrowView(leaf, this.controller));
+    this.registerView(VIEW_TYPE, leaf => new MorrowView(leaf, this.controller, {
+      check: () => checkLatestRelease(this.manifest.version),
+      copy: command => navigator.clipboard.writeText(command),
+    }));
     this.addRibbonIcon('palette', '打开 Morrow', () => { void this.openStudio(); });
     this.addCommand({ id: 'open-studio', name: '打开外观预览', callback: () => { void this.openStudio(); } });
     this.app.workspace.onLayoutReady(() => this.controller.restore());

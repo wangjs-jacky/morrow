@@ -1,7 +1,7 @@
 {
   "id": "morrow-controls",
   "name": "Morrow Controls",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "minAppVersion": "1.8.0",
   "description": "Preview and apply five dark reading styles with reversible controls.",
   "author": "Jacky",

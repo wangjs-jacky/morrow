@@ -1,5 +1,6 @@
 import type { StudioController, StudioSettings } from './state.ts';
 import { PRESETS, getPreset } from './presets.ts';
+import type { UpdateActions, UpdateOffer } from './update.ts';
 
 const optionLabels: Record<'lines' | 'properties' | 'diagram' | 'wide', string> = {
   lines: '显示行号',
@@ -29,11 +30,14 @@ function previewMarkup(settings: StudioSettings): string {
   </div>`;
 }
 
-export function mountStudio(container: HTMLElement, controller: StudioController): () => void {
+export function mountStudio(container: HTMLElement, controller: StudioController, updateActions?: UpdateActions): () => void {
   container.classList.add('morrow');
   let expanded = true;
   let message = '';
   let busy = false;
+  let updateOffer: UpdateOffer | null = null;
+  let copyState: 'idle' | 'copied' | 'manual' = 'idle';
+  let disposed = false;
 
   const render = () => {
     const settings = controller.draft;
@@ -42,6 +46,7 @@ export function mountStudio(container: HTMLElement, controller: StudioController
     const applied = controller.applied;
     const dirty = applied !== null && JSON.stringify(applied) !== JSON.stringify(settings);
     container.innerHTML = `<div class="rs-shell"><header class="rs-heading"><div><span class="rs-eyebrow">ONE PREVIEW. YOUR STYLE.</span><h1>一张预览，选好你的主题。</h1><p>正文、侧栏、笔记属性和流程图，都在这张预览里。</p></div><span class="rs-step">选主题 → 调细节 → 应用</span></header>
+      ${updateOffer ? `<div class="rs-update" aria-live="polite"><div><strong data-update-version></strong><p>${copyState === 'copied' ? '命令已复制。请粘贴到 Mac 终端执行，完成后重启 Obsidian。' : copyState === 'manual' ? '自动复制失败，请手动复制下面的命令，粘贴到 Mac 终端执行。' : '复制更新命令，粘贴到 Mac 终端执行，完成后重启 Obsidian。'}</p>${copyState === 'manual' ? '<textarea class="rs-update-command" aria-label="更新命令" readonly></textarea>' : ''}</div><button type="button" data-action="copy-update">复制更新命令</button></div>` : ''}
       <div class="rs-stage">${previewMarkup(settings)}
         <aside class="rs-customizer" ${expanded ? '' : 'hidden'}><div class="rs-custom-head"><div><h2>自定义这个主题</h2><p>调整后，预览会立即变化</p></div><button type="button" data-action="close" aria-label="关闭设置">×</button></div>
         ${switchMarkup('lines', settings.lines)}${switchMarkup('properties', settings.properties)}${switchMarkup('diagram', settings.diagram)}${switchMarkup('wide', settings.wide)}
@@ -51,6 +56,10 @@ export function mountStudio(container: HTMLElement, controller: StudioController
       <p class="rs-footnote">示例笔记仅用于预览，不包含你的仓库内容。行号和属性显示还需要 Obsidian 编辑器设置配合。</p><div class="rs-toast" role="status" aria-live="polite"></div></div>`;
     const status = container.querySelector('[role="status"]');
     if (status) status.textContent = message;
+    const updateVersion = container.querySelector('[data-update-version]');
+    if (updateVersion && updateOffer) updateVersion.textContent = `发现新版本 v${updateOffer.version}`;
+    const updateCommand = container.querySelector<HTMLTextAreaElement>('.rs-update-command');
+    if (updateCommand && updateOffer) updateCommand.value = updateOffer.command;
     const apply = container.querySelector<HTMLButtonElement>('[data-action="apply"]');
     if (apply) apply.disabled = busy;
   };
@@ -65,7 +74,14 @@ export function mountStudio(container: HTMLElement, controller: StudioController
     else if (action === 'customize') expanded = !expanded;
     else if (action === 'close') expanded = false;
     else if (action === 'reset') { controller.resetDraft(); message = '已恢复预设默认值，尚未应用'; }
-    else if (action === 'toggle') {
+    else if (action === 'copy-update' && updateActions && updateOffer) {
+      try {
+        await updateActions.copy(updateOffer.command);
+        copyState = 'copied';
+      } catch {
+        copyState = 'manual';
+      }
+    } else if (action === 'toggle') {
       const key = button.dataset.option as 'lines' | 'properties' | 'diagram' | 'wide';
       controller.setOption(key, !controller.draft[key]);
     } else if (action === 'accent') {
@@ -77,12 +93,26 @@ export function mountStudio(container: HTMLElement, controller: StudioController
       message = result.message;
       busy = false;
     }
+    if (disposed) return;
     render();
+    if (action === 'copy-update' && copyState === 'manual') {
+      const command = container.querySelector<HTMLTextAreaElement>('.rs-update-command');
+      command?.focus();
+      command?.select();
+    }
   };
 
   container.addEventListener('click', handleClick);
   render();
+  if (updateActions) {
+    void Promise.resolve().then(() => updateActions.check()).then(offer => {
+      if (disposed || !offer) return;
+      updateOffer = offer;
+      render();
+    }).catch(() => {});
+  }
   return () => {
+    disposed = true;
     container.removeEventListener('click', handleClick);
     container.classList.remove('morrow');
     delete container.dataset.preset;

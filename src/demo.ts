@@ -29,4 +29,10 @@ const host = {
 
 const controller = new StudioController(host, saved);
 controller.restore();
-mountStudio(root, controller);
+mountStudio(root, controller, query.get('mock-update') === '1' ? {
+  check: async () => ({
+    version: '9.9.9',
+    command: 'curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/morrow/v9.9.9/scripts/install.sh | bash',
+  }),
+  copy: command => navigator.clipboard.writeText(command),
+} : undefined);
