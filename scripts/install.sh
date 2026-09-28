@@ -196,7 +196,13 @@ while existing=$(plutil -extract "$index" raw -o - "$work/community-plugins.json
   index=$((index + 1))
 done
 if [[ ${existing:-} != "$plugin_id" ]]; then
-  plutil -insert "$index" -string "$plugin_id" "$work/community-plugins.json" || fail 'community-plugins.json 不是插件列表，未修改仓库。'
+  # plutil -insert crashes on some macOS versions when a root-array index has two digits.
+  normalized=$(plutil -convert json -o - "$work/community-plugins.json") || fail '无法读取插件列表，未修改仓库。'
+  [[ $normalized == \[*\] ]] || fail 'community-plugins.json 不是插件列表，未修改仓库。'
+  separator=','
+  if [[ $index -eq 0 ]]; then separator=''; fi
+  printf '%s%s"%s"]\n' "${normalized%]}" "$separator" "$plugin_id" > "$work/community-plugins.json"
+  plutil -convert json -o - "$work/community-plugins.json" >/dev/null || fail '生成的插件列表无效，未修改仓库。'
 fi
 
 mkdir -p "$config/themes" "$config/plugins" "$config/reading-studio-backups"
