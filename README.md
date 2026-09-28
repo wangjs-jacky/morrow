@@ -12,15 +12,15 @@ Version 0.2.1 polishes five dark packs: Deep Reading, Cupertino Night, Minimal G
 
 ## Install
 
-On macOS, paste this command into Terminal, then choose your **Obsidian vault folder** in the folder picker:
+On macOS, paste this command into Terminal. You do **not** need to find or type your vault path:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/obsidian-reading-studio/main/scripts/install.sh | bash
 ```
 
-The installer downloads and verifies the v0.2.1 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
+The installer uses Obsidian's registered vault list to identify the currently open vault. If several vaults are registered and there is no clear current vault, choose one by number; only if none is registered does it open a folder picker. It then downloads and verifies the v0.2.1 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
 
-For SSH or other headless terminals, pass the vault path explicitly:
+The same command also auto-detects the vault in an interactive SSH terminal. To target a different vault explicitly, pass its path:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/obsidian-reading-studio/main/scripts/install.sh | bash -s -- "/path/to/your/vault"

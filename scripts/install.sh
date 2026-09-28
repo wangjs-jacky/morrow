@@ -10,13 +10,59 @@ plugin_id=reading-studio-controls
 
 fail() { printf '安装失败：%s\n' "$*" >&2; exit 1; }
 
+detect_vault() {
+  local registry="$HOME/Library/Application Support/obsidian/obsidian.json"
+  local vault_id registered_path open_flag duplicate candidate_path index selection
+  local -a vault_paths=() vault_names=() open_indices=()
+
+  if [[ -f "$registry" ]] && plutil -convert json -o - "$registry" >/dev/null 2>&1; then
+    while IFS= read -r vault_id; do
+      registered_path=$(plutil -extract "vaults.$vault_id.path" raw -o - "$registry" 2>/dev/null || true)
+      [[ -d "$registered_path/.obsidian" ]] || continue
+      registered_path=$(cd "$registered_path" && pwd -P)
+      duplicate=0
+      for (( index=0; index<${#vault_paths[@]}; index++ )); do
+        candidate_path=${vault_paths[index]}
+        if [[ $candidate_path == "$registered_path" ]]; then duplicate=1; break; fi
+      done
+      [[ $duplicate -eq 0 ]] || continue
+      vault_paths+=("$registered_path")
+      vault_names+=("$(basename "$registered_path")")
+      open_flag=$(plutil -extract "vaults.$vault_id.open" raw -o - "$registry" 2>/dev/null || true)
+      if [[ $open_flag == true ]]; then open_indices+=("$((${#vault_paths[@]} - 1))"); fi
+    done < <(plutil -extract vaults raw -o - "$registry" 2>/dev/null || true)
+  fi
+
+  if [[ ${#vault_paths[@]} -eq 1 ]]; then
+    vault=${vault_paths[0]}
+  elif [[ ${#open_indices[@]} -eq 1 ]] && pgrep -x Obsidian >/dev/null 2>&1; then
+    vault=${vault_paths[${open_indices[0]}]}
+  elif [[ ${#vault_paths[@]} -gt 1 ]]; then
+    printf 'Obsidian 登记了多个仓库，请选编号（无需输入路径）：\n' >&2
+    for (( index=0; index<${#vault_paths[@]}; index++ )); do
+      printf '  %d. %s — %s\n' "$((index + 1))" "${vault_names[index]}" "${vault_paths[index]}" >&2
+    done
+    [[ -r /dev/tty ]] || fail '当前终端无法选择仓库；请在交互式终端运行安装命令。'
+    printf '仓库编号：' >&2
+    IFS= read -r selection < /dev/tty || fail '没有选择仓库。'
+    [[ $selection =~ ^[0-9]+$ ]] || fail '请输入列表中的数字。'
+    selection=$((10#$selection))
+    (( selection >= 1 && selection <= ${#vault_paths[@]} )) || fail '仓库编号超出范围。'
+    vault=${vault_paths[selection - 1]}
+  else
+    printf '没有找到 Obsidian 已登记的有效仓库，请在窗口中选择仓库文件夹。\n' >&2
+    vault=$(osascript -e 'POSIX path of (choose folder with prompt "请选择 Obsidian 仓库文件夹")') || fail '没有选择仓库。'
+  fi
+  printf '已选择仓库：%s\n' "$vault" >&2
+}
+
 if [[ "$(uname -s)" != Darwin ]]; then
   fail '目前安装器只支持 macOS 桌面版 Obsidian。'
 fi
 
 case "${1:-}" in
   -h|--help)
-    printf '用法：bash install.sh [Obsidian 仓库路径]\n不传路径时会弹出文件夹选择框。\n'
+    printf '用法：bash install.sh [Obsidian 仓库路径]\n不传路径时自动识别当前仓库；如果有多个候选仓库，会显示编号供选择。\n'
     exit 0
     ;;
 esac
@@ -25,7 +71,7 @@ esac
 if [[ $# -eq 1 ]]; then
   vault=$1
 else
-  vault=$(osascript -e 'POSIX path of (choose folder with prompt "请选择 Obsidian 仓库文件夹")') || fail '没有选择仓库。'
+  detect_vault
 fi
 [[ -d "$vault/.obsidian" ]] || fail "找不到 $vault/.obsidian；请选择仓库根目录。"
 vault=$(cd "$vault" && pwd -P)
