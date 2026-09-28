@@ -29,4 +29,4 @@
 - [x] Update demo/Ego E2E to switch among packs and verify reload, Undo, and blocked prerequisites.
 - [x] Add inspiration/license notes and extension guide; update English/Chinese README and screenshots.
 - [x] Bump theme, plugin, and package version to 0.2.0; build and verify both ZIPs.
-- [x] Run unit/type/build/package/real Obsidian/browser checks, review diff, publish repository update and [v0.2.0 release](https://github.com/wangjs-jacky/morrow/releases/tag/v0.2.0), verify CI and remote assets.
+- [x] Run unit/type/build/package/real Obsidian/browser checks, review diff, publish repository update, verify CI and remote assets.

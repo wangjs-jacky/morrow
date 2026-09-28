@@ -6,13 +6,7 @@ Morrow is a dark reading theme for desktop Obsidian with a companion visual-cont
 
 Morrow is an independent theme and does not load Cupertino's theme files. Cupertino Night recreates the floating sidebar, grouped tools, and pill-shaped tabs with project-owned CSS. All five packs share this desktop shell while retaining their own colors and reading details.
 
-![Cupertino Night in Obsidian](design/packs/cupertino-night.png)
-
-This native screenshot comes from the earlier 0.2.1 release, before the Morrow rename and current shell styling. It is retained as a reference, not a 0.3.0 screenshot.
-
-[Compare all five native previews](design/packs/): [Deep Reading](design/packs/deep-reading.png) · [Cupertino Night](design/packs/cupertino-night.png) · [Minimal Graphite](design/packs/minimal-graphite.png) · [Soft Mist](design/packs/soft-mist.png) · [Prism Focus](design/packs/prism-focus.png). [See Prism Focus in a real note](design/preview-v2-prism.png).
-
-Version 0.3.0 includes five dark packs: Deep Reading, Cupertino Night, Minimal Graphite, Soft Mist, and Prism Focus. Their sidebar, body, properties, Mermaid, and control colors stay distinct. The preview now shows the whole diagram at standard desktop sizes, with larger note text and colors closer to the applied theme. Line numbers, property visibility, Mermaid styling, width, and accent remain independent controls. Light packs are not yet available. Preview content is fictional; the plugin does not read or upload your notes and has no runtime network dependency. Existing V1 Deep Reading settings continue to work.
+Version 0.3.1 includes five dark packs: Deep Reading, Cupertino Night, Minimal Graphite, Soft Mist, and Prism Focus. Their sidebar, body, properties, Mermaid, and control colors stay distinct. The preview now shows the whole diagram at standard desktop sizes, with larger note text and colors closer to the applied theme. Line numbers, property visibility, Mermaid styling, width, and accent remain independent controls. Light packs are not yet available. Preview content is fictional; the plugin does not read or upload your notes and has no runtime network dependency. Existing V1 Deep Reading settings continue to work.
 
 Soft Mist uses frosted-glass surfaces on its sidebar, tabs, properties, and Mermaid cards while keeping the note background solid for legibility. Prism Focus also uses a quieter cyan. Saved preset IDs and settings remain compatible.
 
@@ -26,7 +20,7 @@ curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/morrow/main/scripts/in
 
 An Obsidian vault is an ordinary local notes folder; **Git and GitHub are not required**. The installer reads Obsidian's registered vault paths and checks that the chosen folder contains `.obsidian`. It selects the sole valid vault, or the sole vault marked open while Obsidian is running. If several candidates remain, choose one by number; only if none is registered does it open a folder picker.
 
-The installer downloads and verifies the v0.3.0 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. If the old Reading Studio installation exists, it moves its theme and plugin to the backup, migrates saved plugin settings, and replaces its enabled plugin ID. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
+The installer downloads and verifies the v0.3.1 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
 
 The same command also auto-detects the vault in an interactive SSH terminal. To target a different vault explicitly, pass its path:
 
@@ -55,13 +49,13 @@ npm run build
 npm run package:release
 ```
 
-`npm run package:release` creates two installable ZIP files in `dist/`. The static demo in `demo/` uses the same UI and preset controller as the native plugin. `tests/e2e.ego.mjs` checks all five previews, complete Mermaid framing, draft changes, Apply, reload persistence, cross-pack Undo, and prerequisite failure. `node scripts/install-test-vault.mjs` creates an isolated native Obsidian test vault. The prior 0.2.1 release was checked in Obsidian 1.13.7 on macOS, including real pack switching, properties, line numbers, and Mermaid.
+`npm run package:release` creates two installable ZIP files in `dist/`. The static demo in `demo/` uses the same UI and preset controller as the native plugin. `tests/e2e.ego.mjs` checks all five previews, complete Mermaid framing, draft changes, Apply, reload persistence, cross-pack Undo, and prerequisite failure. `node scripts/install-test-vault.mjs` creates an isolated native Obsidian test vault. The plugin interactions are covered by automated tests; native appearance should be checked in the isolated vault.
 
 To rerun the interaction test, start `python3 -m http.server 4187` in the project root, then run `ego-browser nodejs < tests/e2e.ego.mjs` in another terminal. The demo URL is `http://127.0.0.1:4187/demo/`. The browser test covers shared interaction code; native rendering is checked separately in the isolated vault.
 
 The [HTML interaction draft](design/prototype.html), [V1 product design](docs/superpowers/specs/2026-09-28-morrow-design.md), [V2 pack design](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md), and [inspiration and extension guide](docs/theme-inspiration.md) are preserved. The five images in `design/packs/` show the polished styles applied in an isolated Obsidian vault; `design/preview-v2.png` and `design/preview.png` remain as earlier references.
 
-Desktop Obsidian 1.8.0 or newer is required. The Morrow installer has been checked against a temporary vault containing an older installation and 17 other community plugins, including repeat installation and preservation of saved settings. The earlier release was also installed on a MacBook Air running macOS 14.1.1; its native appearance after restart was not visually confirmed. Mobile support and submission to Obsidian's community directories have not been verified. The theme CSS was written for this project and does not contain source code from the inspiration projects.
+Desktop Obsidian 1.8.0 or newer is required. The Morrow installer has been checked against a temporary vault containing 17 other community plugins, including repeat installation and preservation of saved settings. Native appearance after restart has not been visually confirmed for this release. Mobile support and submission to Obsidian's community directories have not been verified. The theme CSS was written for this project and does not contain source code from the inspiration projects.
 
 ## License
 

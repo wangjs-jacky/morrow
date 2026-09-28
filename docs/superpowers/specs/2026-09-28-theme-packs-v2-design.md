@@ -1,6 +1,6 @@
 # Morrow V2：可继承的深色风格包
 
-日期：2026-09-28　｜　状态：已实现并发布 [v0.2.0](https://github.com/wangjs-jacky/morrow/releases/tag/v0.2.0)
+日期：2026-09-28　｜　状态：已实现，见 [Morrow 最新版本](https://github.com/wangjs-jacky/morrow/releases/latest)
 
 ## 用户目标
 
