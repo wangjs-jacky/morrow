@@ -12,14 +12,28 @@ Version 0.2.1 polishes five dark packs: Deep Reading, Cupertino Night, Minimal G
 
 ## Install
 
-Download the matching theme and plugin ZIP files from [Releases](https://github.com/wangjs-jacky/obsidian-reading-studio/releases). Unzip them into your vault:
+On macOS, paste this command into Terminal, then choose your **Obsidian vault folder** in the folder picker:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/obsidian-reading-studio/main/scripts/install.sh | bash
+```
+
+The installer downloads and verifies the v0.2.1 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
+
+For SSH or other headless terminals, pass the vault path explicitly:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/obsidian-reading-studio/main/scripts/install.sh | bash -s -- "/path/to/your/vault"
+```
+
+Alternatively, download the matching theme and plugin ZIP files from [Releases](https://github.com/wangjs-jacky/obsidian-reading-studio/releases). Unzip them into your vault:
 
 ```text
 YOUR_VAULT/.obsidian/themes/Reading Studio/{manifest.json,theme.css}
 YOUR_VAULT/.obsidian/plugins/reading-studio-controls/{manifest.json,main.js,styles.css}
 ```
 
-In Obsidian, select **Reading Studio** under **Settings → Appearance → Themes**, choose **Dark** as the base color scheme, enable **Show line numbers** and set **Properties in document** to **Visible** under **Settings → Editor**, then enable **Reading Studio Controls** under **Community plugins**. Open it from the palette ribbon icon or the command palette. Obsidian may ask you to trust the vault when enabling community plugins for the first time.
+For manual installation, select **Reading Studio** under **Settings → Appearance → Themes**, choose **Dark** as the base color scheme, enable **Show line numbers** and set **Properties in document** to **Visible** under **Settings → Editor**, then enable **Reading Studio Controls** under **Community plugins**. Open it from the palette ribbon icon or the command palette.
 
 Option changes affect only the preview until Apply. Settings persist across restarts; Undo restores the previous pack and options. Reset restores the current pack's default draft without touching the applied appearance. The line-number and property switches only change visibility: they cannot generate line numbers or reveal native properties that Obsidian has disabled. The plugin checks these prerequisites and reports the required setting. It never changes Markdown, YAML, other themes, or Obsidian core configuration.
 
