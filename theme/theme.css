@@ -123,9 +123,54 @@ body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .nav-action-butt
 body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .nav-action-button:hover {
   background: var(--rs-hover);
 }
+body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header {
+  position: relative;
+  min-height: 18px;
+  padding-block: 5px;
+  transition: padding .18s ease;
+}
+body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 25px;
+  height: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--rs-faint);
+  opacity: .55;
+  pointer-events: none;
+  transition: opacity .18s ease;
+}
+body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:is(:hover, :focus-within) {
+  padding-block: 8px 5px;
+}
+body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:is(:hover, :focus-within)::after {
+  opacity: 0;
+}
+body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header .nav-buttons-container {
+  max-height: 44px;
+  opacity: 1;
+  transition: max-height .18s ease, opacity .15s ease, transform .18s ease, padding .18s ease;
+}
+body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:not(:hover):not(:focus-within) .nav-buttons-container {
+  max-height: 0;
+  padding: 0;
+  border-color: transparent;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-5px) scale(.96);
+  pointer-events: none;
+}
 body.theme-dark:not(.is-mobile) .mod-root .workspace-tab-header-container {
   border-bottom: 0;
   background-color: var(--rs-app);
+}
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) {
+  --tab-curve: 0px;
+  --tab-radius-active: var(--rs-tab-radius);
+  --tab-outline-width: 0px;
 }
 body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container-inner {
   align-items: center;
@@ -148,7 +193,10 @@ body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .wor
 body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner {
   border-radius: inherit;
 }
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header::before,
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header::after,
 body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner::after {
+  content: none;
   display: none;
 }
 body.theme-dark:not(.is-mobile) .mod-root .workspace-tab-container {
@@ -432,4 +480,11 @@ body.theme-dark.reading-studio-preset-prism-focus.reading-studio-accent-mint {
   body.theme-dark.reading-studio-active { --file-margins-x: 18px; }
   body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
   body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content { margin: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header,
+  body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header::after,
+  body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header .nav-buttons-container {
+    transition: none;
+  }
 }
