@@ -14,6 +14,8 @@ This native screenshot is from v0.2.1. The current development version has revis
 
 Version 0.2.1 polishes five dark packs: Deep Reading, Cupertino Night, Minimal Graphite, Soft Mist, and Prism Focus. Their sidebar, body, properties, Mermaid, and control colors stay distinct. The preview now shows the whole diagram at standard desktop sizes, with larger note text and colors closer to the applied theme. Line numbers, property visibility, Mermaid styling, width, and accent remain independent controls. Light packs are not yet available. Preview content is fictional; the plugin does not read or upload your notes and has no runtime network dependency. Existing V1 Deep Reading settings continue to work.
 
+The current development version gives Soft Mist a frosted-glass treatment on its sidebar, tabs, properties, and Mermaid cards while keeping the note background solid for legibility. Prism Focus also uses a quieter cyan. Saved preset IDs and settings remain compatible. The images above still show the 0.2.1 release.
+
 ## Install
 
 On macOS, paste this command into Terminal. You do **not** need to find or type your vault path:

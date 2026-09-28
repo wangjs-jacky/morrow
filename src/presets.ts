@@ -31,7 +31,7 @@ export const PRESETS = [
   {
     id: 'soft-mist',
     label: '柔雾夜读',
-    description: '柔和粉彩与收拢的正文宽度。',
+    description: '雾面玻璃侧栏、轻盈卡片和舒适的正文宽度。',
     defaults: { preset: 'soft-mist', lines: true, properties: true, diagram: true, wide: false, accent: 'violet' },
   },
   {
