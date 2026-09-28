@@ -8,43 +8,43 @@ import { applyAppearance, checkEditorSettings, readPrerequisiteError } from '../
 const themeCss = readFileSync(new URL('../theme/theme.css', import.meta.url), 'utf8');
 
 test('appearance classes are namespaced and restore removes only owned classes', () => {
-  const dom = new JSDOM('<body class="theme-dark third-party reading-studio-custom"></body>');
+  const dom = new JSDOM('<body class="theme-dark third-party morrow-custom"></body>');
   const body = dom.window.document.body;
   applyAppearance(body, { ...DEFAULT_SETTINGS, lines: false, properties: false, wide: true, accent: 'mint' });
-  assert.equal(body.classList.contains('reading-studio-active'), true);
-  assert.equal(body.classList.contains('reading-studio-no-lines'), true);
-  assert.equal(body.classList.contains('reading-studio-hide-properties'), true);
-  assert.equal(body.classList.contains('reading-studio-wide'), true);
-  assert.equal(body.classList.contains('reading-studio-accent-mint'), true);
-  assert.equal(body.classList.contains('reading-studio-preset-deep-reading'), true);
+  assert.equal(body.classList.contains('morrow-active'), true);
+  assert.equal(body.classList.contains('morrow-no-lines'), true);
+  assert.equal(body.classList.contains('morrow-hide-properties'), true);
+  assert.equal(body.classList.contains('morrow-wide'), true);
+  assert.equal(body.classList.contains('morrow-accent-mint'), true);
+  assert.equal(body.classList.contains('morrow-preset-deep-reading'), true);
   applyAppearance(body, null);
-  assert.equal([...body.classList].some(name => name.startsWith('reading-studio-preset-')), false);
-  assert.equal(body.classList.contains('reading-studio-active'), false);
-  assert.equal(body.classList.contains('reading-studio-no-lines'), false);
-  assert.equal(body.classList.contains('reading-studio-hide-properties'), false);
-  assert.equal(body.classList.contains('reading-studio-wide'), false);
-  assert.equal(body.classList.contains('reading-studio-accent-mint'), false);
-  assert.equal(body.classList.contains('reading-studio-custom'), true);
+  assert.equal([...body.classList].some(name => name.startsWith('morrow-preset-')), false);
+  assert.equal(body.classList.contains('morrow-active'), false);
+  assert.equal(body.classList.contains('morrow-no-lines'), false);
+  assert.equal(body.classList.contains('morrow-hide-properties'), false);
+  assert.equal(body.classList.contains('morrow-wide'), false);
+  assert.equal(body.classList.contains('morrow-accent-mint'), false);
+  assert.equal(body.classList.contains('morrow-custom'), true);
   assert.equal(body.classList.contains('third-party'), true);
 });
 
 test('switching between all presets replaces only the applied preset class', () => {
   const ids = ['deep-reading', 'cupertino-night', 'minimal-graphite', 'soft-mist', 'prism-focus'];
-  const dom = new JSDOM('<body class="theme-dark third-party reading-studio-custom"></body>');
+  const dom = new JSDOM('<body class="theme-dark third-party morrow-custom"></body>');
   const body = dom.window.document.body;
   for (const preset of ids) {
     applyAppearance(body, { ...DEFAULT_SETTINGS, preset, diagram: true, accent: 'violet' });
-    assert.deepEqual([...body.classList].filter(name => name.startsWith('reading-studio-preset-')), [`reading-studio-preset-${preset}`]);
-    assert.equal(body.classList.contains('reading-studio-mermaid'), true);
-    assert.equal(body.classList.contains('reading-studio-accent-violet'), true);
+    assert.deepEqual([...body.classList].filter(name => name.startsWith('morrow-preset-')), [`morrow-preset-${preset}`]);
+    assert.equal(body.classList.contains('morrow-mermaid'), true);
+    assert.equal(body.classList.contains('morrow-accent-violet'), true);
     assert.equal(body.classList.contains('theme-dark'), true);
     assert.equal(body.classList.contains('third-party'), true);
-    assert.equal(body.classList.contains('reading-studio-custom'), true);
+    assert.equal(body.classList.contains('morrow-custom'), true);
   }
   applyAppearance(body, { ...DEFAULT_SETTINGS, preset: 'deep-reading', diagram: false, accent: 'blue' });
-  assert.equal(body.classList.contains('reading-studio-mermaid'), false);
-  assert.equal(body.classList.contains('reading-studio-accent-violet'), false);
-  assert.equal(body.classList.contains('reading-studio-preset-prism-focus'), false);
+  assert.equal(body.classList.contains('morrow-mermaid'), false);
+  assert.equal(body.classList.contains('morrow-accent-violet'), false);
+  assert.equal(body.classList.contains('morrow-preset-prism-focus'), false);
 });
 
 test('five native packs have distinct surfaces and the registry default accents', () => {
@@ -95,7 +95,7 @@ test('theme sentinel and dark mode must both be present', () => {
   const dom = new JSDOM('<body class="theme-dark"></body>');
   const body = dom.window.document.body;
   const style = value => ({ getPropertyValue: () => value });
-  assert.match(readPrerequisiteError(body, style('')), /启用 Reading Studio 主题/);
+  assert.match(readPrerequisiteError(body, style('')), /启用 Morrow 主题/);
   body.classList.replace('theme-dark', 'theme-light');
   assert.match(readPrerequisiteError(body, style('ready')), /深色模式/);
   body.classList.replace('theme-light', 'theme-dark');

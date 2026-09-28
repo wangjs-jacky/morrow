@@ -126,10 +126,10 @@ test('Apply and Undo update visible status and persisted state', async () => {
 });
 
 test('blocked Apply shows the prerequisite instead of success', async () => {
-  const { root, calls } = setup(async () => '请先启用 Reading Studio 主题');
+  const { root, calls } = setup(async () => '请先启用 Morrow 主题');
   click(root, '[data-action="apply"]');
   await settle();
-  assert.match(root.querySelector('[role="status"]').textContent, /请先启用 Reading Studio 主题/);
+  assert.match(root.querySelector('[role="status"]').textContent, /请先启用 Morrow 主题/);
   assert.match(root.querySelector('[data-testid="status"]').textContent, /尚未应用/);
   assert.deepEqual(calls.saves, []);
 });

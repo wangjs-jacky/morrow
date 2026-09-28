@@ -31,6 +31,6 @@
 3. 行号与属性在官方前置设置满足时可见、可隐藏、可恢复；切换过程不改动任何笔记内容。
 4. 第一版先在 macOS 桌面版验证；移动端、浅色预设、在线主题库和网页一键唤起 Obsidian 留待后续版本。
 
-最终采用独立编写的 Reading Studio 主题 CSS，没有复制 Cupertino 源码。主题和插件按仓库中的 MIT 许可证发布。
+最终采用独立编写的 Morrow 主题 CSS，没有复制 Cupertino 源码。主题和插件按仓库中的 MIT 许可证发布。
 
 依据：[Obsidian 主题开发文档](https://github.com/obsidianmd/obsidian-developer-docs/blob/main/en/Themes/App%20themes/Build%20a%20theme.md) · [Obsidian 编辑器设置](https://obsidian.md/help/settings) · [Cupertino 项目与许可](https://github.com/aaaaalexis/obsidian-cupertino)

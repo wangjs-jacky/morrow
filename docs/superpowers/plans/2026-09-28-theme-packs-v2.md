@@ -1,4 +1,4 @@
-# Reading Studio V2 Implementation Plan
+# Morrow V2 Implementation Plan
 
 **Goal:** Make five distinct dark packs selectable within the existing native theme and one-preview plugin, while preserving V1 settings and one-click Apply/Undo.
 
@@ -14,7 +14,7 @@
 
 ## Task 2 — Native appearance inheritance
 
-- [x] Add/remove only namespaced `reading-studio-preset-*` classes in `src/appearance.ts`.
+- [x] Add/remove only namespaced `morrow-preset-*` classes in `src/appearance.ts`.
 - [x] Add CSS variables and distinct component treatments for the five packs in `theme/theme.css`, preserving V1 dark reading behavior and visibility toggles.
 - [x] Test class isolation and mapping; inspect real Obsidian properties, line numbers, sidebar, and Mermaid in an isolated vault.
 
@@ -29,4 +29,4 @@
 - [x] Update demo/Ego E2E to switch among packs and verify reload, Undo, and blocked prerequisites.
 - [x] Add inspiration/license notes and extension guide; update English/Chinese README and screenshots.
 - [x] Bump theme, plugin, and package version to 0.2.0; build and verify both ZIPs.
-- [x] Run unit/type/build/package/real Obsidian/browser checks, review diff, publish repository update and [v0.2.0 release](https://github.com/wangjs-jacky/obsidian-reading-studio/releases/tag/v0.2.0), verify CI and remote assets.
+- [x] Run unit/type/build/package/real Obsidian/browser checks, review diff, publish repository update and [v0.2.0 release](https://github.com/wangjs-jacky/morrow/releases/tag/v0.2.0), verify CI and remote assets.

@@ -30,7 +30,7 @@ function previewMarkup(settings: StudioSettings): string {
 }
 
 export function mountStudio(container: HTMLElement, controller: StudioController): () => void {
-  container.classList.add('reading-studio');
+  container.classList.add('morrow');
   let expanded = false;
   let message = '';
   let busy = false;
@@ -84,7 +84,7 @@ export function mountStudio(container: HTMLElement, controller: StudioController
   render();
   return () => {
     container.removeEventListener('click', handleClick);
-    container.classList.remove('reading-studio');
+    container.classList.remove('morrow');
     delete container.dataset.preset;
     delete container.dataset.accent;
     container.innerHTML = '';

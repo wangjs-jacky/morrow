@@ -37,10 +37,10 @@ test('draft changes do not save or change appearance before Apply', () => {
 });
 
 test('a failed prerequisite leaves committed state unchanged', async () => {
-  const adapter = host({ check: async () => '启用 Reading Studio 主题' });
+  const adapter = host({ check: async () => '启用 Morrow 主题' });
   const studio = new StudioController(adapter, null);
   const result = await studio.apply();
-  assert.deepEqual(result, { ok: false, message: '启用 Reading Studio 主题' });
+  assert.deepEqual(result, { ok: false, message: '启用 Morrow 主题' });
   assert.equal(studio.applied, null);
   assert.deepEqual(adapter.calls, { saves: [], renders: [] });
 });

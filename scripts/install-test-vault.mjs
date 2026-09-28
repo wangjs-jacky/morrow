@@ -5,8 +5,8 @@ import { dirname, join, resolve } from 'node:path';
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const vaultRoot = join(projectRoot, '.test-vault');
 const config = join(vaultRoot, '.obsidian');
-const themeDir = join(config, 'themes', 'Reading Studio');
-const pluginDir = join(config, 'plugins', 'reading-studio-controls');
+const themeDir = join(config, 'themes', 'Morrow');
+const pluginDir = join(config, 'plugins', 'morrow-controls');
 
 await mkdir(themeDir, { recursive: true });
 await mkdir(pluginDir, { recursive: true });
@@ -18,13 +18,13 @@ for (const file of ['manifest.json', 'main.js', 'styles.css']) {
 }
 
 await writeFile(join(config, 'appearance.json'), JSON.stringify({
-  cssTheme: 'Reading Studio', theme: 'obsidian', enabledCssSnippets: [],
+  cssTheme: 'Morrow', theme: 'obsidian', enabledCssSnippets: [],
 }, null, 2));
 await writeFile(join(config, 'app.json'), JSON.stringify({
   livePreview: true, showLineNumber: true, propertiesInDocument: 'visible', readableLineLength: true,
 }, null, 2));
-await writeFile(join(config, 'community-plugins.json'), JSON.stringify(['reading-studio-controls'], null, 2));
-await writeFile(join(vaultRoot, 'Reading Studio 示例.md'), `---
+await writeFile(join(config, 'community-plugins.json'), JSON.stringify(['morrow-controls'], null, 2));
+await writeFile(join(vaultRoot, 'Morrow 示例.md'), `---
 article_id: DEMO-0001
 tags:
   - design

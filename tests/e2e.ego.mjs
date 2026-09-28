@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 
-const baseUrl = process.env.READING_STUDIO_E2E_URL ?? 'http://127.0.0.1:4187/demo/';
+const baseUrl = process.env.MORROW_E2E_URL ?? 'http://127.0.0.1:4187/demo/';
 const expectedSpaceId = Number(process.env.EGO_EXPECTED_SPACE_ID);
 const expectedTargetId = process.env.EGO_EXPECTED_TARGET_ID;
 const task = Number.isSafeInteger(expectedSpaceId) && expectedSpaceId > 0
   ? await taskSpace(expectedSpaceId)
-  : await taskSpace('Reading Studio V2 browser E2E');
+  : await taskSpace('Morrow V2 browser E2E');
 const page = task.page('p1');
 const tab = (await task.tabs()).find(item => item.label === 'p1');
 if (expectedTargetId) assert.equal(tab?.targetId, expectedTargetId);
@@ -13,7 +13,7 @@ await page.cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900,
 await page.goto(baseUrl);
 assert.equal(await page.url(), baseUrl);
 
-await page.evaluate(() => localStorage.removeItem('reading-studio-demo-v1'));
+await page.evaluate(() => localStorage.removeItem('morrow-demo-v1'));
 await page.reload();
 assert.equal(await page.evaluate(() => document.querySelector('[data-testid="status"]')?.textContent), '尚未应用');
 
@@ -31,7 +31,7 @@ for (const preset of presetIds) {
       note: style.getPropertyValue('--rs-note').trim(),
       properties: style.getPropertyValue('--rs-properties').trim(),
       diagram: style.getPropertyValue('--rs-diagram').trim(),
-      uiAccent: getComputedStyle(document.querySelector('.reading-studio')).getPropertyValue('--rs-ui-accent').trim(),
+      uiAccent: getComputedStyle(document.querySelector('.morrow')).getPropertyValue('--rs-ui-accent').trim(),
       selectedBorder: getComputedStyle(document.querySelector('.rs-preset.rs-selected')).borderTopColor,
       diagramVisible: document.querySelector('.rs-diagram').getBoundingClientRect().bottom <= document.querySelector('.rs-scroll').getBoundingClientRect().bottom,
       controlsVisible: document.querySelector('.rs-controls').getBoundingClientRect().bottom <= innerHeight,
@@ -95,7 +95,7 @@ assert.deepEqual(await page.evaluate(() => {
   return { preset: preview?.getAttribute('data-preset'), lines: preview?.getAttribute('data-lines'), accent: preview?.getAttribute('data-accent') };
 }), { preset: 'prism-focus', lines: 'true', accent: 'mint' });
 
-for (const [query, expected] of [['theme=off', '请先启用 Reading Studio 主题'], ['mode=light', '深色模式'], ['lines=off', '显示行号'], ['properties=off', '属性']]) {
+for (const [query, expected] of [['theme=off', '请先启用 Morrow 主题'], ['mode=light', '深色模式'], ['lines=off', '显示行号'], ['properties=off', '属性']]) {
   await page.goto(`${baseUrl}?${query}`);
   await page.click('[data-action="preset"][data-preset="cupertino-night"]');
   await page.click('[data-action="apply"]');

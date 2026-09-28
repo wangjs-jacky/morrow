@@ -11,8 +11,8 @@ await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 
 for (const artifact of [
-  { source: 'theme', directory: 'Reading Studio', files: ['manifest.json', 'theme.css'], name: `reading-studio-theme-v${version}.zip` },
-  { source: 'plugin', directory: 'reading-studio-controls', files: ['manifest.json', 'main.js', 'styles.css'], name: `reading-studio-plugin-v${version}.zip` },
+  { source: 'theme', directory: 'Morrow', files: ['manifest.json', 'theme.css'], name: `morrow-theme-v${version}.zip` },
+  { source: 'plugin', directory: 'morrow-controls', files: ['manifest.json', 'main.js', 'styles.css'], name: `morrow-plugin-v${version}.zip` },
 ]) {
   const stage = join(dist, artifact.directory);
   await mkdir(stage);

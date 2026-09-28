@@ -17,5 +17,5 @@ jobs:
       - run: npm test
       - run: npx tsc --noEmit
       - run: npm run package:release
-      - run: unzip -t dist/reading-studio-theme-v*.zip
-      - run: unzip -t dist/reading-studio-plugin-v*.zip
+      - run: unzip -t dist/morrow-theme-v*.zip
+      - run: unzip -t dist/morrow-plugin-v*.zip

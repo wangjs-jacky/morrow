@@ -1,10 +1,10 @@
 {
-  "id": "reading-studio-controls",
-  "name": "Reading Studio Controls",
-  "version": "0.2.1",
+  "id": "morrow-controls",
+  "name": "Morrow Controls",
+  "version": "0.3.0",
   "minAppVersion": "1.8.0",
   "description": "Preview and apply five dark reading styles with reversible controls.",
   "author": "Jacky",
-  "authorUrl": "https://github.com/wangjs-jacky/obsidian-reading-studio",
+  "authorUrl": "https://github.com/wangjs-jacky/morrow",
   "isDesktopOnly": true
 }

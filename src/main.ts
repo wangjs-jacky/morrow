@@ -3,17 +3,18 @@ import { applyAppearance, checkEditorSettings, readPrerequisiteError } from './a
 import { StudioController, type StudioSettings } from './state.ts';
 import { mountStudio } from './studio-ui.ts';
 
-const VIEW_TYPE = 'reading-studio-view';
+const VIEW_TYPE = 'morrow-view';
+const LEGACY_VIEW_TYPE = 'reading-studio-view';
 
-class ReadingStudioView extends ItemView {
+class MorrowView extends ItemView {
   private cleanup: (() => void) | null = null;
 
-  constructor(leaf: WorkspaceLeaf, private readonly controller: StudioController) {
+  constructor(leaf: WorkspaceLeaf, private readonly controller: StudioController, private readonly viewType = VIEW_TYPE) {
     super(leaf);
   }
 
-  getViewType(): string { return VIEW_TYPE; }
-  getDisplayText(): string { return 'Reading Studio'; }
+  getViewType(): string { return this.viewType; }
+  getDisplayText(): string { return 'Morrow'; }
   getIcon(): string { return 'palette'; }
 
   async onOpen(): Promise<void> {
@@ -26,7 +27,7 @@ class ReadingStudioView extends ItemView {
   }
 }
 
-export default class ReadingStudioPlugin extends Plugin {
+export default class MorrowPlugin extends Plugin {
   private controller!: StudioController;
 
   async onload(): Promise<void> {
@@ -36,8 +37,10 @@ export default class ReadingStudioPlugin extends Plugin {
       render: settings => applyAppearance(document.body, settings),
     }, await this.loadData());
 
-    this.registerView(VIEW_TYPE, leaf => new ReadingStudioView(leaf, this.controller));
-    this.addRibbonIcon('palette', '打开 Reading Studio', () => { void this.openStudio(); });
+    this.registerView(VIEW_TYPE, leaf => new MorrowView(leaf, this.controller));
+    // Restore tabs saved before the project and plugin ID were renamed.
+    this.registerView(LEGACY_VIEW_TYPE, leaf => new MorrowView(leaf, this.controller, LEGACY_VIEW_TYPE));
+    this.addRibbonIcon('palette', '打开 Morrow', () => { void this.openStudio(); });
     this.addCommand({ id: 'open-studio', name: '打开外观预览', callback: () => { void this.openStudio(); } });
     this.app.workspace.onLayoutReady(() => this.controller.restore());
   }
@@ -60,7 +63,8 @@ export default class ReadingStudioPlugin extends Plugin {
   }
 
   private async openStudio(): Promise<void> {
-    let leaf = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0];
+    let leaf = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0]
+      ?? this.app.workspace.getLeavesOfType(LEGACY_VIEW_TYPE)[0];
     if (!leaf) {
       leaf = this.app.workspace.getLeaf('tab');
       await leaf.setViewState({ type: VIEW_TYPE, active: true });

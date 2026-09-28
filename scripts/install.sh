@@ -2,11 +2,11 @@
 # One-command installer for the macOS desktop version of Obsidian.
 set -euo pipefail
 
-version=0.2.1
-theme_sha=dcaab7e713b45820101fa7ad09f73721b416f7dbc4ae869cf2a251b87ff25dd1
-plugin_sha=76e14cd0f24cfbdc9748faa6c83700e9c4036f03ea08fa17001bc9856f9b2055
-release_url="https://github.com/wangjs-jacky/obsidian-reading-studio/releases/download/v${version}"
-plugin_id=reading-studio-controls
+version=0.3.0
+theme_sha=e9e752a212e83131a414fd836b527adb5272cafd607962e40447a59e1be1a51b
+plugin_sha=0ac6c98da5710629be1f87e571f1b2d8d4e9d010b1fbd51e0d276aa59c03cc8b
+release_url="https://github.com/wangjs-jacky/morrow/releases/download/v${version}"
+plugin_id=morrow-controls
 
 fail() { printf '安装失败：%s\n' "$*" >&2; exit 1; }
 
@@ -76,27 +76,31 @@ fi
 [[ -d "$vault/.obsidian" ]] || fail "找不到 $vault/.obsidian；请选择仓库根目录。"
 vault=$(cd "$vault" && pwd -P)
 config="$vault/.obsidian"
-theme_target="$config/themes/Reading Studio"
+theme_target="$config/themes/Morrow"
 plugin_target="$config/plugins/$plugin_id"
+legacy_theme="$config/themes/Reading Studio"
+legacy_plugin="$config/plugins/reading-studio-controls"
 
-for target in "$theme_target" "$plugin_target" "$plugin_target/data.json" "$config/appearance.json" "$config/app.json" "$config/community-plugins.json"; do
+for target in "$theme_target" "$plugin_target" "$plugin_target/data.json" "$legacy_theme" "$legacy_plugin" "$legacy_plugin/data.json" "$config/appearance.json" "$config/app.json" "$config/community-plugins.json"; do
   [[ ! -L "$target" ]] || fail "不修改符号链接：$target"
 done
-for target in "$theme_target" "$plugin_target"; do
+for target in "$theme_target" "$plugin_target" "$legacy_theme" "$legacy_plugin"; do
   [[ ! -e "$target" || -d "$target" ]] || fail "安装位置不是文件夹：$target"
 done
 
-work=$(mktemp -d "${TMPDIR:-/tmp}/reading-studio-install.XXXXXX")
+work=$(mktemp -d "${TMPDIR:-/tmp}/morrow-install.XXXXXX")
 backup=''
 commit_started=0
 config_committed=0
 theme_committed=0
 plugin_committed=0
-seed_key="_readingStudioInstallSeed$$"
+legacy_theme_moved=0
+legacy_plugin_moved=0
+seed_key="_morrowInstallSeed$$"
 appearance_seeded=0
 app_seeded=0
-theme_stage="$config/themes/.reading-studio-install-$$"
-plugin_stage="$config/plugins/.reading-studio-install-$$"
+theme_stage="$config/themes/.morrow-install-$$"
+plugin_stage="$config/plugins/.morrow-install-$$"
 
 cleanup() {
   result=$?
@@ -115,12 +119,14 @@ cleanup() {
     fi
     if [[ $theme_committed -eq 1 ]]; then rm -rf "$theme_target"; fi
     if [[ $plugin_committed -eq 1 ]]; then rm -rf "$plugin_target"; fi
-    if [[ -d "$backup/Reading Studio" ]]; then mv "$backup/Reading Studio" "$theme_target"; fi
+    if [[ -d "$backup/Morrow" ]]; then mv "$backup/Morrow" "$theme_target"; fi
     if [[ -d "$backup/$plugin_id" ]]; then mv "$backup/$plugin_id" "$plugin_target"; fi
+    if [[ $legacy_theme_moved -eq 1 ]]; then mv "$backup/Reading Studio" "$legacy_theme"; fi
+    if [[ $legacy_plugin_moved -eq 1 ]]; then mv "$backup/reading-studio-controls" "$legacy_plugin"; fi
   fi
   rm -rf "$theme_stage" "$plugin_stage" "$work"
   for name in appearance.json app.json community-plugins.json; do
-    rm -f "$config/.reading-studio-$name-$$"
+    rm -f "$config/.morrow-$name-$$"
   done
   exit "$result"
 }
@@ -152,12 +158,12 @@ prepare_json() {
   fi
 }
 
-printf '正在为 %s 安装 Reading Studio v%s…\n' "$vault" "$version"
+printf '正在为 %s 安装 Morrow v%s…\n' "$vault" "$version"
 for kind in theme plugin; do
-  archive="$work/reading-studio-${kind}-v${version}.zip"
+  archive="$work/morrow-${kind}-v${version}.zip"
   curl --proto '=https' --tlsv1.2 -fL --connect-timeout 15 --max-time 60 \
     --retry 3 --retry-delay 1 -sS \
-    "$release_url/reading-studio-${kind}-v${version}.zip" -o "$archive"
+    "$release_url/morrow-${kind}-v${version}.zip" -o "$archive"
   if [[ $kind == theme ]]; then expected=$theme_sha; else expected=$plugin_sha; fi
   actual=$(shasum -a 256 "$archive" | awk '{print $1}')
   [[ $actual == "$expected" ]] || fail "$kind 下载文件校验失败，未修改仓库。"
@@ -165,14 +171,14 @@ for kind in theme plugin; do
   unzip -q "$archive" -d "$work/$kind"
 done
 
-[[ -f "$work/theme/Reading Studio/manifest.json" && -f "$work/theme/Reading Studio/theme.css" ]] || fail '主题包文件不完整。'
+[[ -f "$work/theme/Morrow/manifest.json" && -f "$work/theme/Morrow/theme.css" ]] || fail '主题包文件不完整。'
 [[ -f "$work/plugin/$plugin_id/manifest.json" && -f "$work/plugin/$plugin_id/main.js" && -f "$work/plugin/$plugin_id/styles.css" ]] || fail '插件包文件不完整。'
 [[ "$(plutil -extract version raw -o - "$work/plugin/$plugin_id/manifest.json")" == "$version" ]] || fail '插件版本与安装器不一致。'
 
 prepare_json appearance.json '{}' '<dict>'
 prepare_json app.json '{}' '<dict>'
 prepare_json community-plugins.json '[]' '<array>'
-json_set "$work/appearance.json" cssTheme string 'Reading Studio'
+json_set "$work/appearance.json" cssTheme string 'Morrow'
 json_set "$work/appearance.json" theme string obsidian
 json_set "$work/app.json" showLineNumber bool true
 json_set "$work/app.json" propertiesInDocument string visible
@@ -190,6 +196,19 @@ if [[ "$(plutil -type enabledCssSnippets "$work/appearance.json" 2>/dev/null || 
   done
 fi
 
+# Disable the old plugin ID before enabling Morrow; otherwise both controls
+# plugins load after a restart and compete to style the same workspace.
+count=0
+while plutil -extract "$count" raw -o - "$work/community-plugins.json" >/dev/null 2>&1; do
+  count=$((count + 1))
+done
+for (( index=count-1; index>=0; index-- )); do
+  existing=$(plutil -extract "$index" raw -o - "$work/community-plugins.json")
+  if [[ $existing == reading-studio-controls ]]; then
+    plutil -remove "$index" "$work/community-plugins.json"
+  fi
+done
+
 index=0
 while existing=$(plutil -extract "$index" raw -o - "$work/community-plugins.json" 2>/dev/null); do
   if [[ $existing == "$plugin_id" ]]; then break; fi
@@ -205,29 +224,33 @@ if [[ ${existing:-} != "$plugin_id" ]]; then
   plutil -convert json -o - "$work/community-plugins.json" >/dev/null || fail '生成的插件列表无效，未修改仓库。'
 fi
 
-mkdir -p "$config/themes" "$config/plugins" "$config/reading-studio-backups"
+mkdir -p "$config/themes" "$config/plugins" "$config/morrow-backups"
 [[ ! -e "$theme_stage" && ! -e "$plugin_stage" ]] || fail '发现未清理的安装临时文件，请重试。'
-cp -R "$work/theme/Reading Studio" "$theme_stage"
+cp -R "$work/theme/Morrow" "$theme_stage"
 cp -R "$work/plugin/$plugin_id" "$plugin_stage"
 if [[ -f "$plugin_target/data.json" ]]; then
   cp -p "$plugin_target/data.json" "$plugin_stage/data.json"
+elif [[ -f "$legacy_plugin/data.json" ]]; then
+  cp -p "$legacy_plugin/data.json" "$plugin_stage/data.json"
 fi
 
-backup=$(mktemp -d "$config/reading-studio-backups/$(date +%Y%m%d-%H%M%S).XXXXXX")
+backup=$(mktemp -d "$config/morrow-backups/$(date +%Y%m%d-%H%M%S).XXXXXX")
 for name in appearance.json app.json community-plugins.json; do
   if [[ -f "$config/$name" ]]; then cp -p "$config/$name" "$backup/$name"; fi
 done
 
 commit_started=1
-if [[ -e "$theme_target" ]]; then mv "$theme_target" "$backup/Reading Studio"; fi
+if [[ -e "$theme_target" ]]; then mv "$theme_target" "$backup/Morrow"; fi
 if [[ -e "$plugin_target" ]]; then mv "$plugin_target" "$backup/$plugin_id"; fi
+if [[ -e "$legacy_theme" ]]; then mv "$legacy_theme" "$backup/Reading Studio"; legacy_theme_moved=1; fi
+if [[ -e "$legacy_plugin" ]]; then mv "$legacy_plugin" "$backup/reading-studio-controls"; legacy_plugin_moved=1; fi
 mv "$theme_stage" "$theme_target"
 theme_committed=1
 mv "$plugin_stage" "$plugin_target"
 plugin_committed=1
 for name in appearance.json app.json community-plugins.json; do
-  cp "$work/$name" "$config/.reading-studio-$name-$$"
-  mv "$config/.reading-studio-$name-$$" "$config/$name"
+  cp "$work/$name" "$config/.morrow-$name-$$"
+  mv "$config/.morrow-$name-$$" "$config/$name"
   config_committed=1
 done
 commit_started=0

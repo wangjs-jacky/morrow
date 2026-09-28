@@ -1,6 +1,6 @@
-/* Reading Studio: a self-contained Obsidian theme. The companion plugin adds
+/* Morrow: a self-contained Obsidian theme. The companion plugin adds
    namespaced classes for optional visual settings. */
-body { --reading-studio-theme-active: ready; }
+body { --morrow-theme-active: ready; }
 
 body.theme-dark {
   --rs-app: #181c23;
@@ -80,7 +80,7 @@ body.theme-dark {
 
 body.theme-dark .workspace-leaf-content[data-type="file-explorer"] .nav-files-container { padding: 12px 9px; }
 
-/* A quiet desktop shell shared by all five packs. Reading Studio draws its
+/* A quiet desktop shell shared by all five packs. Morrow draws its
    own chrome so selecting this theme does not depend on another theme. */
 body.theme-dark:not(.is-mobile) {
   --titlebar-background: var(--rs-app);
@@ -220,29 +220,29 @@ body.theme-dark .metadata-container { border: 1px solid var(--rs-metadata-border
 body.theme-dark .metadata-property { border-radius: 6px; }
 body.theme-dark .metadata-property:hover { background: var(--rs-metadata-hover); }
 
-body.theme-dark.reading-studio-active.reading-studio-wide { --file-line-width: 900px; }
-body.theme-dark.reading-studio-active.reading-studio-no-lines .markdown-source-view.mod-cm6 .cm-lineNumbers { display: none !important; }
-body.theme-dark.reading-studio-active.reading-studio-hide-properties .metadata-container { display: none !important; }
-body.theme-dark.reading-studio-mermaid .mermaid { padding: 18px 12px; border: 1px solid var(--rs-mermaid-border); border-radius: var(--rs-mermaid-radius); background: var(--rs-mermaid-bg); }
-body.theme-dark.reading-studio-mermaid .mermaid svg { max-width: 100%; height: auto; filter: none; }
-body.theme-dark.reading-studio-mermaid .mermaid rect.actor,
-body.theme-dark.reading-studio-mermaid .mermaid .node rect { fill: var(--rs-mermaid-node) !important; stroke: var(--rs-mermaid-stroke) !important; stroke-width: 1.25px; rx: 8px; ry: 8px; }
-body.theme-dark.reading-studio-mermaid .mermaid text.actor,
-body.theme-dark.reading-studio-mermaid .mermaid text.actor tspan,
-body.theme-dark.reading-studio-mermaid .mermaid .nodeLabel,
-body.theme-dark.reading-studio-mermaid .mermaid .messageText { fill: var(--rs-mermaid-text) !important; color: var(--rs-mermaid-text) !important; }
-body.theme-dark.reading-studio-mermaid .mermaid .actor-line { stroke: var(--rs-mermaid-line) !important; stroke-dasharray: 4 5; }
-body.theme-dark.reading-studio-mermaid .mermaid .messageLine0,
-body.theme-dark.reading-studio-mermaid .mermaid .edgePath path { stroke: var(--rs-link) !important; stroke-width: 1.5px; }
-body.theme-dark.reading-studio-mermaid .mermaid .messageLine1 { stroke: var(--rs-muted) !important; stroke-width: 1.25px; }
-body.theme-dark.reading-studio-mermaid .mermaid marker path { fill: var(--rs-link) !important; stroke: var(--rs-link) !important; }
-body.theme-dark.reading-studio-mermaid .mermaid .note { fill: var(--rs-mermaid-note) !important; stroke: var(--rs-mermaid-note-stroke) !important; rx: 7px; ry: 7px; }
-body.theme-dark.reading-studio-mermaid .mermaid .noteText,
-body.theme-dark.reading-studio-mermaid .mermaid .noteText tspan { fill: var(--rs-mermaid-note-text) !important; }
+body.theme-dark.morrow-active.morrow-wide { --file-line-width: 900px; }
+body.theme-dark.morrow-active.morrow-no-lines .markdown-source-view.mod-cm6 .cm-lineNumbers { display: none !important; }
+body.theme-dark.morrow-active.morrow-hide-properties .metadata-container { display: none !important; }
+body.theme-dark.morrow-mermaid .mermaid { padding: 18px 12px; border: 1px solid var(--rs-mermaid-border); border-radius: var(--rs-mermaid-radius); background: var(--rs-mermaid-bg); }
+body.theme-dark.morrow-mermaid .mermaid svg { max-width: 100%; height: auto; filter: none; }
+body.theme-dark.morrow-mermaid .mermaid rect.actor,
+body.theme-dark.morrow-mermaid .mermaid .node rect { fill: var(--rs-mermaid-node) !important; stroke: var(--rs-mermaid-stroke) !important; stroke-width: 1.25px; rx: 8px; ry: 8px; }
+body.theme-dark.morrow-mermaid .mermaid text.actor,
+body.theme-dark.morrow-mermaid .mermaid text.actor tspan,
+body.theme-dark.morrow-mermaid .mermaid .nodeLabel,
+body.theme-dark.morrow-mermaid .mermaid .messageText { fill: var(--rs-mermaid-text) !important; color: var(--rs-mermaid-text) !important; }
+body.theme-dark.morrow-mermaid .mermaid .actor-line { stroke: var(--rs-mermaid-line) !important; stroke-dasharray: 4 5; }
+body.theme-dark.morrow-mermaid .mermaid .messageLine0,
+body.theme-dark.morrow-mermaid .mermaid .edgePath path { stroke: var(--rs-link) !important; stroke-width: 1.5px; }
+body.theme-dark.morrow-mermaid .mermaid .messageLine1 { stroke: var(--rs-muted) !important; stroke-width: 1.25px; }
+body.theme-dark.morrow-mermaid .mermaid marker path { fill: var(--rs-link) !important; stroke: var(--rs-link) !important; }
+body.theme-dark.morrow-mermaid .mermaid .note { fill: var(--rs-mermaid-note) !important; stroke: var(--rs-mermaid-note-stroke) !important; rx: 7px; ry: 7px; }
+body.theme-dark.morrow-mermaid .mermaid .noteText,
+body.theme-dark.morrow-mermaid .mermaid .noteText tspan { fill: var(--rs-mermaid-note-text) !important; }
 
 /* Every pack inherits the same Obsidian components. Only the applied preset
    changes their tokens; an unconfigured vault retains the V1 reading theme. */
-body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) {
+body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) {
   --color-base-00: var(--rs-app);
   --color-base-05: var(--rs-sidebar);
   --color-base-10: var(--rs-note);
@@ -250,15 +250,15 @@ body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) {
   --color-base-25: var(--rs-metadata);
   --color-base-30: var(--rs-border);
 }
-body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .titlebar,
-body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .workspace-ribbon { background-color: var(--rs-app); }
-body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .workspace-tab-header.is-active { color: var(--rs-text); }
-body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .markdown-rendered blockquote { border-inline-start-color: var(--rs-accent); }
-body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .markdown-rendered code,
-body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .markdown-source-view .cm-inline-code { color: var(--rs-link); }
-body.theme-dark.reading-studio-active:not(.reading-studio-preset-deep-reading) .metadata-property-key { color: var(--rs-muted); }
+body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .titlebar,
+body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .workspace-ribbon { background-color: var(--rs-app); }
+body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .workspace-tab-header.is-active { color: var(--rs-text); }
+body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .markdown-rendered blockquote { border-inline-start-color: var(--rs-accent); }
+body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .markdown-rendered code,
+body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .markdown-source-view .cm-inline-code { color: var(--rs-link); }
+body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .metadata-property-key { color: var(--rs-muted); }
 
-body.theme-dark.reading-studio-preset-cupertino-night {
+body.theme-dark.morrow-preset-cupertino-night {
   --rs-app: #171b26;
   --rs-sidebar: #202638;
   --rs-note: #1c2230;
@@ -297,10 +297,10 @@ body.theme-dark.reading-studio-preset-cupertino-night {
   --rs-mermaid-radius: 16px;
   --line-height-normal: 1.76;
 }
-body.theme-dark.reading-studio-preset-cupertino-night .metadata-property { border-radius: 10px; }
-body.theme-dark.reading-studio-preset-cupertino-night.reading-studio-mermaid .mermaid .node rect { rx: 13px; ry: 13px; }
+body.theme-dark.morrow-preset-cupertino-night .metadata-property { border-radius: 10px; }
+body.theme-dark.morrow-preset-cupertino-night.morrow-mermaid .mermaid .node rect { rx: 13px; ry: 13px; }
 
-body.theme-dark.reading-studio-preset-minimal-graphite {
+body.theme-dark.morrow-preset-minimal-graphite {
   --rs-app: #1b1b1b;
   --rs-sidebar: #222222;
   --rs-note: #202020;
@@ -342,13 +342,13 @@ body.theme-dark.reading-studio-preset-minimal-graphite {
   --line-height-normal: 1.66;
   --file-margins-x: 30px;
 }
-body.theme-dark.reading-studio-preset-minimal-graphite .metadata-container { border-inline-start-width: 2px; border-block: 0; border-inline-end: 0; }
-body.theme-dark.reading-studio-preset-minimal-graphite .nav-file-title.is-active { box-shadow: inset 2px 0 0 var(--rs-accent); }
-body.theme-dark.reading-studio-preset-minimal-graphite .markdown-rendered h1,
-body.theme-dark.reading-studio-preset-minimal-graphite .markdown-rendered h2 { letter-spacing: -.035em; font-weight: 600; }
-body.theme-dark.reading-studio-preset-minimal-graphite.reading-studio-mermaid .mermaid .node rect { rx: 0; ry: 0; }
+body.theme-dark.morrow-preset-minimal-graphite .metadata-container { border-inline-start-width: 2px; border-block: 0; border-inline-end: 0; }
+body.theme-dark.morrow-preset-minimal-graphite .nav-file-title.is-active { box-shadow: inset 2px 0 0 var(--rs-accent); }
+body.theme-dark.morrow-preset-minimal-graphite .markdown-rendered h1,
+body.theme-dark.morrow-preset-minimal-graphite .markdown-rendered h2 { letter-spacing: -.035em; font-weight: 600; }
+body.theme-dark.morrow-preset-minimal-graphite.morrow-mermaid .mermaid .node rect { rx: 0; ry: 0; }
 
-body.theme-dark.reading-studio-preset-soft-mist {
+body.theme-dark.morrow-preset-soft-mist {
   --rs-app: #111b29;
   --rs-sidebar: #233349;
   --rs-note: #1a293b;
@@ -387,49 +387,49 @@ body.theme-dark.reading-studio-preset-soft-mist {
   --line-height-normal: 1.84;
   --file-margins-x: 42px;
 }
-body.theme-dark.reading-studio-preset-soft-mist .markdown-rendered h1,
-body.theme-dark.reading-studio-preset-soft-mist .markdown-rendered h2 { letter-spacing: .005em; font-weight: 550; }
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .workspace {
+body.theme-dark.morrow-preset-soft-mist .markdown-rendered h1,
+body.theme-dark.morrow-preset-soft-mist .markdown-rendered h2 { letter-spacing: .005em; font-weight: 550; }
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .workspace {
   background: radial-gradient(circle at 12% 8%, #9bb8e327, transparent 34%),
     radial-gradient(circle at 92% 74%, #9e8cc723, transparent 42%), var(--rs-app);
 }
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .workspace-split.mod-left-split,
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .workspace-split.mod-right-split {
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .workspace-split.mod-left-split,
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .workspace-split.mod-right-split {
   background: transparent;
 }
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content {
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content {
   background: linear-gradient(150deg, #ffffff19, #ffffff04 42%, #0e19257d), #26394bc9;
   border-color: #b9d2e459;
   box-shadow: inset 0 1px #ffffff25, 0 20px 42px #07111f66;
   backdrop-filter: blur(18px) saturate(125%);
 }
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .workspace-split .workspace-leaf-content .view-content,
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-files-container {
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .workspace-split .workspace-leaf-content .view-content,
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-files-container {
   background: transparent;
 }
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .mod-root .workspace-tab-header-container {
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .mod-root .workspace-tab-header-container {
   background: transparent;
 }
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .mod-root .workspace-tab-header.is-active,
-body.theme-dark.reading-studio-preset-soft-mist:not(.is-mobile) .nav-header .nav-buttons-container {
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .mod-root .workspace-tab-header.is-active,
+body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .nav-header .nav-buttons-container {
   background: linear-gradient(155deg, #ffffff1d, #ffffff03 72%), #31465dba;
   border-color: #b8cee158;
   box-shadow: inset 0 1px #ffffff26, 0 5px 16px #07111f36;
 }
-body.theme-dark.reading-studio-preset-soft-mist .metadata-container {
+body.theme-dark.morrow-preset-soft-mist .metadata-container {
   background: linear-gradient(145deg, #ffffff15, #ffffff03 65%), var(--rs-metadata);
   border-color: #b7cce25e;
   box-shadow: inset 0 1px #ffffff24, 0 12px 30px #07111f35;
 }
-body.theme-dark.reading-studio-preset-soft-mist.reading-studio-mermaid .mermaid {
+body.theme-dark.morrow-preset-soft-mist.morrow-mermaid .mermaid {
   background: linear-gradient(155deg, #ffffff10, #ffffff02 58%), var(--rs-mermaid-bg);
   border-color: #a9c3da66;
   box-shadow: inset 0 1px #ffffff20, 0 12px 28px #07111f30;
 }
-body.theme-dark.reading-studio-preset-soft-mist.reading-studio-mermaid .mermaid .node rect { rx: 11px; ry: 11px; }
+body.theme-dark.morrow-preset-soft-mist.morrow-mermaid .mermaid .node rect { rx: 11px; ry: 11px; }
 
-body.theme-dark.reading-studio-preset-prism-focus {
+body.theme-dark.morrow-preset-prism-focus {
   --rs-app: #101722;
   --rs-sidebar: #142033;
   --rs-note: #18263b;
@@ -469,44 +469,44 @@ body.theme-dark.reading-studio-preset-prism-focus {
   --rs-mermaid-radius: 7px;
   --line-height-normal: 1.7;
 }
-body.theme-dark.reading-studio-preset-prism-focus .nav-file-title.is-active { box-shadow: inset 3px 0 0 var(--rs-accent); }
-body.theme-dark.reading-studio-preset-prism-focus .metadata-container { border-inline-start: 3px solid var(--rs-accent); }
-body.theme-dark.reading-studio-preset-prism-focus .markdown-rendered h1,
-body.theme-dark.reading-studio-preset-prism-focus .markdown-rendered h2 { border-block-end: 1px solid var(--rs-border); padding-block-end: .2em; }
-body.theme-dark.reading-studio-preset-prism-focus.reading-studio-mermaid .mermaid .node rect { rx: 4px; ry: 4px; }
+body.theme-dark.morrow-preset-prism-focus .nav-file-title.is-active { box-shadow: inset 3px 0 0 var(--rs-accent); }
+body.theme-dark.morrow-preset-prism-focus .metadata-container { border-inline-start: 3px solid var(--rs-accent); }
+body.theme-dark.morrow-preset-prism-focus .markdown-rendered h1,
+body.theme-dark.morrow-preset-prism-focus .markdown-rendered h2 { border-block-end: 1px solid var(--rs-border); padding-block-end: .2em; }
+body.theme-dark.morrow-preset-prism-focus.morrow-mermaid .mermaid .node rect { rx: 4px; ry: 4px; }
 
 /* Accent choices remain independent of the pack. The native accent is the
    preset default for Soft Mist (violet) and Prism Focus (mint). */
-body.theme-dark.reading-studio-active.reading-studio-accent-violet {
+body.theme-dark.morrow-active.morrow-accent-violet {
   --rs-accent: #a797f4;
   --rs-link: #b5a9fa;
   --rs-nav-text: #c6bafa;
   --rs-nav-active: #3b3353;
   --rs-mermaid-stroke: #b5a9fa;
 }
-body.theme-dark.reading-studio-active.reading-studio-accent-mint {
+body.theme-dark.morrow-active.morrow-accent-mint {
   --rs-accent: #79c5ad;
   --rs-link: #8bd1b9;
   --rs-nav-text: #a7ddc9;
   --rs-nav-active: #28483f;
   --rs-mermaid-stroke: #8bd1b9;
 }
-body.theme-dark.reading-studio-preset-soft-mist.reading-studio-accent-blue,
-body.theme-dark.reading-studio-preset-prism-focus.reading-studio-accent-blue {
+body.theme-dark.morrow-preset-soft-mist.morrow-accent-blue,
+body.theme-dark.morrow-preset-prism-focus.morrow-accent-blue {
   --rs-accent: #73aef0;
   --rs-link: #83baff;
   --rs-nav-text: #a9cbf3;
   --rs-nav-active: #2c4058;
   --rs-mermaid-stroke: #83baff;
 }
-body.theme-dark.reading-studio-preset-soft-mist.reading-studio-accent-violet {
+body.theme-dark.morrow-preset-soft-mist.morrow-accent-violet {
   --rs-accent: #c2a8eb;
   --rs-link: #dcc4fc;
   --rs-nav-text: #e9dcff;
   --rs-nav-active: #3a4d6a;
   --rs-mermaid-stroke: #cbb2f0;
 }
-body.theme-dark.reading-studio-preset-prism-focus.reading-studio-accent-mint {
+body.theme-dark.morrow-preset-prism-focus.morrow-accent-mint {
   --rs-accent: #79bfca;
   --rs-link: #9ed7dd;
   --rs-nav-text: #d5fbfa;
@@ -514,7 +514,7 @@ body.theme-dark.reading-studio-preset-prism-focus.reading-studio-accent-mint {
   --rs-mermaid-stroke: #94d5dd;
 }
 @media (max-width: 700px) {
-  body.theme-dark.reading-studio-active { --file-margins-x: 18px; }
+  body.theme-dark.morrow-active { --file-margins-x: 18px; }
   body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
   body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content { margin: 2px; }
 }

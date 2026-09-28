@@ -1,37 +1,37 @@
 import type { StudioSettings } from './state.ts';
 
 const OWNED_CLASSES = [
-  'reading-studio-active',
-  'reading-studio-no-lines',
-  'reading-studio-hide-properties',
-  'reading-studio-mermaid',
-  'reading-studio-wide',
-  'reading-studio-accent-blue',
-  'reading-studio-accent-violet',
-  'reading-studio-accent-mint',
-  'reading-studio-preset-deep-reading',
-  'reading-studio-preset-cupertino-night',
-  'reading-studio-preset-minimal-graphite',
-  'reading-studio-preset-soft-mist',
-  'reading-studio-preset-prism-focus',
+  'morrow-active',
+  'morrow-no-lines',
+  'morrow-hide-properties',
+  'morrow-mermaid',
+  'morrow-wide',
+  'morrow-accent-blue',
+  'morrow-accent-violet',
+  'morrow-accent-mint',
+  'morrow-preset-deep-reading',
+  'morrow-preset-cupertino-night',
+  'morrow-preset-minimal-graphite',
+  'morrow-preset-soft-mist',
+  'morrow-preset-prism-focus',
 ];
 
 export function applyAppearance(body: HTMLElement, settings: StudioSettings | null): void {
   body.classList.remove(...OWNED_CLASSES);
   if (!settings) return;
-  body.classList.add('reading-studio-active', `reading-studio-preset-${settings.preset}`, `reading-studio-accent-${settings.accent}`);
-  if (!settings.lines) body.classList.add('reading-studio-no-lines');
-  if (!settings.properties) body.classList.add('reading-studio-hide-properties');
-  if (settings.diagram) body.classList.add('reading-studio-mermaid');
-  if (settings.wide) body.classList.add('reading-studio-wide');
+  body.classList.add('morrow-active', `morrow-preset-${settings.preset}`, `morrow-accent-${settings.accent}`);
+  if (!settings.lines) body.classList.add('morrow-no-lines');
+  if (!settings.properties) body.classList.add('morrow-hide-properties');
+  if (settings.diagram) body.classList.add('morrow-mermaid');
+  if (settings.wide) body.classList.add('morrow-wide');
 }
 
 export function readPrerequisiteError(
   body: HTMLElement,
   style: Pick<CSSStyleDeclaration, 'getPropertyValue'>,
 ): string | null {
-  if (style.getPropertyValue('--reading-studio-theme-active').trim() !== 'ready') {
-    return '请先在 Obsidian「外观 → 主题」中启用 Reading Studio 主题';
+  if (style.getPropertyValue('--morrow-theme-active').trim() !== 'ready') {
+    return '请先在 Obsidian「外观 → 主题」中启用 Morrow 主题';
   }
   if (!body.classList.contains('theme-dark')) {
     return '请在 Obsidian「外观 → 基础配色」中选择深色模式';

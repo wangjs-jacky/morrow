@@ -1,7 +1,7 @@
 {
-  "name": "Reading Studio",
-  "version": "0.2.1",
+  "name": "Morrow",
+  "version": "0.3.0",
   "minAppVersion": "1.8.0",
   "author": "Jacky",
-  "authorUrl": "https://github.com/wangjs-jacky/obsidian-reading-studio"
+  "authorUrl": "https://github.com/wangjs-jacky/morrow"
 }
