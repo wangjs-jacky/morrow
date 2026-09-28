@@ -10,14 +10,28 @@
 
 ## 安装
 
-从 [Releases](https://github.com/wangjs-jacky/obsidian-reading-studio/releases) 下载同版本的主题包和插件包，解压后把文件夹放进当前仓库的 `.obsidian` 目录：
+在 Mac 的「终端」粘贴这一条命令，然后在弹出的窗口中选择你的 **Obsidian 仓库文件夹**（不是 `.obsidian` 文件夹）：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/obsidian-reading-studio/main/scripts/install.sh | bash
+```
+
+脚本会下载并校验 v0.2.1 主题包与插件包，备份原设置，再安装并启用主题、插件、深色模式、行号和属性显示。它只会停用旧的 `cupertino-reading`、`cupertino-mermaid` 两个样式片段；其他片段、设置及插件已保存的风格会保留。**安装后重启 Obsidian**；如果是首次使用第三方插件，Obsidian 仍可能要求你确认信任仓库。备份位置会在终端显示。
+
+通过 SSH 或没有图形界面的终端安装时，把仓库路径作为参数传入：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/obsidian-reading-studio/main/scripts/install.sh | bash -s -- "/你的路径/Obsidian仓库"
+```
+
+也可以从 [Releases](https://github.com/wangjs-jacky/obsidian-reading-studio/releases) 手动下载同版本的两个 ZIP，解压后放进当前仓库的 `.obsidian` 目录：
 
 ```text
 你的仓库/.obsidian/themes/Reading Studio/{manifest.json,theme.css}
 你的仓库/.obsidian/plugins/reading-studio-controls/{manifest.json,main.js,styles.css}
 ```
 
-在 Obsidian「设置 → 外观」中选择 **Reading Studio**，并把基础配色设为**深色**。在「设置 → 编辑器」中开启**显示行号**，把**文档中的属性**设为**可见**。最后在「设置 → 第三方插件」中启用 **Reading Studio Controls**。点击左侧调色盘图标，或从命令面板打开「Reading Studio Controls: 打开外观预览」。第一次启用第三方插件时，Obsidian 可能要求信任当前仓库。
+手动安装时，在 Obsidian「设置 → 外观」中选择 **Reading Studio**，并把基础配色设为**深色**。在「设置 → 编辑器」中开启**显示行号**，把**文档中的属性**设为**可见**。最后在「设置 → 第三方插件」中启用 **Reading Studio Controls**。点击左侧调色盘图标，或从命令面板打开「Reading Studio Controls: 打开外观预览」。第一次启用第三方插件时，Obsidian 可能要求信任当前仓库。
 
 打开设置界面后，先选择风格包，再点「自定义细节」试调。预览会即时变化，真实笔记只在点「应用」后切换。设置保存在插件数据中，重启后恢复；「撤销」恢复上一次应用前的完整风格和选项。「恢复默认」只重置**当前风格**尚未应用的草稿。
 
