@@ -77,6 +77,7 @@ test('apply persists exact options; reload and Undo restore the previous state',
 });
 
 test('five packs expose distinct Chinese choices and the required default options', () => {
+  assert.equal(new Set(PRESETS.map(pack => pack.label)).size, PRESETS.length);
   assert.deepEqual(PRESETS.map(pack => pack.id), [
     'deep-reading', 'cupertino-night', 'minimal-graphite', 'soft-mist', 'prism-focus',
   ]);
@@ -84,7 +85,7 @@ test('five packs expose distinct Chinese choices and the required default option
     ['blue', false], ['blue', false], ['blue', true], ['violet', false], ['mint', true],
   ]);
   for (const pack of PRESETS) {
-    assert.match(pack.label, /[\u4e00-\u9fff]/);
+    assert.match(pack.label, /^[\u4e00-\u9fff]{4}$/);
     assert.match(pack.description, /[\u4e00-\u9fff]/);
     assert.deepEqual(
       [pack.defaults.preset, pack.defaults.lines, pack.defaults.properties, pack.defaults.diagram],
@@ -146,11 +147,11 @@ test('cross-pack Apply, reload, and Undo preserve complete configurations and re
   const studio = new StudioController(adapter, null);
   studio.selectPreset('cupertino-night');
   studio.setOption('properties', false);
-  assert.deepEqual(await studio.apply(), { ok: true, message: '已应用 Cupertino 夜色' });
+  assert.deepEqual(await studio.apply(), { ok: true, message: '已应用 浮岛夜蓝' });
   const first = structuredClone(saved.applied);
   studio.selectPreset('prism-focus');
   studio.setOption('lines', false);
-  assert.deepEqual(await studio.apply(), { ok: true, message: '已应用 棱镜聚焦' });
+  assert.deepEqual(await studio.apply(), { ok: true, message: '已应用 青蓝聚焦' });
   assert.deepEqual(saved.previous, first);
   assert.deepEqual(saved.applied, {
     preset: 'prism-focus', lines: false, properties: true, diagram: true, wide: true, accent: 'mint',
@@ -186,7 +187,7 @@ test('Apply saves the draft checked at click time when the user switches packs d
   studio.selectPreset('prism-focus');
   studio.setOption('properties', false);
   releaseCheck();
-  assert.deepEqual(await applying, { ok: true, message: '已应用 柔雾夜读' });
+  assert.deepEqual(await applying, { ok: true, message: '已应用 柔雾玻璃' });
   assert.deepEqual(saved.applied, checked);
   assert.deepEqual(studio.applied, checked);
   assert.deepEqual(adapter.calls.renders.at(-1), checked);

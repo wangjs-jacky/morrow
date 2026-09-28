@@ -476,7 +476,7 @@ body.theme-dark.morrow-preset-prism-focus .markdown-rendered h2 { border-block-e
 body.theme-dark.morrow-preset-prism-focus.morrow-mermaid .mermaid .node rect { rx: 4px; ry: 4px; }
 
 /* Accent choices remain independent of the pack. The native accent is the
-   preset default for Soft Mist (violet) and Prism Focus (mint). */
+   preset default for Frosted Mist (violet) and Cyan Focus (mint). */
 body.theme-dark.morrow-active.morrow-accent-violet {
   --rs-accent: #a797f4;
   --rs-link: #b5a9fa;

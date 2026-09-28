@@ -12,32 +12,32 @@ type PackDefaults = {
 export const PRESETS = [
   {
     id: 'deep-reading',
-    label: '深色阅读',
-    description: '沉稳的深色页面，适合长时间阅读。',
+    label: '静夜阅读',
+    description: '克制的深灰页面，适合长时间阅读。',
     defaults: { preset: 'deep-reading', lines: true, properties: true, diagram: true, wide: false, accent: 'blue' },
   },
   {
     id: 'cupertino-night',
-    label: 'Cupertino 夜色',
-    description: '圆角与柔和侧栏，保持清晰的阅读焦点。',
+    label: '浮岛夜蓝',
+    description: '悬浮侧栏与圆角标签，带来轻盈的蓝色夜景。',
     defaults: { preset: 'cupertino-night', lines: true, properties: true, diagram: true, wide: false, accent: 'blue' },
   },
   {
     id: 'minimal-graphite',
-    label: '极简石墨',
-    description: '中性色和开阔的扁平布局。',
+    label: '石墨极简',
+    description: '灰黑中性色、直角线条与开阔正文。',
     defaults: { preset: 'minimal-graphite', lines: true, properties: true, diagram: true, wide: true, accent: 'blue' },
   },
   {
     id: 'soft-mist',
-    label: '柔雾夜读',
-    description: '雾面玻璃侧栏、轻盈卡片和舒适的正文宽度。',
+    label: '柔雾玻璃',
+    description: '半透明雾面玻璃与柔和的紫色高光。',
     defaults: { preset: 'soft-mist', lines: true, properties: true, diagram: true, wide: false, accent: 'violet' },
   },
   {
     id: 'prism-focus',
-    label: '棱镜聚焦',
-    description: '鲜明的对比和醒目的重点。',
+    label: '青蓝聚焦',
+    description: '冷青重点色与清晰的高对比结构。',
     defaults: { preset: 'prism-focus', lines: true, properties: true, diagram: true, wide: true, accent: 'mint' },
   },
 ] as const satisfies readonly { id: string; label: string; description: string; defaults: PackDefaults }[];
