@@ -16,7 +16,9 @@
 curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/obsidian-reading-studio/main/scripts/install.sh | bash
 ```
 
-脚本会从 Obsidian 已登记的仓库中自动识别当前打开的仓库；如果有多个候选且无法确定当前仓库，会显示仓库名称供你选编号。只有找不到登记信息时才弹出文件夹选择窗口。随后它会下载并校验 v0.2.1 主题包与插件包，备份原设置，再安装并启用主题、插件、深色模式、行号和属性显示。它只会停用旧的 `cupertino-reading`、`cupertino-mermaid` 两个样式片段；其他片段、设置及插件已保存的风格会保留。**安装后重启 Obsidian**；如果是首次使用第三方插件，Obsidian 仍可能要求你确认信任仓库。备份位置会在终端显示。
+Obsidian 仓库（vault）只是本地笔记文件夹，**不需要 Git 或 GitHub**。安装器读取 Obsidian 在这台 Mac 上登记的仓库路径，确认其中存在 `.obsidian` 配置文件夹；如果只有一个有效仓库，或运行中的 Obsidian 仅标记了一个打开的仓库，就自动选中它。其他多仓库情况会显示名称供你选编号；找不到登记信息时才弹出文件夹选择窗口。
+
+脚本会下载并校验 v0.2.1 主题包与插件包，备份原设置，再安装并启用主题、插件、深色模式、行号和属性显示。它只会停用旧的 `cupertino-reading`、`cupertino-mermaid` 两个样式片段；其他片段、设置及插件已保存的风格会保留。**安装后重启 Obsidian**；如果是首次使用第三方插件，Obsidian 仍可能要求你确认信任仓库。备份位置会在终端显示。
 
 通过 SSH 的交互式终端运行同一条命令也会自动识别仓库。只有想指定其他仓库时，才需要把路径作为参数传入：
 
@@ -53,7 +55,7 @@ npm run package:release
 
 原始 [HTML 交互稿](design/prototype.html)、[V1 产品设计](docs/superpowers/specs/2026-09-28-obsidian-reading-studio-design.md)、[V2 风格包设计](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md) 和 [风格来源与扩展说明](docs/theme-inspiration.md) 已随仓库保存。`design/packs/` 内的五张图来自隔离 Obsidian 仓库，`design/preview-v2.png` 与 `design/preview.png` 留作旧版对照。
 
-当前支持桌面版 Obsidian 1.8.0 及以上；已在 macOS 的 Obsidian 1.13.7 验证 0.2.1 的主题切换、属性、行号与 Mermaid。尚未验证移动端，也未提交 Obsidian 官方主题或插件目录。主题 CSS 为本项目独立实现，不包含参考项目的源码。
+当前支持桌面版 Obsidian 1.8.0 及以上；已在 macOS 的 Obsidian 1.13.7 验证 0.2.1 的主题切换、属性、行号与 Mermaid。一键安装器还在 macOS 14.1.1 的 MacBook Air 上，针对已有 17 个第三方插件的仓库验证了安装、备份和重复执行；安装后的文件与设置已核对，Air 上重启后的界面效果仍需确认。尚未验证移动端，也未提交 Obsidian 官方主题或插件目录。主题 CSS 为本项目独立实现，不包含参考项目的源码。
 
 ## 许可证
 

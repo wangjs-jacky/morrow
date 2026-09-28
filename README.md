@@ -18,7 +18,9 @@ On macOS, paste this command into Terminal. You do **not** need to find or type 
 curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/obsidian-reading-studio/main/scripts/install.sh | bash
 ```
 
-The installer uses Obsidian's registered vault list to identify the currently open vault. If several vaults are registered and there is no clear current vault, choose one by number; only if none is registered does it open a folder picker. It then downloads and verifies the v0.2.1 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
+An Obsidian vault is an ordinary local notes folder; **Git and GitHub are not required**. The installer reads Obsidian's registered vault paths and checks that the chosen folder contains `.obsidian`. It selects the sole valid vault, or the sole vault marked open while Obsidian is running. If several candidates remain, choose one by number; only if none is registered does it open a folder picker.
+
+The installer downloads and verifies the v0.2.1 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
 
 The same command also auto-detects the vault in an interactive SSH terminal. To target a different vault explicitly, pass its path:
 
@@ -53,7 +55,7 @@ To rerun the interaction test, start `python3 -m http.server 4187` in the projec
 
 The [HTML interaction draft](design/prototype.html), [V1 product design](docs/superpowers/specs/2026-09-28-obsidian-reading-studio-design.md), [V2 pack design](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md), and [inspiration and extension guide](docs/theme-inspiration.md) are preserved. The five images in `design/packs/` show the polished styles applied in an isolated Obsidian vault; `design/preview-v2.png` and `design/preview.png` remain as earlier references.
 
-Desktop Obsidian 1.8.0 or newer is required. Mobile support and submission to Obsidian's community directories have not been verified. The theme CSS was written for this project and does not contain source code from the inspiration projects.
+Desktop Obsidian 1.8.0 or newer is required. The one-command installer was also checked on a MacBook Air running macOS 14.1.1 with 17 existing community plugins: installation, backups, and repeat runs passed, and installed files and settings were verified. Its appearance after restarting Obsidian on that Air still needs visual confirmation. Mobile support and submission to Obsidian's community directories have not been verified. The theme CSS was written for this project and does not contain source code from the inspiration projects.
 
 ## License
 
