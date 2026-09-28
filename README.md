@@ -4,7 +4,11 @@
 
 Reading Studio is a dark reading theme for desktop Obsidian with a companion visual-controls plugin. A single Obsidian-like preview shows the sidebar, note body, properties, line numbers, and Mermaid. Select a style pack and adjust its options as a draft, then click **Apply** (the UI is in Chinese) to use it in your vault. **Undo** restores the previous applied configuration.
 
+Reading Studio is an independent theme and does not load Cupertino's theme files. Cupertino Night recreates the floating sidebar, grouped tools, and pill-shaped tabs with project-owned CSS. All five packs share this desktop shell while retaining their own colors and reading details.
+
 ![Cupertino Night in the native Obsidian Reading Studio](design/packs/cupertino-night.png)
+
+This native screenshot is from v0.2.1. The current development version has revised tabs and sidebar chrome; the screenshot will be refreshed before release.
 
 [Compare all five native previews](design/packs/): [Deep Reading](design/packs/deep-reading.png) · [Cupertino Night](design/packs/cupertino-night.png) · [Minimal Graphite](design/packs/minimal-graphite.png) · [Soft Mist](design/packs/soft-mist.png) · [Prism Focus](design/packs/prism-focus.png). [See Prism Focus in a real note](design/preview-v2-prism.png).
 

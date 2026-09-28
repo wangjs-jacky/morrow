@@ -20,6 +20,13 @@ body.theme-dark {
   --rs-nav-file-text: #aad0fa;
   --rs-nav-file-active: #2d4057;
   --rs-nav-radius: 7px;
+  --rs-shell-radius: 14px;
+  --rs-tab-radius: 999px;
+  --rs-toolbar-radius: 999px;
+  --rs-toolbar: #252d37;
+  --rs-tab-surface: #242c37;
+  --rs-tab-border: #3a4655;
+  --rs-shell-shadow: 0 10px 28px #090e1730;
   --rs-metadata: #222a34;
   --rs-metadata-border: #35414e;
   --rs-metadata-hover: #2d3945;
@@ -72,6 +79,86 @@ body.theme-dark {
 }
 
 body.theme-dark .workspace-leaf-content[data-type="file-explorer"] .nav-files-container { padding: 12px 9px; }
+
+/* A quiet desktop shell shared by all five packs. Reading Studio draws its
+   own chrome so selecting this theme does not depend on another theme. */
+body.theme-dark:not(.is-mobile) {
+  --titlebar-background: var(--rs-app);
+  --titlebar-background-focused: var(--rs-app);
+}
+body.theme-dark:not(.is-mobile) .workspace,
+body.theme-dark:not(.is-mobile) .titlebar,
+body.theme-dark:not(.is-mobile) .workspace-ribbon.mod-left {
+  background-color: var(--rs-app);
+}
+body.theme-dark:not(.is-mobile) .workspace-ribbon.mod-left { border-right: 0; }
+body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split,
+body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split {
+  background-color: var(--rs-app);
+}
+body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
+body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content {
+  margin: 6px;
+  border: 1px solid var(--rs-border);
+  border-radius: var(--rs-shell-radius);
+  overflow: hidden;
+  box-shadow: var(--rs-shell-shadow);
+}
+body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .nav-header .nav-buttons-container,
+body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .nav-header .nav-buttons-container {
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 3px;
+  gap: 1px;
+  border: 1px solid var(--rs-tab-border);
+  border-radius: var(--rs-toolbar-radius);
+  background: var(--rs-toolbar);
+}
+body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .nav-action-button,
+body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .nav-action-button {
+  border-radius: var(--rs-toolbar-radius);
+}
+body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .nav-action-button:hover,
+body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .nav-action-button:hover {
+  background: var(--rs-hover);
+}
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tab-header-container {
+  border-bottom: 0;
+  background-color: var(--rs-app);
+}
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container-inner {
+  align-items: center;
+  gap: 6px;
+  padding-block: 5px;
+}
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header {
+  align-self: center;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: var(--rs-tab-radius);
+  background: transparent;
+  box-shadow: none;
+}
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
+  border-color: var(--rs-tab-border);
+  background: var(--rs-tab-surface);
+  box-shadow: 0 2px 8px #090e1724;
+}
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner {
+  border-radius: inherit;
+}
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner::after {
+  display: none;
+}
+body.theme-dark:not(.is-mobile) .mod-root .workspace-tab-container {
+  margin: 0 6px 6px;
+  border: 1px solid var(--rs-border);
+  border-radius: var(--rs-shell-radius);
+  overflow: hidden;
+  background: var(--rs-note);
+  box-shadow: var(--rs-shell-shadow);
+}
 body.theme-dark .nav-folder-title,
 body.theme-dark .nav-file-title { border-radius: var(--rs-nav-radius); }
 body.theme-dark .nav-file-title.is-active { color: var(--rs-nav-file-text); background: var(--rs-nav-file-active); }
@@ -141,6 +228,11 @@ body.theme-dark.reading-studio-preset-cupertino-night {
   --rs-nav-file-text: #d1e5ff;
   --rs-nav-file-active: #385273;
   --rs-nav-radius: 12px;
+  --rs-shell-radius: 18px;
+  --rs-toolbar: #2b364b;
+  --rs-tab-surface: #2a364b;
+  --rs-tab-border: #485a74;
+  --rs-shell-shadow: 0 12px 30px #0b142640;
   --rs-metadata: #273248;
   --rs-metadata-border: #42536c;
   --rs-metadata-hover: #34435e;
@@ -156,16 +248,6 @@ body.theme-dark.reading-studio-preset-cupertino-night {
   --rs-mermaid-note-text: #e8f6f8;
   --rs-mermaid-radius: 16px;
   --line-height-normal: 1.76;
-}
-body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-left-split,
-body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-right-split {
-  background: var(--rs-app);
-}
-body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-left-split .workspace-leaf-content,
-body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-right-split .workspace-leaf-content {
-  border-radius: 16px;
-  margin: 6px;
-  overflow: hidden;
 }
 body.theme-dark.reading-studio-preset-cupertino-night .metadata-property { border-radius: 10px; }
 body.theme-dark.reading-studio-preset-cupertino-night.reading-studio-mermaid .mermaid .node rect { rx: 13px; ry: 13px; }
@@ -188,6 +270,13 @@ body.theme-dark.reading-studio-preset-minimal-graphite {
   --rs-nav-file-text: #f1f1f1;
   --rs-nav-file-active: #383838;
   --rs-nav-radius: 0;
+  --rs-shell-radius: 5px;
+  --rs-tab-radius: 6px;
+  --rs-toolbar-radius: 6px;
+  --rs-toolbar: #292929;
+  --rs-tab-surface: #292929;
+  --rs-tab-border: #484848;
+  --rs-shell-shadow: none;
   --rs-metadata: #292929;
   --rs-metadata-border: #484848;
   --rs-metadata-hover: #343434;
@@ -229,6 +318,10 @@ body.theme-dark.reading-studio-preset-soft-mist {
   --rs-nav-file-text: #efdafa;
   --rs-nav-file-active: #4a3a64;
   --rs-nav-radius: 11px;
+  --rs-shell-radius: 16px;
+  --rs-toolbar: #342e45;
+  --rs-tab-surface: #342e45;
+  --rs-tab-border: #625474;
   --rs-metadata: #332d45;
   --rs-metadata-border: #5b4f71;
   --rs-metadata-hover: #433957;
@@ -269,6 +362,12 @@ body.theme-dark.reading-studio-preset-prism-focus {
   --rs-nav-file-text: #d5fbfa;
   --rs-nav-file-active: #24536a;
   --rs-nav-radius: 5px;
+  --rs-shell-radius: 10px;
+  --rs-tab-radius: 10px;
+  --rs-toolbar-radius: 10px;
+  --rs-toolbar: #22354a;
+  --rs-tab-surface: #20334a;
+  --rs-tab-border: #4a6a81;
   --rs-metadata: #21334a;
   --rs-metadata-border: #4b7284;
   --rs-metadata-hover: #2b455d;
@@ -331,6 +430,6 @@ body.theme-dark.reading-studio-preset-prism-focus.reading-studio-accent-mint {
 }
 @media (max-width: 700px) {
   body.theme-dark.reading-studio-active { --file-margins-x: 18px; }
-  body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-left-split .workspace-leaf-content,
-  body.theme-dark.reading-studio-preset-cupertino-night .workspace-split.mod-right-split .workspace-leaf-content { margin: 0; border-radius: 0; }
+  body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
+  body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content { margin: 2px; }
 }

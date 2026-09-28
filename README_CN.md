@@ -2,7 +2,11 @@
 
 一个面向 Obsidian 桌面版的深色阅读主题，附带可视化设置插件。在一张仿 Obsidian 的预览中查看侧栏、正文、笔记属性、行号与 Mermaid，选择风格并调整选项后点「应用」即可生效；「撤销」可恢复上一次配置。
 
+Reading Studio 是独立主题，不会加载 Cupertino 的主题文件。「Cupertino 夜色」以 Cupertino 的浮动侧栏、分组工具按钮和胶囊式顶部标签为视觉参考，由本项目自己的 CSS 实现；五套风格共用这一桌面布局，各自保留配色与正文细节。
+
 ![原生 Obsidian 中的 Cupertino 夜色](design/packs/cupertino-night.png)
+
+上图是 v0.2.1 的原生截图；当前开发版已重做顶部标签与侧栏结构，发布前会更新截图。
 
 [对比五款原生预览](design/packs/)：[深色阅读](design/packs/deep-reading.png) · [Cupertino 夜色](design/packs/cupertino-night.png) · [极简石墨](design/packs/minimal-graphite.png) · [柔雾夜读](design/packs/soft-mist.png) · [棱镜聚焦](design/packs/prism-focus.png)。[查看真实笔记中的棱镜聚焦](design/preview-v2-prism.png)。
 

@@ -15,6 +15,8 @@ Reading Studio 的预设是本项目独立编写的 CSS 变量和局部规则，
 
 Obsidian 同时只启用一份主题。直接把多个上游 `theme.css` 拼在一起，会造成全局选择器冲突、升级耦合和署名问题。Reading Studio 用一份基础主题定义通用排版、文件树、属性区与 Mermaid 组件；每个风格包用 `reading-studio-preset-<id>` 的 body 类覆盖 CSS 变量和少量独特规则。插件的预览也用同一预设 ID 选择相应的视觉令牌。行号、属性、Mermaid、宽度和强调色作为正交开关继续叠加。
 
+桌面版的侧栏容器、分组工具按钮和胶囊式顶部标签由本项目的共享 CSS 独立绘制。它们不会随 Cupertino 主题自动更新；切换到 Reading Studio 时，原 Cupertino 主题不会同时运行。
+
 新增风格的最小步骤：在 `src/presets.ts` 注册 ID、文案与默认选项；在 `theme/theme.css` 定义真实 Obsidian 的风格变量/局部规则；在 `plugin/styles.css` 定义对应预览令牌；最后补充状态、界面与真实 Obsidian 验收。新包应同时检查侧栏、正文、属性区、Mermaid 和可读性，不以只改一个颜色视为新主题。优先使用 [Obsidian 官方 CSS 变量](https://docs.obsidian.md/Reference/CSS%20variables/About%20styling)。
 
 V2 先提供深色包。Obsidian [公开插件 API](https://github.com/obsidianmd/obsidian-api/blob/master/obsidian.d.ts) 提供深浅色状态读取，没有公开的基础配色切换接口；未来浅色包需要清楚处理此边界，不能只改预览却声称已经应用。
