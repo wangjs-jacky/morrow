@@ -53,7 +53,7 @@ npm run package:release
 
 要重跑交互测试，在项目根目录用一个终端运行 `python3 -m http.server 4187`，另一个终端运行 `ego-browser nodejs < tests/e2e.ego.mjs`。静态演示地址为 `http://127.0.0.1:4187/demo/`；浏览器测试验证的是与插件共用的交互代码，真实 Obsidian 渲染仍需使用隔离仓库验收。
 
-原始 [HTML 交互稿](design/prototype.html)、[V1 产品设计](docs/superpowers/specs/2026-09-28-morrow-design.md)、[V2 风格包设计](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md) 和 [风格来源与扩展说明](docs/theme-inspiration.md) 已随仓库保存。`design/packs/` 内的五张图来自隔离 Obsidian 仓库，`design/preview-v2.png` 与 `design/preview.png` 留作旧版对照。
+可编辑的 [HTML 交互稿](design/prototype.html)、[V1 产品设计](docs/superpowers/specs/2026-09-28-morrow-design.md)、[V2 风格包设计](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md) 和 [风格来源与扩展说明](docs/theme-inspiration.md) 已随仓库保存。
 
 当前支持桌面版 Obsidian 1.8.0 及以上。新版安装器在包含另外 17 个插件的临时仓库中通过了备份、预设保留和重复安装检查；这个版本的原生界面效果尚未视觉验收。尚未验证移动端，也未提交 Obsidian 官方主题或插件目录。主题 CSS 为本项目独立实现，不包含参考项目的源码。
 

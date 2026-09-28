@@ -53,7 +53,7 @@ npm run package:release
 
 To rerun the interaction test, start `python3 -m http.server 4187` in the project root, then run `ego-browser nodejs < tests/e2e.ego.mjs` in another terminal. The demo URL is `http://127.0.0.1:4187/demo/`. The browser test covers shared interaction code; native rendering is checked separately in the isolated vault.
 
-The [HTML interaction draft](design/prototype.html), [V1 product design](docs/superpowers/specs/2026-09-28-morrow-design.md), [V2 pack design](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md), and [inspiration and extension guide](docs/theme-inspiration.md) are preserved. The five images in `design/packs/` show the polished styles applied in an isolated Obsidian vault; `design/preview-v2.png` and `design/preview.png` remain as earlier references.
+The editable [HTML interaction draft](design/prototype.html), [V1 product design](docs/superpowers/specs/2026-09-28-morrow-design.md), [V2 pack design](docs/superpowers/specs/2026-09-28-theme-packs-v2-design.md), and [inspiration and extension guide](docs/theme-inspiration.md) are preserved.
 
 Desktop Obsidian 1.8.0 or newer is required. The Morrow installer has been checked against a temporary vault containing 17 other community plugins, including repeat installation and preservation of saved settings. Native appearance after restart has not been visually confirmed for this release. Mobile support and submission to Obsidian's community directories have not been verified. The theme CSS was written for this project and does not contain source code from the inspiration projects.
 
