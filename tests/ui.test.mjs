@@ -29,6 +29,8 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 0));
 
 test('one preview includes the promised surfaces and truthful editing mode', () => {
   const { root, cleanup } = setup();
+  assert.equal(root.querySelector('.rs-customizer').hidden, false);
+  assert.equal(root.querySelector('[data-action="customize"]').getAttribute('aria-expanded'), 'true');
   assert.match(root.textContent, /侧栏|文件/);
   assert.match(root.textContent, /笔记属性/);
   assert.match(root.textContent, /Mermaid/);
@@ -61,7 +63,6 @@ test('each preset switches the same draft preview and Apply label without saving
 
 test('customization changes preview only until Apply; Reset restores the draft', () => {
   const { root, studio, calls } = setup();
-  click(root, '[data-action="customize"]');
   click(root, '[data-action="toggle"][data-option="lines"]');
   click(root, '[data-action="accent"][data-value="mint"]');
   assert.equal(root.querySelector('[data-testid="preview"]').dataset.lines, 'false');
@@ -77,7 +78,6 @@ test('customization changes preview only until Apply; Reset restores the draft',
 test('Reset restores the selected pack defaults without changing its identity', () => {
   const { root, studio, cleanup } = setup();
   click(root, '[data-action="preset"][data-preset="soft-mist"]');
-  click(root, '[data-action="customize"]');
   click(root, '[data-action="toggle"][data-option="lines"]');
   click(root, '[data-action="accent"][data-value="mint"]');
   assert.equal(root.querySelector('[data-testid="preview"]').dataset.accent, 'mint');
@@ -85,6 +85,16 @@ test('Reset restores the selected pack defaults without changing its identity', 
   assert.deepEqual(studio.draft, PRESETS.find(preset => preset.id === 'soft-mist').defaults);
   assert.equal(root.querySelector('[data-testid="preview"]').dataset.preset, 'soft-mist');
   assert.equal(root.querySelector('[data-testid="preview"]').dataset.accent, 'violet');
+  cleanup();
+});
+
+test('customizer can be closed and reopened after starting expanded', () => {
+  const { root, cleanup } = setup();
+  click(root, '[data-action="close"]');
+  assert.equal(root.querySelector('.rs-customizer').hidden, true);
+  assert.equal(root.querySelector('[data-action="customize"]').getAttribute('aria-expanded'), 'false');
+  click(root, '[data-action="customize"]');
+  assert.equal(root.querySelector('.rs-customizer').hidden, false);
   cleanup();
 });
 

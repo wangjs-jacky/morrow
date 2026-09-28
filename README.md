@@ -6,7 +6,7 @@ Morrow is a dark reading theme for desktop Obsidian with a companion visual-cont
 
 Morrow is an independent theme and does not load Cupertino's theme files. Floating Blue recreates the floating sidebar, grouped tools, and pill-shaped tabs with project-owned CSS. All five packs share this desktop shell while retaining their own colors and reading details.
 
-Version 0.3.2 includes five dark packs: Quiet Night, Floating Blue, Graphite Minimal, Frosted Mist, and Cyan Focus. Their sidebar, body, properties, Mermaid, and control colors stay distinct. The preview now shows the whole diagram at standard desktop sizes, with larger note text and colors closer to the applied theme. Line numbers, property visibility, Mermaid styling, width, and accent remain independent controls. Light packs are not yet available. Preview content is fictional; the plugin does not read or upload your notes and has no runtime network dependency. Existing V1 Quiet Night settings continue to work.
+Version 0.3.3 includes five dark packs: Quiet Night, Floating Blue, Graphite Minimal, Frosted Mist, and Cyan Focus. Their sidebar, body, properties, Mermaid, and control colors stay distinct. The customization panel opens by default so all controls are visible immediately. The preview shows the whole diagram at standard desktop sizes, with larger note text and colors closer to the applied theme. Line numbers, property visibility, Mermaid styling, width, and accent remain independent controls. Light packs are not yet available. Preview content is fictional; the plugin does not read or upload your notes and has no runtime network dependency. Existing V1 Quiet Night settings continue to work.
 
 Frosted Mist uses frosted-glass surfaces on its sidebar, tabs, properties, and Mermaid cards while keeping the note background solid for legibility. Cyan Focus also uses a quieter cyan. Saved preset IDs and settings remain compatible.
 
@@ -20,7 +20,11 @@ curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/morrow/main/scripts/in
 
 An Obsidian vault is an ordinary local notes folder; **Git and GitHub are not required**. The installer reads Obsidian's registered vault paths and checks that the chosen folder contains `.obsidian`. It selects the sole valid vault, or the sole vault marked open while Obsidian is running. If several candidates remain, choose one by number; only if none is registered does it open a folder picker.
 
-The installer downloads and verifies the v0.3.2 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
+The installer downloads and verifies the v0.3.3 theme and plugin, backs up existing settings, and enables the theme, plugin, dark mode, line numbers, and visible properties. It disables only the old `cupertino-reading` and `cupertino-mermaid` snippets, preserving other snippets, settings, and saved plugin styles. **Restart Obsidian after installation.** Obsidian may still ask you to trust the vault when enabling community plugins for the first time. The backup location is printed in Terminal.
+
+## Update
+
+Until Morrow is listed in Obsidian's Community directory, rerun the same installer command to update both the theme and companion plugin. It detects the vault again, verifies the release archives, creates a backup, and preserves saved plugin settings. Restart Obsidian after updating. The current sideloaded ZIP installation does not receive Obsidian's built-in update notifications.
 
 The same command also auto-detects the vault in an interactive SSH terminal. To target a different vault explicitly, pass its path:
 

@@ -16,6 +16,7 @@ assert.equal(await page.url(), baseUrl);
 await page.evaluate(() => localStorage.removeItem('morrow-demo-v1'));
 await page.reload();
 assert.equal(await page.evaluate(() => document.querySelector('[data-testid="status"]')?.textContent), '尚未应用');
+assert.equal(await page.evaluate(() => document.querySelector('.rs-customizer')?.hidden), false);
 
 const presetIds = ['deep-reading', 'cupertino-night', 'minimal-graphite', 'soft-mist', 'prism-focus'];
 assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll('[data-action="preset"]')].map(button => button.dataset.preset)), presetIds);
@@ -54,7 +55,6 @@ assert.equal(new Set(surfaces.map(surface => surface.uiAccent)).size, 5, 'studio
 assert.equal(new Set(surfaces.map(surface => surface.selectedBorder)).size, 5, 'selected preset border should follow the active accent');
 
 await page.click('[data-action="preset"][data-preset="soft-mist"]');
-await page.click('[data-action="customize"]');
 await page.click('[data-action="toggle"][data-option="lines"]');
 await page.click('[data-action="toggle"][data-option="properties"]');
 await page.click('[data-action="toggle"][data-option="wide"]');
@@ -87,7 +87,6 @@ assert.deepEqual(await page.evaluate(() => {
 }), { preset: 'soft-mist', lines: 'false', properties: 'false', accent: 'mint' });
 
 await page.click('[data-action="preset"][data-preset="prism-focus"]');
-await page.click('[data-action="customize"]');
 await page.click('[data-action="toggle"][data-option="lines"]');
 await page.click('[data-action="reset"]');
 assert.deepEqual(await page.evaluate(() => {

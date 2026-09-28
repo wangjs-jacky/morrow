@@ -31,7 +31,7 @@ function previewMarkup(settings: StudioSettings): string {
 
 export function mountStudio(container: HTMLElement, controller: StudioController): () => void {
   container.classList.add('morrow');
-  let expanded = false;
+  let expanded = true;
   let message = '';
   let busy = false;
 
