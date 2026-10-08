@@ -1,4 +1,5 @@
 import { StudioController, type PersistedState, type StudioSettings } from './state.ts';
+import type { ColorMode, ColorModeActions } from './color-mode.ts';
 import { mountStudio } from './studio-ui.ts';
 
 const STORAGE_KEY = 'morrow-demo-v1';
@@ -6,30 +7,33 @@ const query = new URLSearchParams(window.location.search);
 const root = document.getElementById('app');
 if (!root) throw new Error('Missing demo root');
 
-const modeSelect = document.querySelector<HTMLSelectElement>('#demo-mode');
 const systemMode = window.matchMedia('(prefers-color-scheme: dark)');
-let mode = query.get('mode');
-if (mode !== 'light' && mode !== 'dark') {
-  try { mode = localStorage.getItem('morrow-demo-mode'); } catch { /* Use system mode. */ }
+let initialMode = query.get('mode');
+if (initialMode !== 'light' && initialMode !== 'dark') {
+  try { initialMode = localStorage.getItem('morrow-demo-mode'); } catch { /* Use system. */ }
 }
-if (mode !== 'light' && mode !== 'dark') mode = 'system';
+let mode: ColorMode = initialMode === 'light' || initialMode === 'dark' ? initialMode : 'system';
+const listeners = new Set<() => void>();
 const applyMode = () => {
   const dark = mode === 'dark' || (mode === 'system' && systemMode.matches);
   document.body.classList.toggle('theme-dark', dark);
   document.body.classList.toggle('theme-light', !dark);
-  if (modeSelect) modeSelect.value = mode!;
+  listeners.forEach(listener => listener());
+};
+const colorMode: ColorModeActions = {
+  get: () => mode,
+  set: value => {
+    localStorage.setItem('morrow-demo-mode', value);
+    mode = value;
+    const url = new URL(location.href);
+    url.searchParams.delete('mode');
+    history.replaceState(null, '', url);
+    applyMode();
+  },
+  subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
 };
 applyMode();
 systemMode.addEventListener('change', applyMode);
-modeSelect?.addEventListener('change', () => {
-  mode = modeSelect.value;
-  try { localStorage.setItem('morrow-demo-mode', mode); } catch { /* Keep this session usable. */ }
-  // Drop the initial query override so refresh preserves a subsequent selection.
-  const url = new URL(location.href);
-  url.searchParams.delete('mode');
-  history.replaceState(null, '', url);
-  applyMode();
-});
 
 let saved: unknown = null;
 try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null'); } catch { saved = null; }
@@ -59,4 +63,4 @@ mountStudio(root, controller, query.get('mock-update') === '1' ? {
     command: 'curl -fsSL https://raw.githubusercontent.com/wangjs-jacky/morrow/v9.9.9/scripts/install.sh | bash',
   }),
   copy: command => navigator.clipboard.writeText(command),
-} : undefined);
+} : undefined, colorMode);

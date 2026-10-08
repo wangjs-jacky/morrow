@@ -1,3 +1,4 @@
+import type { ColorModeActions, ColorMode } from './color-mode.ts';
 import type { StudioController, StudioSettings } from './state.ts';
 import { PRESETS, getPreset } from './presets.ts';
 import type { UpdateActions, UpdateOffer } from './update.ts';
@@ -30,7 +31,7 @@ function previewMarkup(settings: StudioSettings): string {
   </div>`;
 }
 
-export function mountStudio(container: HTMLElement, controller: StudioController, updateActions?: UpdateActions): () => void {
+export function mountStudio(container: HTMLElement, controller: StudioController, updateActions?: UpdateActions, colorMode?: ColorModeActions): () => void {
   container.classList.add('morrow');
   let expanded = true;
   let message = '';
@@ -45,7 +46,7 @@ export function mountStudio(container: HTMLElement, controller: StudioController
     container.dataset.accent = settings.accent;
     const applied = controller.applied;
     const dirty = applied !== null && JSON.stringify(applied) !== JSON.stringify(settings);
-    container.innerHTML = `<div class="rs-shell"><header class="rs-heading"><div><span class="rs-eyebrow">ONE PREVIEW. YOUR STYLE.</span><h1>一张预览，选好你的主题。</h1><p>正文、侧栏、笔记属性和流程图，都在这张预览里。</p></div><span class="rs-step">选主题 → 调细节 → 应用</span></header>
+    container.innerHTML = `<div class="rs-shell"><header class="rs-heading"><div><span class="rs-eyebrow">ONE PREVIEW. YOUR STYLE.</span><h1>一张预览，选好你的主题。</h1><p>正文、侧栏、笔记属性和流程图，都在这张预览里。</p></div><div class="rs-heading-controls">${colorMode ? `<div class="rs-mode" role="group" aria-label="基础配色">${(['light', 'dark', 'system'] as const).map(mode => `<button type="button" data-action="mode" data-mode="${mode}" aria-pressed="${colorMode.get() === mode}" ${busy ? 'disabled' : ''}>${{ light: '浅色', dark: '深色', system: '跟随系统' }[mode]}</button>`).join('')}</div><span class="rs-mode-hint">配色立即生效 · 自动保存</span>` : '<span class="rs-step">选主题 → 调细节 → 应用</span>'}</div></header>
       ${updateOffer ? `<div class="rs-update" aria-live="polite"><div><strong data-update-version></strong><p>${copyState === 'copied' ? '命令已复制。请粘贴到 Mac 终端执行，完成后重启 Obsidian。' : copyState === 'manual' ? '自动复制失败，请手动复制下面的命令，粘贴到 Mac 终端执行。' : '复制更新命令，粘贴到 Mac 终端执行，完成后重启 Obsidian。'}</p>${copyState === 'manual' ? '<textarea class="rs-update-command" aria-label="更新命令" readonly></textarea>' : ''}</div><button type="button" data-action="copy-update">复制更新命令</button></div>` : ''}
       <div class="rs-stage">${previewMarkup(settings)}
         <aside class="rs-customizer" ${expanded ? '' : 'hidden'}><div class="rs-custom-head"><div><h2>自定义这个主题</h2><p>调整后，预览会立即变化</p></div><button type="button" data-action="close" aria-label="关闭设置">×</button></div>
@@ -70,7 +71,18 @@ export function mountStudio(container: HTMLElement, controller: StudioController
     if (!button || busy) return;
     const action = button.dataset.action;
     message = '';
-    if (action === 'preset') controller.selectPreset(button.dataset.preset as StudioSettings['preset']);
+    if (action === 'mode' && colorMode) {
+      const mode = button.dataset.mode as ColorMode;
+      if (!['light', 'dark', 'system'].includes(mode)) return;
+      busy = true;
+      render();
+      try {
+        await colorMode.set(mode);
+        message = '基础配色已切换';
+      } catch (error) {
+        message = error instanceof Error ? error.message : '配色切换失败，请重试';
+      } finally { busy = false; }
+    } else if (action === 'preset') controller.selectPreset(button.dataset.preset as StudioSettings['preset']);
     else if (action === 'customize') expanded = !expanded;
     else if (action === 'close') expanded = false;
     else if (action === 'reset') { controller.resetDraft(); message = '已恢复预设默认值，尚未应用'; }
@@ -95,6 +107,7 @@ export function mountStudio(container: HTMLElement, controller: StudioController
     }
     if (disposed) return;
     render();
+    if (action === 'mode') container.querySelector<HTMLButtonElement>(`[data-action="mode"][data-mode="${button.dataset.mode}"]`)?.focus();
     if (action === 'copy-update' && copyState === 'manual') {
       const command = container.querySelector<HTMLTextAreaElement>('.rs-update-command');
       command?.focus();
@@ -104,6 +117,7 @@ export function mountStudio(container: HTMLElement, controller: StudioController
 
   container.addEventListener('click', handleClick);
   render();
+  const unsubscribeMode = colorMode?.subscribe(() => { if (!disposed) render(); });
   if (updateActions) {
     void Promise.resolve().then(() => updateActions.check()).then(offer => {
       if (disposed || !offer) return;
@@ -113,6 +127,7 @@ export function mountStudio(container: HTMLElement, controller: StudioController
   }
   return () => {
     disposed = true;
+    unsubscribeMode?.();
     container.removeEventListener('click', handleClick);
     container.classList.remove('morrow');
     delete container.dataset.preset;

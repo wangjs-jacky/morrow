@@ -6,7 +6,7 @@ import { mountStudio } from '../src/studio-ui.ts';
 import { PRESETS } from '../src/presets.ts';
 import { readFileSync } from 'node:fs';
 
-function setup(check = async () => null, update) {
+function setup(check = async () => null, update, mode) {
   const dom = new JSDOM('<div id="root"></div>');
   const root = dom.window.document.getElementById('root');
   const calls = { saves: [], renders: [] };
@@ -16,7 +16,7 @@ function setup(check = async () => null, update) {
     render: settings => { calls.renders.push(structuredClone(settings)); },
   };
   const studio = new StudioController(host, null);
-  const cleanup = mountStudio(root, studio, update);
+  const cleanup = mountStudio(root, studio, update, mode);
   return { dom, root, studio, calls, cleanup };
 }
 
@@ -183,4 +183,25 @@ test('blocked Apply shows the prerequisite instead of success', async () => {
   assert.match(root.querySelector('[role="status"]').textContent, /请先启用 Morrow 主题/);
   assert.match(root.querySelector('[data-testid="status"]').textContent, /尚未应用/);
   assert.deepEqual(calls.saves, []);
+});
+
+test('base color changes immediately without applying drafts and syncs external settings', async () => {
+  let value = 'dark', notify, removed = false;
+  const mode = { get: () => value, set: next => { value = next; notify(); }, subscribe: fn => { notify = fn; return () => { removed = true; }; } };
+  const {root, studio, calls, cleanup} = setup(undefined, undefined, mode);
+  click(root, '[data-action="preset"][data-preset="soft-mist"]');
+  click(root, '[data-action="mode"][data-mode="light"]');
+  await settle();
+  assert.equal(value, 'light');
+  assert.equal(root.querySelector('[data-mode="light"]').getAttribute('aria-pressed'), 'true');
+  assert.equal(studio.draft.preset, 'soft-mist');
+  assert.deepEqual(calls.saves, []);
+  value = 'system'; notify();
+  assert.equal(root.querySelector('[data-mode="system"]').getAttribute('aria-pressed'), 'true');
+  mode.set = () => { throw new Error('无法切换配色'); };
+  click(root, '[data-action="mode"][data-mode="dark"]');
+  await settle();
+  assert.match(root.querySelector('[role="status"]').textContent, /无法切换/);
+  assert.equal(root.querySelector('[data-mode="system"]').getAttribute('aria-pressed'), 'true');
+  cleanup(); assert.equal(removed, true);
 });

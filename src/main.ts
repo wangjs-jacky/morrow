@@ -4,12 +4,14 @@ import { StudioController, type StudioSettings } from './state.ts';
 import { mountStudio } from './studio-ui.ts';
 import { checkLatestRelease, type UpdateActions } from './update.ts';
 
+import { nativeColorMode, type ColorModeActions } from './color-mode.ts';
+
 const VIEW_TYPE = 'morrow-view';
 
 class MorrowView extends ItemView {
   private cleanup: (() => void) | null = null;
 
-  constructor(leaf: WorkspaceLeaf, private readonly controller: StudioController, private readonly updateActions: UpdateActions) {
+  constructor(leaf: WorkspaceLeaf, private readonly controller: StudioController, private readonly updateActions: UpdateActions, private readonly colorMode: ColorModeActions) {
     super(leaf);
   }
 
@@ -18,7 +20,7 @@ class MorrowView extends ItemView {
   getIcon(): string { return 'palette'; }
 
   async onOpen(): Promise<void> {
-    this.cleanup = mountStudio(this.contentEl, this.controller, this.updateActions);
+    this.cleanup = mountStudio(this.contentEl, this.controller, this.updateActions, this.colorMode);
   }
 
   async onClose(): Promise<void> {
@@ -40,7 +42,7 @@ export default class MorrowPlugin extends Plugin {
     this.registerView(VIEW_TYPE, leaf => new MorrowView(leaf, this.controller, {
       check: () => checkLatestRelease(this.manifest.version),
       copy: command => navigator.clipboard.writeText(command),
-    }));
+    }, nativeColorMode(this.app)));
     this.addRibbonIcon('palette', '打开 Morrow', () => { void this.openStudio(); });
     this.addCommand({ id: 'open-studio', name: '打开外观预览', callback: () => { void this.openStudio(); } });
     this.app.workspace.onLayoutReady(() => this.controller.restore());
