@@ -1,9 +1,9 @@
 {
   "id": "morrow-controls",
   "name": "Morrow Controls",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "minAppVersion": "1.8.0",
-  "description": "Preview and apply five dark reading styles with reversible controls.",
+  "description": "Preview and apply five light and dark reading styles with reversible controls.",
   "author": "Jacky",
   "authorUrl": "https://github.com/wangjs-jacky/morrow",
   "isDesktopOnly": true

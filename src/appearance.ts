@@ -33,9 +33,6 @@ export function readPrerequisiteError(
   if (style.getPropertyValue('--morrow-theme-active').trim() !== 'ready') {
     return '请先在 Obsidian「外观 → 主题」中启用 Morrow 主题';
   }
-  if (!body.classList.contains('theme-dark')) {
-    return '请在 Obsidian「外观 → 基础配色」中选择深色模式';
-  }
   return null;
 }
 

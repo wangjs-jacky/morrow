@@ -91,13 +91,13 @@ test('native visibility toggles beat theme visibility rules and clear on restore
   assert.equal(dom.window.getComputedStyle(lines).display, 'block');
 });
 
-test('theme sentinel and dark mode must both be present', () => {
+test('theme sentinel is required in both light and dark mode', () => {
   const dom = new JSDOM('<body class="theme-dark"></body>');
   const body = dom.window.document.body;
   const style = value => ({ getPropertyValue: () => value });
   assert.match(readPrerequisiteError(body, style('')), /启用 Morrow 主题/);
   body.classList.replace('theme-dark', 'theme-light');
-  assert.match(readPrerequisiteError(body, style('ready')), /深色模式/);
+  assert.equal(readPrerequisiteError(body, style('ready')), null);
   body.classList.replace('theme-light', 'theme-dark');
   assert.equal(readPrerequisiteError(body, style('ready')), null);
 });
@@ -108,4 +108,36 @@ test('editor prerequisites depend on requested visual options', () => {
   assert.equal(checkEditorSettings({ ...DEFAULT_SETTINGS, lines: false, properties: false }, {}), null);
   assert.match(checkEditorSettings(DEFAULT_SETTINGS, null), /无法确认/);
   assert.equal(checkEditorSettings(DEFAULT_SETTINGS, { showLineNumber: true, propertiesInDocument: 'visible' }), null);
+});
+
+test('all light packs retain readable surfaces, diagram colors and reversible visibility', () => {
+  const dom = new JSDOM(`<style>${themeCss}</style><body class="theme-light"><div class="metadata-container"></div><div class="markdown-source-view mod-cm6"><div class="cm-lineNumbers"></div></div></body>`);
+  const body = dom.window.document.body;
+  const luminance = hex => {
+    const values = hex.match(/[0-9a-f]{2}/gi).map(pair => {
+      const n = parseInt(pair, 16) / 255;
+      return n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4;
+    });
+    return values[0] * .2126 + values[1] * .7152 + values[2] * .0722;
+  };
+  for (const preset of ['deep-reading', 'cupertino-night', 'minimal-graphite', 'soft-mist', 'prism-focus']) {
+    for (const accent of ['blue', 'violet', 'mint']) {
+      applyAppearance(body, { ...DEFAULT_SETTINGS, preset, accent, properties: false, lines: false });
+      const style = dom.window.getComputedStyle(body);
+      const token = name => style.getPropertyValue(`--rs-${name}`).trim();
+      for (const [foreground, background] of [['text', 'note'], ['muted', 'note'], ['link', 'note'], ['nav-file-text', 'nav-file-active'], ['mermaid-text', 'mermaid-node'], ['mermaid-note-text', 'mermaid-note']]) {
+        const contrast = (luminance(token(background)) + .05) / (luminance(token(foreground)) + .05);
+        assert.ok(contrast >= 4.5, `${preset}/${accent}: ${foreground} on ${background}: ${contrast}`);
+      }
+      assert.equal(dom.window.getComputedStyle(body.querySelector('.metadata-container')).display, 'none');
+      assert.equal(dom.window.getComputedStyle(body.querySelector('.cm-lineNumbers')).display, 'none');
+      assert.equal(body.classList.contains('theme-light'), true);
+      body.classList.replace('theme-light', 'theme-dark');
+      assert.notEqual(dom.window.getComputedStyle(body).getPropertyValue('--rs-note'), style.getPropertyValue('--rs-note'));
+      body.classList.replace('theme-dark', 'theme-light');
+    }
+  }
+  applyAppearance(body, null);
+  assert.notEqual(dom.window.getComputedStyle(body.querySelector('.metadata-container')).display, 'none');
+  assert.equal(body.className, 'theme-light');
 });

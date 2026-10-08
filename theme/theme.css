@@ -78,34 +78,34 @@ body.theme-dark {
   --font-interface-theme: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
-body.theme-dark .workspace-leaf-content[data-type="file-explorer"] .nav-files-container { padding: 12px 9px; }
+body:is(.theme-dark, .theme-light) .workspace-leaf-content[data-type="file-explorer"] .nav-files-container { padding: 12px 9px; }
 
 /* A quiet desktop shell shared by all five packs. Morrow draws its
    own chrome so selecting this theme does not depend on another theme. */
-body.theme-dark:not(.is-mobile) {
+body:is(.theme-dark, .theme-light):not(.is-mobile) {
   --titlebar-background: var(--rs-app);
   --titlebar-background-focused: var(--rs-app);
 }
-body.theme-dark:not(.is-mobile) .workspace,
-body.theme-dark:not(.is-mobile) .titlebar,
-body.theme-dark:not(.is-mobile) .workspace-ribbon.mod-left {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .titlebar,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-ribbon.mod-left {
   background-color: var(--rs-app);
 }
-body.theme-dark:not(.is-mobile) .workspace-ribbon.mod-left { border-right: 0; }
-body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split,
-body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-ribbon.mod-left { border-right: 0; }
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-left-split,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-right-split {
   background-color: var(--rs-app);
 }
-body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
-body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content {
   margin: 6px;
   border: 1px solid var(--rs-border);
   border-radius: var(--rs-shell-radius);
   overflow: hidden;
   box-shadow: var(--rs-shell-shadow);
 }
-body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .nav-header .nav-buttons-container,
-body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .nav-header .nav-buttons-container {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-left-split .nav-header .nav-buttons-container,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-right-split .nav-header .nav-buttons-container {
   width: max-content;
   max-width: 100%;
   margin-inline: auto;
@@ -115,21 +115,21 @@ body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .nav-header .na
   border-radius: var(--rs-toolbar-radius);
   background: var(--rs-toolbar);
 }
-body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .nav-action-button,
-body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .nav-action-button {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-left-split .nav-action-button,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-right-split .nav-action-button {
   border-radius: var(--rs-toolbar-radius);
 }
-body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .nav-action-button:hover,
-body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .nav-action-button:hover {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-left-split .nav-action-button:hover,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-right-split .nav-action-button:hover {
   background: var(--rs-hover);
 }
-body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header {
   position: relative;
   min-height: 18px;
   padding-block: 5px;
   transition: padding .18s ease;
 }
-body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header::after {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header::after {
   content: "";
   position: absolute;
   top: 8px;
@@ -143,18 +143,18 @@ body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer
   pointer-events: none;
   transition: opacity .18s ease;
 }
-body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:is(:hover, :focus-within) {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:is(:hover, :focus-within) {
   padding-block: 8px 5px;
 }
-body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:is(:hover, :focus-within)::after {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:is(:hover, :focus-within)::after {
   opacity: 0;
 }
-body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header .nav-buttons-container {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header .nav-buttons-container {
   max-height: 44px;
   opacity: 1;
   transition: max-height .18s ease, opacity .15s ease, transform .18s ease, padding .18s ease;
 }
-body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:not(:hover):not(:focus-within) .nav-buttons-container {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header:not(:hover):not(:focus-within) .nav-buttons-container {
   max-height: 0;
   padding: 0;
   border-color: transparent;
@@ -163,21 +163,21 @@ body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer
   transform: translateY(-5px) scale(.96);
   pointer-events: none;
 }
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tab-header-container {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tab-header-container {
   border-bottom: 0;
   background-color: var(--rs-app);
 }
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) {
   --tab-curve: 0px;
   --tab-radius-active: var(--rs-tab-radius);
   --tab-outline-width: 0px;
 }
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container-inner {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container-inner {
   align-items: center;
   gap: 6px;
   padding-block: 5px;
 }
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header {
   align-self: center;
   margin: 0;
   border: 1px solid transparent;
@@ -185,21 +185,21 @@ body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .wor
   background: transparent;
   box-shadow: none;
 }
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
   border-color: var(--rs-tab-border);
   background: var(--rs-tab-surface);
   box-shadow: 0 2px 8px #090e1724;
 }
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner {
   border-radius: inherit;
 }
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header::before,
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header::after,
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner::after {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header::before,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header::after,
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner::after {
   content: none;
   display: none;
 }
-body.theme-dark:not(.is-mobile) .mod-root .workspace-tab-container {
+body:is(.theme-dark, .theme-light):not(.is-mobile) .mod-root .workspace-tab-container {
   margin: 0 6px 6px;
   border: 1px solid var(--rs-border);
   border-radius: var(--rs-shell-radius);
@@ -207,38 +207,38 @@ body.theme-dark:not(.is-mobile) .mod-root .workspace-tab-container {
   background: var(--rs-note);
   box-shadow: var(--rs-shell-shadow);
 }
-body.theme-dark .nav-folder-title,
-body.theme-dark .nav-file-title { border-radius: var(--rs-nav-radius); }
-body.theme-dark .nav-file-title.is-active { color: var(--rs-nav-file-text); background: var(--rs-nav-file-active); }
-body.theme-dark .markdown-source-view.mod-cm6 .cm-content { padding-top: 16px; }
-body.theme-dark .markdown-rendered,
-body.theme-dark .markdown-source-view { font-weight: 400; }
-body.theme-dark .markdown-rendered h1,
-body.theme-dark .markdown-rendered h2,
-body.theme-dark .markdown-source-view .cm-header { letter-spacing: -.015em; }
-body.theme-dark .metadata-container { border: 1px solid var(--rs-metadata-border); border-radius: var(--rs-metadata-radius); padding: 12px 14px; background: var(--rs-metadata); }
-body.theme-dark .metadata-property { border-radius: 6px; }
-body.theme-dark .metadata-property:hover { background: var(--rs-metadata-hover); }
+body:is(.theme-dark, .theme-light) .nav-folder-title,
+body:is(.theme-dark, .theme-light) .nav-file-title { border-radius: var(--rs-nav-radius); }
+body:is(.theme-dark, .theme-light) .nav-file-title.is-active { color: var(--rs-nav-file-text); background: var(--rs-nav-file-active); }
+body:is(.theme-dark, .theme-light) .markdown-source-view.mod-cm6 .cm-content { padding-top: 16px; }
+body:is(.theme-dark, .theme-light) .markdown-rendered,
+body:is(.theme-dark, .theme-light) .markdown-source-view { font-weight: 400; }
+body:is(.theme-dark, .theme-light) .markdown-rendered h1,
+body:is(.theme-dark, .theme-light) .markdown-rendered h2,
+body:is(.theme-dark, .theme-light) .markdown-source-view .cm-header { letter-spacing: -.015em; }
+body:is(.theme-dark, .theme-light) .metadata-container { border: 1px solid var(--rs-metadata-border); border-radius: var(--rs-metadata-radius); padding: 12px 14px; background: var(--rs-metadata); }
+body:is(.theme-dark, .theme-light) .metadata-property { border-radius: 6px; }
+body:is(.theme-dark, .theme-light) .metadata-property:hover { background: var(--rs-metadata-hover); }
 
-body.theme-dark.morrow-active.morrow-wide { --file-line-width: 900px; }
-body.theme-dark.morrow-active.morrow-no-lines .markdown-source-view.mod-cm6 .cm-lineNumbers { display: none !important; }
-body.theme-dark.morrow-active.morrow-hide-properties .metadata-container { display: none !important; }
-body.theme-dark.morrow-mermaid .mermaid { padding: 18px 12px; border: 1px solid var(--rs-mermaid-border); border-radius: var(--rs-mermaid-radius); background: var(--rs-mermaid-bg); }
-body.theme-dark.morrow-mermaid .mermaid svg { max-width: 100%; height: auto; filter: none; }
-body.theme-dark.morrow-mermaid .mermaid rect.actor,
-body.theme-dark.morrow-mermaid .mermaid .node rect { fill: var(--rs-mermaid-node) !important; stroke: var(--rs-mermaid-stroke) !important; stroke-width: 1.25px; rx: 8px; ry: 8px; }
-body.theme-dark.morrow-mermaid .mermaid text.actor,
-body.theme-dark.morrow-mermaid .mermaid text.actor tspan,
-body.theme-dark.morrow-mermaid .mermaid .nodeLabel,
-body.theme-dark.morrow-mermaid .mermaid .messageText { fill: var(--rs-mermaid-text) !important; color: var(--rs-mermaid-text) !important; }
-body.theme-dark.morrow-mermaid .mermaid .actor-line { stroke: var(--rs-mermaid-line) !important; stroke-dasharray: 4 5; }
-body.theme-dark.morrow-mermaid .mermaid .messageLine0,
-body.theme-dark.morrow-mermaid .mermaid .edgePath path { stroke: var(--rs-link) !important; stroke-width: 1.5px; }
-body.theme-dark.morrow-mermaid .mermaid .messageLine1 { stroke: var(--rs-muted) !important; stroke-width: 1.25px; }
-body.theme-dark.morrow-mermaid .mermaid marker path { fill: var(--rs-link) !important; stroke: var(--rs-link) !important; }
-body.theme-dark.morrow-mermaid .mermaid .note { fill: var(--rs-mermaid-note) !important; stroke: var(--rs-mermaid-note-stroke) !important; rx: 7px; ry: 7px; }
-body.theme-dark.morrow-mermaid .mermaid .noteText,
-body.theme-dark.morrow-mermaid .mermaid .noteText tspan { fill: var(--rs-mermaid-note-text) !important; }
+body:is(.theme-dark, .theme-light).morrow-active.morrow-wide { --file-line-width: 900px; }
+body:is(.theme-dark, .theme-light).morrow-active.morrow-no-lines .markdown-source-view.mod-cm6 .cm-lineNumbers { display: none !important; }
+body:is(.theme-dark, .theme-light).morrow-active.morrow-hide-properties .metadata-container { display: none !important; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid { padding: 18px 12px; border: 1px solid var(--rs-mermaid-border); border-radius: var(--rs-mermaid-radius); background: var(--rs-mermaid-bg); }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid svg { max-width: 100%; height: auto; filter: none; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid rect.actor,
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .node rect { fill: var(--rs-mermaid-node) !important; stroke: var(--rs-mermaid-stroke) !important; stroke-width: 1.25px; rx: 8px; ry: 8px; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid text.actor,
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid text.actor tspan,
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .nodeLabel,
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .messageText { fill: var(--rs-mermaid-text) !important; color: var(--rs-mermaid-text) !important; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .actor-line { stroke: var(--rs-mermaid-line) !important; stroke-dasharray: 4 5; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .messageLine0,
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .edgePath path { stroke: var(--rs-link) !important; stroke-width: 1.5px; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .messageLine1 { stroke: var(--rs-muted) !important; stroke-width: 1.25px; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid marker path { fill: var(--rs-link) !important; stroke: var(--rs-link) !important; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .note { fill: var(--rs-mermaid-note) !important; stroke: var(--rs-mermaid-note-stroke) !important; rx: 7px; ry: 7px; }
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .noteText,
+body:is(.theme-dark, .theme-light).morrow-mermaid .mermaid .noteText tspan { fill: var(--rs-mermaid-note-text) !important; }
 
 /* Every pack inherits the same Obsidian components. Only the applied preset
    changes their tokens; an unconfigured vault retains the V1 reading theme. */
@@ -250,13 +250,13 @@ body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) {
   --color-base-25: var(--rs-metadata);
   --color-base-30: var(--rs-border);
 }
-body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .titlebar,
-body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .workspace-ribbon { background-color: var(--rs-app); }
-body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .workspace-tab-header.is-active { color: var(--rs-text); }
-body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .markdown-rendered blockquote { border-inline-start-color: var(--rs-accent); }
-body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .markdown-rendered code,
-body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .markdown-source-view .cm-inline-code { color: var(--rs-link); }
-body.theme-dark.morrow-active:not(.morrow-preset-deep-reading) .metadata-property-key { color: var(--rs-muted); }
+body:is(.theme-dark, .theme-light).morrow-active:not(.morrow-preset-deep-reading) .titlebar,
+body:is(.theme-dark, .theme-light).morrow-active:not(.morrow-preset-deep-reading) .workspace-ribbon { background-color: var(--rs-app); }
+body:is(.theme-dark, .theme-light).morrow-active:not(.morrow-preset-deep-reading) .workspace-tab-header.is-active { color: var(--rs-text); }
+body:is(.theme-dark, .theme-light).morrow-active:not(.morrow-preset-deep-reading) .markdown-rendered blockquote { border-inline-start-color: var(--rs-accent); }
+body:is(.theme-dark, .theme-light).morrow-active:not(.morrow-preset-deep-reading) .markdown-rendered code,
+body:is(.theme-dark, .theme-light).morrow-active:not(.morrow-preset-deep-reading) .markdown-source-view .cm-inline-code { color: var(--rs-link); }
+body:is(.theme-dark, .theme-light).morrow-active:not(.morrow-preset-deep-reading) .metadata-property-key { color: var(--rs-muted); }
 
 body.theme-dark.morrow-preset-cupertino-night {
   --rs-app: #171b26;
@@ -297,8 +297,8 @@ body.theme-dark.morrow-preset-cupertino-night {
   --rs-mermaid-radius: 16px;
   --line-height-normal: 1.76;
 }
-body.theme-dark.morrow-preset-cupertino-night .metadata-property { border-radius: 10px; }
-body.theme-dark.morrow-preset-cupertino-night.morrow-mermaid .mermaid .node rect { rx: 13px; ry: 13px; }
+body:is(.theme-dark, .theme-light).morrow-preset-cupertino-night .metadata-property { border-radius: 10px; }
+body:is(.theme-dark, .theme-light).morrow-preset-cupertino-night.morrow-mermaid .mermaid .node rect { rx: 13px; ry: 13px; }
 
 body.theme-dark.morrow-preset-minimal-graphite {
   --rs-app: #1b1b1b;
@@ -342,11 +342,11 @@ body.theme-dark.morrow-preset-minimal-graphite {
   --line-height-normal: 1.66;
   --file-margins-x: 30px;
 }
-body.theme-dark.morrow-preset-minimal-graphite .metadata-container { border-inline-start-width: 2px; border-block: 0; border-inline-end: 0; }
-body.theme-dark.morrow-preset-minimal-graphite .nav-file-title.is-active { box-shadow: inset 2px 0 0 var(--rs-accent); }
-body.theme-dark.morrow-preset-minimal-graphite .markdown-rendered h1,
-body.theme-dark.morrow-preset-minimal-graphite .markdown-rendered h2 { letter-spacing: -.035em; font-weight: 600; }
-body.theme-dark.morrow-preset-minimal-graphite.morrow-mermaid .mermaid .node rect { rx: 0; ry: 0; }
+body:is(.theme-dark, .theme-light).morrow-preset-minimal-graphite .metadata-container { border-inline-start-width: 2px; border-block: 0; border-inline-end: 0; }
+body:is(.theme-dark, .theme-light).morrow-preset-minimal-graphite .nav-file-title.is-active { box-shadow: inset 2px 0 0 var(--rs-accent); }
+body:is(.theme-dark, .theme-light).morrow-preset-minimal-graphite .markdown-rendered h1,
+body:is(.theme-dark, .theme-light).morrow-preset-minimal-graphite .markdown-rendered h2 { letter-spacing: -.035em; font-weight: 600; }
+body:is(.theme-dark, .theme-light).morrow-preset-minimal-graphite.morrow-mermaid .mermaid .node rect { rx: 0; ry: 0; }
 
 body.theme-dark.morrow-preset-soft-mist {
   --rs-app: #111b29;
@@ -387,8 +387,8 @@ body.theme-dark.morrow-preset-soft-mist {
   --line-height-normal: 1.84;
   --file-margins-x: 42px;
 }
-body.theme-dark.morrow-preset-soft-mist .markdown-rendered h1,
-body.theme-dark.morrow-preset-soft-mist .markdown-rendered h2 { letter-spacing: .005em; font-weight: 550; }
+body:is(.theme-dark, .theme-light).morrow-preset-soft-mist .markdown-rendered h1,
+body:is(.theme-dark, .theme-light).morrow-preset-soft-mist .markdown-rendered h2 { letter-spacing: .005em; font-weight: 550; }
 body.theme-dark.morrow-preset-soft-mist:not(.is-mobile) .workspace {
   background: radial-gradient(circle at 12% 8%, #9bb8e327, transparent 34%),
     radial-gradient(circle at 92% 74%, #9e8cc723, transparent 42%), var(--rs-app);
@@ -427,7 +427,7 @@ body.theme-dark.morrow-preset-soft-mist.morrow-mermaid .mermaid {
   border-color: #a9c3da66;
   box-shadow: inset 0 1px #ffffff20, 0 12px 28px #07111f30;
 }
-body.theme-dark.morrow-preset-soft-mist.morrow-mermaid .mermaid .node rect { rx: 11px; ry: 11px; }
+body:is(.theme-dark, .theme-light).morrow-preset-soft-mist.morrow-mermaid .mermaid .node rect { rx: 11px; ry: 11px; }
 
 body.theme-dark.morrow-preset-prism-focus {
   --rs-app: #101722;
@@ -469,11 +469,11 @@ body.theme-dark.morrow-preset-prism-focus {
   --rs-mermaid-radius: 7px;
   --line-height-normal: 1.7;
 }
-body.theme-dark.morrow-preset-prism-focus .nav-file-title.is-active { box-shadow: inset 3px 0 0 var(--rs-accent); }
-body.theme-dark.morrow-preset-prism-focus .metadata-container { border-inline-start: 3px solid var(--rs-accent); }
-body.theme-dark.morrow-preset-prism-focus .markdown-rendered h1,
-body.theme-dark.morrow-preset-prism-focus .markdown-rendered h2 { border-block-end: 1px solid var(--rs-border); padding-block-end: .2em; }
-body.theme-dark.morrow-preset-prism-focus.morrow-mermaid .mermaid .node rect { rx: 4px; ry: 4px; }
+body:is(.theme-dark, .theme-light).morrow-preset-prism-focus .nav-file-title.is-active { box-shadow: inset 3px 0 0 var(--rs-accent); }
+body:is(.theme-dark, .theme-light).morrow-preset-prism-focus .metadata-container { border-inline-start: 3px solid var(--rs-accent); }
+body:is(.theme-dark, .theme-light).morrow-preset-prism-focus .markdown-rendered h1,
+body:is(.theme-dark, .theme-light).morrow-preset-prism-focus .markdown-rendered h2 { border-block-end: 1px solid var(--rs-border); padding-block-end: .2em; }
+body:is(.theme-dark, .theme-light).morrow-preset-prism-focus.morrow-mermaid .mermaid .node rect { rx: 4px; ry: 4px; }
 
 /* Accent choices remain independent of the pack. The native accent is the
    preset default for Frosted Mist (violet) and Cyan Focus (mint). */
@@ -514,14 +514,181 @@ body.theme-dark.morrow-preset-prism-focus.morrow-accent-mint {
   --rs-mermaid-stroke: #94d5dd;
 }
 @media (max-width: 700px) {
-  body.theme-dark.morrow-active { --file-margins-x: 18px; }
-  body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
-  body.theme-dark:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content { margin: 2px; }
+  body:is(.theme-dark, .theme-light).morrow-active { --file-margins-x: 18px; }
+  body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
+  body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content { margin: 2px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header,
-  body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header::after,
-  body.theme-dark:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header .nav-buttons-container {
+  body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header,
+  body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header::after,
+  body:is(.theme-dark, .theme-light):not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-header .nav-buttons-container {
     transition: none;
   }
+}
+
+/* Light mode follows Obsidian’s native base color; saved presets stay compatible. */
+body.theme-light {
+  --rs-app: #e9edf2;
+  --rs-sidebar: #f1f4f8;
+  --rs-note: #ffffff;
+  --rs-note-alt: #f7f9fc;
+  --rs-sidebar-alt: #e7edf4;
+  --rs-border: #cbd5e1;
+  --rs-hover: #e0e8f2;
+  --rs-text: #263445;
+  --rs-muted: #526175;
+  --rs-faint: #66758a;
+  --rs-accent: #245fa8;
+  --rs-link: #245fa8;
+  --rs-nav-text: #245fa8;
+  --rs-nav-active: #dce8f7;
+  --rs-nav-file-text: #245fa8;
+  --rs-nav-file-active: #dce8f7;
+  --rs-toolbar: #f6f9fc;
+  --rs-tab-surface: #ffffff;
+  --rs-tab-border: #cbd5e1;
+  --rs-shell-shadow: 0 8px 24px #26344510;
+  --rs-metadata: #f0f4f9;
+  --rs-metadata-border: #cbd5e1;
+  --rs-metadata-hover: #e3ebf5;
+  --rs-mermaid-bg: #f4f7fb;
+  --rs-mermaid-border: #cbd5e1;
+  --rs-mermaid-node: #e0ebf8;
+  --rs-mermaid-stroke: #245fa8;
+  --rs-mermaid-text: #263445;
+  --rs-mermaid-line: #66758a;
+  --rs-mermaid-note: #e1f2e9;
+  --rs-mermaid-note-stroke: #287057;
+  --rs-mermaid-note-text: #20543f;
+  --rs-nav-radius: 7px;
+  --rs-shell-radius: 14px;
+  --rs-tab-radius: 999px;
+  --rs-toolbar-radius: 999px;
+  --rs-metadata-radius: 10px;
+  --rs-mermaid-radius: 10px;
+}
+body.theme-light {
+  color-scheme: light;
+  --background-primary: var(--rs-note);
+  --background-primary-alt: var(--rs-note-alt);
+  --background-secondary: var(--rs-sidebar);
+  --background-secondary-alt: var(--rs-sidebar-alt);
+  --background-modifier-border: var(--rs-border);
+  --background-modifier-hover: var(--rs-hover);
+  --text-normal: var(--rs-text);
+  --text-muted: var(--rs-muted);
+  --text-faint: var(--rs-faint);
+  --interactive-accent: var(--rs-accent);
+  --text-accent: var(--rs-link);
+  --link-color: var(--rs-link);
+  --nav-item-color-active: var(--rs-nav-text);
+  --nav-item-background-active: var(--rs-nav-active);
+  --nav-item-size: 13px;
+  --line-height-normal: 1.72;
+  --file-line-width: 720px;
+  --file-margins-x: 34px;
+  --file-margins-y: 28px;
+  --h1-size: 1.68em;
+  --h2-size: 1.32em;
+  --h3-size: 1.14em;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --color-base-00: #ffffff;
+  --color-base-05: #fafbfd;
+  --color-base-10: #f4f6f9;
+  --color-base-20: #e9edf2;
+  --color-base-25: #e1e6ed;
+  --color-base-30: #cbd5e1;
+  --color-base-40: #a1aebe;
+  --color-base-50: #77869a;
+  --color-base-60: #59697e;
+  --color-base-70: #3c4c61;
+  --color-base-100: #263445;
+  --text-on-accent: #ffffff;
+  --interactive-accent-hover: color-mix(in srgb, var(--rs-accent) 85%, #000);
+}
+body.theme-light.morrow-preset-cupertino-night {
+  --rs-app: #e4ecf7;
+  --rs-sidebar: #edf3fc;
+  --rs-note: #fbfdff;
+  --rs-metadata: #eaf1fc;
+  --rs-mermaid-bg: #edf4fd;
+  --rs-shell-radius: 18px;
+  --rs-nav-radius: 12px;
+  --rs-metadata-radius: 16px;
+  --rs-mermaid-radius: 16px;
+}
+body.theme-light.morrow-preset-minimal-graphite {
+  --rs-app: #e8e8e6;
+  --rs-sidebar: #f0f0ee;
+  --rs-note: #fafaf8;
+  --rs-metadata: #eeefec;
+  --rs-border: #cccec9;
+  --rs-mermaid-bg: #f1f2ef;
+  --rs-nav-radius: 0;
+  --rs-shell-radius: 5px;
+  --rs-tab-radius: 6px;
+  --rs-toolbar-radius: 6px;
+  --rs-metadata-radius: 0;
+  --rs-mermaid-radius: 0;
+  --rs-shell-shadow: none;
+}
+body.theme-light.morrow-preset-soft-mist {
+  --rs-app: #e9eaf5;
+  --rs-sidebar: #f1f0fa;
+  --rs-note: #fcfbff;
+  --rs-metadata: #efedf8;
+  --rs-mermaid-bg: #f1eefb;
+  --rs-shell-radius: 16px;
+  --rs-nav-radius: 11px;
+  --rs-metadata-radius: 14px;
+  --rs-mermaid-radius: 14px;
+}
+body.theme-light.morrow-preset-prism-focus {
+  --rs-app: #e2eef0;
+  --rs-sidebar: #eaf4f4;
+  --rs-note: #faffff;
+  --rs-metadata: #e7f2f3;
+  --rs-mermaid-bg: #ebf6f6;
+  --rs-nav-radius: 5px;
+  --rs-shell-radius: 10px;
+  --rs-tab-radius: 10px;
+  --rs-toolbar-radius: 10px;
+  --rs-metadata-radius: 7px;
+  --rs-mermaid-radius: 7px;
+}
+body.theme-light.morrow-accent-blue {
+  --rs-accent: #245fa8;
+  --rs-link: #245fa8;
+  --rs-nav-text: #245fa8;
+  --rs-nav-active: #dce8f7;
+  --rs-nav-file-text: #245fa8;
+  --rs-nav-file-active: #dce8f7;
+  --rs-mermaid-stroke: #245fa8;
+}
+body.theme-light.morrow-accent-violet , body.theme-light.morrow-preset-soft-mist:not([class*="morrow-accent-"]) {
+  --rs-accent: #7042aa;
+  --rs-link: #7042aa;
+  --rs-nav-text: #7042aa;
+  --rs-nav-active: #eee3fa;
+  --rs-nav-file-text: #7042aa;
+  --rs-nav-file-active: #eee3fa;
+  --rs-mermaid-stroke: #7042aa;
+}
+body.theme-light.morrow-accent-mint , body.theme-light.morrow-preset-prism-focus:not([class*="morrow-accent-"]) {
+  --rs-accent: #176958;
+  --rs-link: #176958;
+  --rs-nav-text: #176958;
+  --rs-nav-active: #dbefe8;
+  --rs-nav-file-text: #176958;
+  --rs-nav-file-active: #dbefe8;
+  --rs-mermaid-stroke: #176958;
+}
+body.theme-light.morrow-preset-soft-mist:not(.is-mobile) .workspace {
+  background: radial-gradient(circle at 12% 8%, #bfcff066, transparent 38%), radial-gradient(circle at 90% 75%, #d5c4f466, transparent 42%), var(--rs-app);
+}
+body.theme-light.morrow-preset-soft-mist:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content,
+body.theme-light.morrow-preset-soft-mist:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content {
+  background: linear-gradient(145deg, #ffffffbb, #ffffff44), var(--rs-sidebar);
+  backdrop-filter: blur(18px) saturate(125%);
 }

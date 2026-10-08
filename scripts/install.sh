@@ -2,9 +2,9 @@
 # One-command installer for the macOS desktop version of Obsidian.
 set -euo pipefail
 
-version=0.3.4
-theme_sha=51ef136737b24cb18d63315e16aaafa966c39ddb4a63ba8fb9fff601330e79d5
-plugin_sha=25c3d8d5523300177a4492d3b35135e4e0595b8d1051d12f9b7701111319836e
+version=0.4.0
+theme_sha=ae392306b6a2cd0ce05470ea97be6f4795af82085f25258974c807c2a5fbb116
+plugin_sha=c54aaacf72bdfd37ff61f56c8526bed9aabb2e62a86dd44fc973254096482fc0
 release_url="https://github.com/wangjs-jacky/morrow/releases/download/v${version}"
 plugin_id=morrow-controls
 
@@ -173,7 +173,7 @@ prepare_json appearance.json '{}' '<dict>'
 prepare_json app.json '{}' '<dict>'
 prepare_json community-plugins.json '[]' '<array>'
 json_set "$work/appearance.json" cssTheme string 'Morrow'
-json_set "$work/appearance.json" theme string obsidian
+# Preserve the native base color (light, dark, or system), including its default when absent.
 json_set "$work/app.json" showLineNumber bool true
 json_set "$work/app.json" propertiesInDocument string visible
 if [[ $appearance_seeded -eq 1 ]]; then plutil -remove "$seed_key" "$work/appearance.json"; fi
@@ -232,6 +232,6 @@ for name in appearance.json app.json community-plugins.json; do
 done
 commit_started=0
 
-printf '\n安装完成：主题、插件、深色模式、行号和属性显示均已配置。\n'
+printf '\n安装完成：主题、插件、行号和属性显示均已配置，已保留基础配色。\n'
 printf '原设置备份：%s\n' "$backup"
 printf '请重新启动 Obsidian；首次启用第三方插件时，可能还需在 Obsidian 中确认信任。\n'

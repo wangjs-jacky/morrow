@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 
-const baseUrl = process.env.MORROW_E2E_URL ?? 'http://127.0.0.1:4187/demo/';
+const baseUrl = process.env.MORROW_E2E_URL ?? 'http://127.0.0.1:4187/demo/?mode=dark';
 const expectedSpaceId = Number(process.env.EGO_EXPECTED_SPACE_ID);
 const expectedTargetId = process.env.EGO_EXPECTED_TARGET_ID;
 const task = Number.isSafeInteger(expectedSpaceId) && expectedSpaceId > 0
@@ -94,8 +94,8 @@ assert.deepEqual(await page.evaluate(() => {
   return { preset: preview?.getAttribute('data-preset'), lines: preview?.getAttribute('data-lines'), accent: preview?.getAttribute('data-accent') };
 }), { preset: 'prism-focus', lines: 'true', accent: 'mint' });
 
-for (const [query, expected] of [['theme=off', '请先启用 Morrow 主题'], ['mode=light', '深色模式'], ['lines=off', '显示行号'], ['properties=off', '属性']]) {
-  await page.goto(`${baseUrl}?${query}`);
+for (const [query, expected] of [['theme=off', '请先启用 Morrow 主题'], ['lines=off', '显示行号'], ['properties=off', '属性']]) {
+  await page.goto(`${baseUrl.split('?')[0]}?mode=dark&${query}`);
   await page.click('[data-action="preset"][data-preset="cupertino-night"]');
   await page.click('[data-action="apply"]');
   await page.waitForFunction(value => document.querySelector('[role="status"]')?.textContent?.includes(value), expected);
